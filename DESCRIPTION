@@ -8,7 +8,7 @@ Authors@R:
              email = "marti@hydrosolutions.ch"), 
       person(given = "Tobias",
              family = "Siegfried",
-             role = c("aut", "cre"),
+             role = c("aut"),
              email = "siegfried@hydrosolutions.ch"))
 Description: RSMinerveR comprises functions to write input files for RSMinerve and to read output files from RSMinerve. It also allows aggregation of flow components from models and includes plotting functions to visualize inputs and results. 
 License: `use_mit_license()`
