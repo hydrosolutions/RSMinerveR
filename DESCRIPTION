@@ -1,0 +1,18 @@
+Package: RSMinerveR
+Title: I/O for RSMinerve in R
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Beatrice",
+             family = "Marti",
+             role = c("aut", "cre"),
+             email = "marti@hydrosolutions.ch"), 
+      person(given = "Tobias",
+             family = "Siegfried",
+             role = c("aut", "cre"),
+             email = "siegfried@hydrosolutions.ch"))
+Description: RSMinerveR comprises functions to write input files for RSMinerve and to read output files from RSMinerve. It also allows aggregation of flow components from models and includes plotting functions to visualize inputs and results. 
+License: `use_mit_license()`
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
