@@ -21,7 +21,9 @@ install.packages("rClr_0.9.1.zip", repos = NULL, type = "source")
 ```
 
 ## Tutorials
-Existing examples in Visual Basics provided by CREALP are being translated to R and made available as vignettes for this package. Many thanks to CREALP for providing these examples. 
+Existing examples in Visual Basics provided by CREALP are being translated to R and made available as vignettes for this package. Many thanks to CREALP for providing these examples.  
+
+
 
 
 ## License Information
