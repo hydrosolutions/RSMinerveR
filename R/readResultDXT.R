@@ -5,18 +5,35 @@
 #' @return tibble with time series of simulation results for all model components.
 #' @export
 readResultDXT <- function(filepath, chunk_size) {
-  #conn <- base::file(filepath, open = "r")
-  #block_count <- base::scan(conn, nlines = 1)
-  #block_count
+
   if (base::file.exists(filepath)) {
+
     # Read the number of lines in the file
     nlines_tot <- R.utils::countLines(filepath)[1]
-    #raw <- readr::read_delim_chunked(filepath, chunk_size = chunk_size,
-    #                                 delim = " ", col_types = "Dtn",
-    #                                 col_names = c("Date", "Time", "Value"))
-    return(NULL)
+    no_chunks <- nlines_tot / chunk_size
+
+    if (no_chunks != base::round(no_chunks)) {
+      base::cat("Error reading lines from file.")
+      return(NULL)
+    }
+
+    conn <- base::file(filepath, open = "r")
+    output <- NULL
+
+    for (i in c(1:no_chunks)) {
+      cat("Reading chunk", i, "of", no_chunks)
+      next_chunk <- base::readLines(conn, n = chunk_size)
+      output <- base::rbind(output, parse_block(next_chunk))
+    }
+
+    base::close.connection(conn)
+
+    return(output)
+
   } else {
+
     base::cat("Error: File", filepath, "not found.")
     return(NULL)
+
   }
 }

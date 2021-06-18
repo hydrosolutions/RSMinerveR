@@ -132,6 +132,7 @@ chunk_size <- getChunkSize(
   lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
+result <- readResultDXT(results_savePath, chunk_size)
 
 ```
 
