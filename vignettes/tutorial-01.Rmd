@@ -33,7 +33,7 @@ library(rClr)
 
 ## Loading Assemblies
 
-```{r}
+```{r load-assemblies}
 # Adapt path in dir_RSM_install to your local installation of RSMinerve. 
 dir_RSM_install <- "C:/Program Files (x86)/RS MINERVE"
 
@@ -46,17 +46,15 @@ clrLoadAssembly(file.path(dir_RSM_install, 'RSMinerve.Base.dll'))
 
 ## Model settings
 
-```{r}
+```{r model-settings}
 model_file <- "../inst/extdata/Tutorial_Model.rsm"
 input_dataset <- "../inst/extdata/Tutorial_DataMeteo.dsx"
 
 saveDataInDstFile <-  TRUE
 
-# The path for the results files needs to be an absolute path
-results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test.dsx"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/preSimulationReport.txt"
-
-# The RS Minerve documentation describes the date format to be "%dd.$mm.$yyy" but on some systems you will have to use "%mm.%dd.%yyyy". An error message about non-overlapping database and simulation time will give you the hint. 
+# The RS Minerve documentation describes the date format to be "%dd.$mm.$yyy" 
+# but on some systems you will have to use "%mm.%dd.%yyyy". An error message 
+# about non-overlapping database and simulation time will give you the hint. 
 start_date <- "09.02.2013 00:00:00"  # format = "%mm.%dd.%yyyy %HH:%MM:%SS"
 end_date <- "09.09.2013 00:00:00"  # format = "%mm.%dd.%yyyy %HH:%MM:%SS"
 
@@ -66,9 +64,24 @@ timeStepUnit <- "Seconds"
 ```
 
 
+The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
+
+```{r, echo=FALSE}
+results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-results.dsx"
+presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-preSimulationReport.txt"
+```
+
+```{r result-paths, eval=FALSE}
+results_savePath <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-results.dsx"
+presimreport_path <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-preSimuReport.txt"
+```
+
+
 ## Applying settings and running the model
 The \code{clrCall} commands allow to call the Visual Basics commands documented in the RS Minerve Technical Manual. The calls return NULL when successful. Check your local paths to see if the output files have been created.  
-```{r}
+```{r run-model}
 # Define a clr task
 rsm <- clrNew("RSMinerve.RS.Task")  
 
@@ -80,17 +93,19 @@ clrCall(rsm, "LoadDatasetAndSetDates", input_dataset, TRUE, TRUE)
 
 # Set simulation parameters
 clrCall(rsm, "SetDates", start_date, end_date)
-clrCall(rsm, "SetSimulationTimeStep", simulationTimeStep, timeStepUnit) # Requires characters
-clrCall(rsm, "SetRecordingTimeStep", recordingTimeStep, timeStepUnit)  # Requires characters
+# SetSimulationTimeStep and SetRecordingTimeStep require characters
+clrCall(rsm, "SetSimulationTimeStep", simulationTimeStep, timeStepUnit) 
+clrCall(rsm, "SetRecordingTimeStep", recordingTimeStep, timeStepUnit)  
 
-# Write a pre-simulation report to check for possible errors (requires absolute path)
-clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)  # Requires full path
+# Write a pre-simulation report to check for possible errors (requires full 
+# path)
+clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)  
 
 # Run a simulation
 clrCall(rsm, "Simulate")
 
-# Save results
-clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)  # Requires full path
+# Save results (requires full path)
+clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)  
 
 # Stop task
 clrCall(rsm, "Stop")
