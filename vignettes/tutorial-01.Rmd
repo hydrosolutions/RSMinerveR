@@ -28,6 +28,9 @@ Open the model in \code{RSMinerveR/data/Model.rsm} and load the data base with t
 ```{r setup}
 library(RSMinerveR)
 library(rClr)
+library(tidyverse)
+library(lubridate)
+library(R.utils)
 ```
 
 
@@ -47,16 +50,24 @@ clrLoadAssembly(file.path(dir_RSM_install, 'RSMinerve.Base.dll'))
 ## Model settings
 
 ```{r model-settings}
-model_file <- "../inst/extdata/Tutorial_Model.rsm"
-input_dataset <- "../inst/extdata/Tutorial_DataMeteo.dsx"
+model_file <- if (file.exists("../inst/extdata/Tutorial_Model.rsm")) {
+   "../inst/extdata/Tutorial_Model.rsm"
+} else {
+  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"
+}
+input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
+   "../inst/extdata/Tutorial_DataMeteo.dsx"
+} else {
+  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
+}
 
 saveDataInDstFile <-  TRUE
 
-# The RS Minerve documentation describes the date format to be "%dd.$mm.$yyy" 
-# but on some systems you will have to use "%mm.%dd.%yyyy". An error message 
+# The RS Minerve documentation describes the date format to be "%d.%m.%Y" 
+# but on some systems you will have to use "%m.%d.%Y". An error message 
 # about non-overlapping database and simulation time will give you the hint. 
-start_date <- "09.02.2013 00:00:00"  # format = "%mm.%dd.%yyyy %HH:%MM:%SS"
-end_date <- "09.09.2013 00:00:00"  # format = "%mm.%dd.%yyyy %HH:%MM:%SS"
+start_date <- "09.02.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
+end_date <- "09.09.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
 
 simulationTimeStep <- "600"  
 recordingTimeStep <- "3600"
@@ -110,4 +121,18 @@ clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)
 # Stop task
 clrCall(rsm, "Stop")
 ```
+
+
+## Read results
+```{r}
+# Calculate the number of time steps to read for each model component, i.e. the 
+# chunk size. Including the header of each chunk. 
+chunk_size <- getChunkSize(
+  lubridate::as_datetime(start_date,format = "%m.%d.%Y %H:%M:%S"), 
+  lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
+  recordingTimeStep
+) 
+
+```
+
 

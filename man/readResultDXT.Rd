@@ -4,10 +4,15 @@
 \alias{readResultDXT}
 \title{Reading RSMinerve result file}
 \usage{
-readResultDXT(filepath)
+readResultDXT(filepath, chunk_size)
 }
 \arguments{
 \item{filepath}{String with path to file to be read.}
+
+\item{chunk_size}{Numeric telling how many lines to read for each model component.}
+}
+\value{
+tibble with time series of simulation results for all model components.
 }
 \description{
 Reading RSMinerve result file
