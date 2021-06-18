@@ -13,5 +13,5 @@ parse_block(block_lines)
 A tibble with the data from the block.
 }
 \description{
-Parse individual blocks of data from lines
+Internal function called by readResultDXT to read individual data chunks from file.
 }

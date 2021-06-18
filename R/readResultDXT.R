@@ -3,6 +3,14 @@
 #' @param filepath String with path to file to be read.
 #' @param chunk_size Numeric telling how many lines to read for each model component.
 #' @return tibble with time series of simulation results for all model components.
+#' @examples
+#' filepath <- normalizePath(file.path("Tutorial01-results.dst"))
+#' chunk_size <- getChunkSize(
+#'   lubridate::as_datetime("09.02.2013 00:00:00",format = "%m.%d.%Y %H:%M:%S"),
+#'   lubridate::as_datetime("09.09.2013 00:00:00", format = "%m.%d.%Y %H:%M:%S"),
+#'   3600
+#' )
+#' result <- readResultDXT(filepath, chunk_size)
 #' @export
 readResultDXT <- function(filepath, chunk_size) {
 
@@ -23,7 +31,7 @@ readResultDXT <- function(filepath, chunk_size) {
     for (i in c(1:no_chunks)) {
       cat("Reading chunk", i, "of", no_chunks)
       next_chunk <- base::readLines(conn, n = chunk_size)
-      output <- base::rbind(output, parse_block(next_chunk))
+      output <- base::rbind(output, RSMinerveR::parse_block(next_chunk))
     }
 
     base::close.connection(conn)

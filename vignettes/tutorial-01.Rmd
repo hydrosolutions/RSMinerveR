@@ -122,9 +122,8 @@ clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)
 clrCall(rsm, "Stop")
 ```
 
-
 ## Read results
-```{r}
+```{r, message=FALSE, warning=FALSE, results='hide'}
 # Calculate the number of time steps to read for each model component, i.e. the 
 # chunk size. Including the header of each chunk. 
 chunk_size <- getChunkSize(
@@ -132,8 +131,22 @@ chunk_size <- getChunkSize(
   lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
-result <- readResultDXT(results_savePath, chunk_size)
+result_file_path <- normalizePath(file.path("..", "tests", "testthat",
+                                            "Tutorial01-results.dst"))
+result <- readResultDXT(result_file_path, chunk_size)
+
 
 ```
 
+
+## Visualisation example
+
+### GSM contributions to discharge
+```{r}
+result %>% 
+  filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) %>%
+ggplot() + 
+  geom_point(aes(Datetime, Value, colour = Variable)) +
+  theme_bw()
+```
 

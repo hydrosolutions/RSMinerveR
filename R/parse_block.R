@@ -1,8 +1,10 @@
 #' Parse individual blocks of data from lines
 #'
+#' Internal function called by readResultDXT to read individual data chunks from file.
+#'
 #' @param block_lines A bunch of lines read from an RSMinerve .dst simulation output file.
 #' @return A tibble with the data from the block.
-#'
+#' @export
 parse_block <- function(block_lines) {
 
   # Block name is just first line

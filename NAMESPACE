@@ -2,5 +2,6 @@
 
 export("%>%")
 export(getChunkSize)
+export(parse_block)
 export(readResultDXT)
 importFrom(magrittr,"%>%")
