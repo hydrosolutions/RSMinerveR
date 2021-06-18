@@ -3,3 +3,5 @@
 .Rbuildignore
 inst/doc
 .Renviron
+.DS_Store
+.gitattributes
