@@ -18,4 +18,13 @@ knitr::opts_chunk$set(
 #library(RSMinerveR)
 ```
 
-# 
+# Tutorial 01 - Simple model run
+
+# Prerequisites
+Install R, RTools, RStudio, RSMinerve and the R package rClr (see [README](README.md))
+
+
+
+
+
+

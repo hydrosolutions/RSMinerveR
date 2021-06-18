@@ -2,3 +2,4 @@
 .Rhistory
 .Rbuildignore
 inst/doc
+.Renviron
