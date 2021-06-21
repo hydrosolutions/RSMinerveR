@@ -64,10 +64,10 @@ input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
 } else {
   "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
 }
-parameter_file <- if (file.exists("../inst/extdata/Tutorial_Parameters.txt")) {
-   "../inst/extdata/Tutorial_Parameters.txt"
+parameter_file <- if (file.exists("../inst/extdata/Tutorial_Parameters_1.txt")) {
+   "../inst/extdata/Tutorial04_Parameters_"
 } else {
-  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Parameters.txt"
+  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial04_Parameters_"
 }
 ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
    "../inst/extdata/Tutorial_IC.txt"
@@ -94,8 +94,7 @@ timeStepUnit <- "Seconds"
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_GlacierDischarge_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_GlacierDischarge.dsx"
-results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_SWE.dsx"
+results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_SWE_"
 presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-preSimulationReport.txt"
 postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-postSimulationReport.txt"
 ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
@@ -136,25 +135,16 @@ clrCall(rsm, "SetRecordingTimeStep", recordingTimeStep, timeStepUnit)
 # Load initial conditions from file and copy file
 clrCall(rsm, "LoadInitialConditionsFromFileAndCopyFile", ic_file, ic_save_folder)
 
-# Load parameters from file
-clrCall(rsm, "LoadParametersFromFile", parameter_file)
+# Load parameters from file & run the model
+for (f in c(1:5)) {
+  full_parameter_file <- base::paste0(parameter_file, f, ".txt")
+  full_save_SWE_results_file <- base::paste0(results_SWE_savePath, f, ".dsx")
+  clrCall(rsm, "LoadParametersFromFile", full_parameter_file)
+  clrCall(rsm, "Simulate")
+  clrCall(rsm, "SaveSelectionResultsAs", full_save_SWE_results_file, 
+          saveDataInDstFile, "SnowWaterEquivalent")  
 
-# Write a pre-simulation report to check for possible errors (requires full 
-# path)
-clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)  
-
-# Run a simulation
-clrCall(rsm, "Simulate")
-
-# Write a post-simulation report to check for possible errors (requires full 
-# path)
-clrCall(rsm, "SavePostSimulationReportAs", postsimreport_path)  
-
-# Save selected results (requires full path)
-clrCall(rsm, "SaveSelectionResultsAs", results_GlacierDischarge_savePath, 
-        saveDataInDstFile, "DischargeGlacier")  
-clrCall(rsm, "SaveSelectionResultsAs", results_SWE_savePath, 
-        saveDataInDstFile, "SnowWaterEquivalent")  
+}
 
 # Stop task
 clrCall(rsm, "Stop")
@@ -169,26 +159,24 @@ chunk_size <- getChunkSize(
   lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
-result_glacier <- readResultDXT(results_GlacierDischarge_savePath, chunk_size)
-result_swe <- readResultDXT(results_SWE_savePath, chunk_size)
 
+result_swe <- NULL
+for (i in c(1:5)) {
+  temp <- readResultDXT(results_SWE_savePath, chunk_size)
+  temp <- temp %>%
+    dplyr::mutate(`Parameter set` = i)
+  result_swe <- rbind(result_swe, temp)
+}
 ```
 
 
 ## Visualisation example
 
-### Glacier melt contributions to discharge
-```{r}
-result_glacier %>% 
-ggplot() + 
-  geom_point(aes(Datetime, Value, colour = Object)) +
-  theme_bw()
-```
-
 ### Snow water equivalent in non-glaciated sub-basins
 ```{r}
 result_swe %>% 
 ggplot() + 
-  geom_point(aes(Datetime, Value, colour = Object)) +
+  geom_point(aes(Datetime, Value, colour = `Parameter set`)) +
+  facet_wrap("Object", ncol = 1)
   theme_bw()
 ```
