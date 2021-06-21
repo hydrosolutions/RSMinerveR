@@ -64,7 +64,7 @@ input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
 } else {
   "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
 }
-parameter_file <- if (file.exists("../inst/extdata/Tutorial_Parameters_1.txt")) {
+parameter_file <- if (file.exists("../inst/extdata/Tutorial04_Parameters_1.txt")) {
    "../inst/extdata/Tutorial04_Parameters_"
 } else {
   "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial04_Parameters_"
@@ -94,21 +94,19 @@ timeStepUnit <- "Seconds"
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_SWE_"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-preSimulationReport.txt"
-postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-postSimulationReport.txt"
+results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-results_SWE_"
+presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-preSimulationReport.txt"
+postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-postSimulationReport.txt"
 ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
 ```
 
 ```{r result-paths, eval=FALSE}
-results_GlacierDischarge_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-results_GlacierDischarge.dsx"
-results_SWE_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-results_SWE.dsx"
+results_SWE_savePath <-
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-results_SWE_"
 presimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-preSimuReport.txt"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-preSimuReport.txt"
 postsimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-postSimuReport.txt"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-postSimuReport.txt"
 ic_save_folder <- 
   "C:/Users/<username>/Documents/scriping_rsm"
 ```
@@ -162,7 +160,8 @@ chunk_size <- getChunkSize(
 
 result_swe <- NULL
 for (i in c(1:5)) {
-  temp <- readResultDXT(results_SWE_savePath, chunk_size)
+  full_save_SWE_results_file <- base::paste0(results_SWE_savePath, f, ".dsx")
+  temp <- readResultDXT(full_save_SWE_results_file, chunk_size)
   temp <- temp %>%
     dplyr::mutate(`Parameter set` = i)
   result_swe <- rbind(result_swe, temp)
