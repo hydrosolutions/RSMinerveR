@@ -24,7 +24,11 @@ install.packages("rClr_0.9.1.zip", repos = NULL, type = "source")
 Existing examples in Visual Basics provided by CREALP are being translated to R and made available as vignettes for this package. Many thanks to CREALP for providing these examples.   
 To run the examples, download the vignette to your computer, adapt the file paths and run the code. 
 
-- [Tutorial 01 - Example for scripting a simple model](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-01.Rmd)
+- [Tutorial 01 - Example for scripting a simple model](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-01.Rmd)  
+- [Tutorial 02 - Only save selected results](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-02.Rmd)  
+- [Tutorial 03 - Load parameters & initial conditions from files](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-03.Rmd)  
+- [Tutorial 04 - Run multiple models with different parameters (work in progress)](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-04.Rmd)   
+- Tutorial 05 - work in progress
 
 
 ## License Information
