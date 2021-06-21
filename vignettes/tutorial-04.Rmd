@@ -163,7 +163,7 @@ for (i in c(1:5)) {
   full_save_SWE_results_file <- base::paste0(results_SWE_savePath, f, ".dsx")
   temp <- readResultDXT(full_save_SWE_results_file, chunk_size)
   temp <- temp %>%
-    dplyr::mutate(`Parameter set` = i)
+    dplyr::mutate(`Parameter set` = as.character(i))
   result_swe <- rbind(result_swe, temp)
 }
 ```
@@ -176,6 +176,6 @@ for (i in c(1:5)) {
 result_swe %>% 
 ggplot() + 
   geom_point(aes(Datetime, Value, colour = `Parameter set`)) +
-  facet_wrap("Object", ncol = 1)
+  facet_wrap("Object", ncol = 1) + 
   theme_bw()
 ```
