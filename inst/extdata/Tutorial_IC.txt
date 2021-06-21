@@ -1,0 +1,19 @@
+RS MINERVE - Initial conditions
+Version 4.0.0.0 - vendredi 7 août 2015 11:03
+Model: Z:\MEDIA\CREALP\Projets\64002-Mandat Laguna513 (Perou)\12 Formation RSM\Formation Linea de comando\Examples\Model.rsm
+Description: Model
+Database: 
+OBJECTS
+GSM	1
+Kinematic	2
+SOCONT	3
+VALUES
+GSM	HIni (m)	ThetaIni (-)	QsnowIni (m3/s)	QglacierIni (m3/s)
+GSM 1	0.05	0	0.1	0
+Kinematic	QIni (m3/s)
+Río B	6
+Rio A	3.5
+SOCONT	HsnowIni (m)	ThetaIni (-)	HGR3Ini (m)	HrIni (m)
+SOCONT 1	0.05	0	0.23	0.005
+SOCONT 2	0	0	0.23	0.005
+SOCONT 3	0	0	0.23	0.005
