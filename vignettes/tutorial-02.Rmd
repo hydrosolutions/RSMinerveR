@@ -157,12 +157,18 @@ result_swe <- readResultDXT(results_SWE_savePath, chunk_size)
 
 ## Visualisation example
 
-### GSM contributions to discharge
+### Glacier melt contributions to discharge
 ```{r}
-result %>% 
-  filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) %>%
+result_glacier %>% 
 ggplot() + 
-  geom_point(aes(Datetime, Value, colour = Variable)) +
+  geom_point(aes(Datetime, Value, colour = Object)) +
   theme_bw()
 ```
 
+### Snow water equivalent in non-glaciated sub-basins
+```{r}
+result_swe %>% 
+ggplot() + 
+  geom_point(aes(Datetime, Value, colour = Object)) +
+  theme_bw()
+```
