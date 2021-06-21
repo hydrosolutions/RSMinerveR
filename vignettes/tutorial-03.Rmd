@@ -72,7 +72,7 @@ parameter_file <- if (file.exists("../inst/extdata/Tutorial_Parameters.txt")) {
 ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
    "../inst/extdata/Tutorial_IC.txt"
 } else {
-  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_IC.txt"
+   "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_IC.txt"
 }
 
 
@@ -98,7 +98,7 @@ results_GlacierDischarge_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_
 results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_SWE.dsx"
 presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-preSimulationReport.txt"
 postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-postSimulationReport.txt"
-ic_save_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
+ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
 ```
 
 ```{r result-paths, eval=FALSE}
