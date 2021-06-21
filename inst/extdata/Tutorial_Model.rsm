@@ -221,7 +221,7 @@
     </Junctions>
     <Models>
       <Model>
-        <Description>Model</Description>
+        <Description>Tutorial_Model</Description>
         <Guid>03f9eb5e-43f6-4720-9f15-e07441a7d06e</Guid>
         <X>50</X>
         <Y>50</Y>
@@ -1252,7 +1252,7 @@
     <DataSources>
       <DataSource>
         <Name>Station</Name>
-        <GroupName>New group</GroupName>
+        <GroupName>Measurements</GroupName>
         <DatasetIndex>1</DatasetIndex>
       </DataSource>
     </DataSources>
@@ -1260,7 +1260,17 @@
   <SeriesSelections>
     <Selection>
       <Name>SlcResults</Name>
-      <Path>Model Model\Junction Desembocadura\QDown (m3/s)</Path>
+      <Path>Model Tutorial_Model\Junction Desembocadura\QDown (m3/s)</Path>
+    </Selection>
+    <Selection>
+      <Name>DischargeGlacier</Name>
+      <Path>Model Tutorial_Model\GSM GSM 1\Qglacier (m3/s)</Path>
+    </Selection>
+    <Selection>
+      <Name>SnowWaterEquivalent</Name>
+      <Path>Model Tutorial_Model\SOCONT SOCONT 1\SWE (m)</Path>
+      <Path>Model Tutorial_Model\SOCONT SOCONT 2\SWE (m)</Path>
+      <Path>Model Tutorial_Model\SOCONT SOCONT 3\SWE (m)</Path>
     </Selection>
   </SeriesSelections>
   <Settings>
