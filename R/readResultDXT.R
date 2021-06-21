@@ -16,6 +16,9 @@ readResultDXT <- function(filepath, chunk_size) {
 
   if (base::file.exists(filepath)) {
 
+    # Replace fileending
+    filepath <- gsub("dsx", "dst", filepath)
+
     # Read the number of lines in the file
     nlines_tot <- R.utils::countLines(filepath)[1]
     no_chunks <- nlines_tot / chunk_size
