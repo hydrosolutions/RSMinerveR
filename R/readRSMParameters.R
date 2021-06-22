@@ -3,13 +3,12 @@
 #' @param filepath Character with path to file to read.
 #' @return Tibble containing all parameters read from file.
 #' @details The suported RSMInerve objects are described in the vignette Overview Objects.
-#' `parameters` contains 5 columns:
+#' `parameters` contains 6 columns:
 #'    `Object` (character) identifying the RSMinerve object type (e.g. Station). See Vignette Parameters for more information on the objects available in RSMinerveR.
 #'    `Name` is the user specified name of the object in the RSMinerve model (e.g. Meteo station A).
 #'    `Zone` is the name of the zone an object is assigned to (e.g. "A").
 #'    `Parameters` names all parameters for each object (e.g. X [m], Y [m], etc.). The parameter names are the same as in the RS Minerve parameter file. See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
 #'    `Values` contains the parameter values as numerics (e.g. 4500, 3000).
-#'    `Parameter set` is used to differentiate between multiple parameter sets. The function will write length(unique(parameters$`Parameter set`)) parameter files, appending the value of Parameter set to the base file name.
 #' @examples
 #' filepath <- normalizePath(file.path("Tutorial_Parameters.txt"))
 #' params <- readRSMParameters(filepath)
