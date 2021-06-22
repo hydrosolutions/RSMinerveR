@@ -1,7 +1,18 @@
 #' Reads parameters from RSMinerve parameter file
 #'
 #' @param filepath Character with path to file to read.
-#' @return Tibble contianing all parameters read from file.
+#' @return Tibble containing all parameters read from file.
+#' @details The suported RSMInerve objects are described in the vignette Overview Objects.
+#' `parameters` contains 5 columns:
+#'    `Object` (character) identifying the RSMinerve object type (e.g. Station). See Vignette Parameters for more information on the objects available in RSMinerveR.
+#'    `Name` is the user specified name of the object in the RSMinerve model (e.g. Meteo station A).
+#'    `Zone` is the name of the zone an object is assigned to (e.g. "A").
+#'    `Parameters` names all parameters for each object (e.g. X [m], Y [m], etc.). The parameter names are the same as in the RS Minerve parameter file. See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
+#'    `Values` contains the parameter values as numerics (e.g. 4500, 3000).
+#'    `Parameter set` is used to differentiate between multiple parameter sets. The function will write length(unique(parameters$`Parameter set`)) parameter files, appending the value of Parameter set to the base file name.
+#' @examples
+#' filepath <- normalizePath(file.path("Tutorial_Parameters.txt"))
+#' params <- readRSMParameters(filepath)
 #' @export
 readRSMParameters <- function(filepath) {
 
@@ -132,10 +143,9 @@ parseComparator <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Comparator",
                    Name = temp[[1]][1],
-                   Zone = temp[[1]][2])
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name),
-                                names_to = "Parameters",
-                                values_to = "Values")
+                   Zone = temp[[1]][2]) %>%
+    dplyr::mutate(Parameters = as.character(NA),
+                  Values = as.numeric(NA))
   return(object)
 }
 
@@ -146,10 +156,9 @@ parseJunction <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Junction",
                    Name = temp[[1]][1],
-                   Zone = temp[[1]][2])
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name),
-                                names_to = "Parameters",
-                                values_to = "Values")
+                   Zone = temp[[1]][2]) %>%
+    dplyr::mutate(Parameters = as.character(NA),
+                  Values = as.numeric(NA))
   return(object)
 }
 
@@ -160,10 +169,9 @@ parseSource <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Source",
                    Name = temp[[1]][1],
-                   Zone = temp[[1]][2])
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name),
-                                names_to = "Parameters",
-                                values_to = "Values")
+                   Zone = temp[[1]][2]) %>%
+    dplyr::mutate(Parameters = as.character(NA),
+                  Values = as.numeric(NA))
   return(object)
 }
 
@@ -175,18 +183,18 @@ parseGSM <- function(line) {
   object <- tibble::tibble(Object = "GSM",
                    Name = temp[[1]][1],
                    Zone = temp[[1]][2],
-                   `A [m2]` = temp[[1]][3],
-                   `An [mm/deg C/day]` = temp[[1]][4],
-                   `ThetaCri [-]` = temp[[1]][5],
-                   `bp [d/mm]` = temp[[1]][6],
-                   `Tcp1 [deg C]` = temp[[1]][7],
-                   `Tcp2 [deg C]` = temp[[1]][8],
-                   `Tcf [deg C]`= temp[[1]][9],
-                   `Agl [mm/deg C/day]`= temp[[1]][10],
-                   `Tcg [deg C]`= temp[[1]][11],
-                   `Kgl [1/d]`= temp[[1]][12],
-                   `Ksn [1/d]`= temp[[1]][13])
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name),
+                   `A [m2]` = as.numeric(temp[[1]][3]),
+                   `An [mm/deg C/day]` = as.numeric(temp[[1]][4]),
+                   `ThetaCri [-]` = as.numeric(temp[[1]][5]),
+                   `bp [d/mm]` = as.numeric(temp[[1]][6]),
+                   `Tcp1 [deg C]` = as.numeric(temp[[1]][7]),
+                   `Tcp2 [deg C]` = as.numeric(temp[[1]][8]),
+                   `Tcf [deg C]`= as.numeric(temp[[1]][9]),
+                   `Agl [mm/deg C/day]`= as.numeric(temp[[1]][10]),
+                   `Tcg [deg C]`= as.numeric(temp[[1]][11]),
+                   `Kgl [1/d]`= as.numeric(temp[[1]][12]),
+                   `Ksn [1/d]`= as.numeric(temp[[1]][13]))
+  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
@@ -200,19 +208,19 @@ parseSOCONT <- function(line) {
   object <- tibble::tibble(Object = "SOCONT",
                    Name = temp[[1]][1],
                    Zone = temp[[1]][2],
-                   `A [m2]` = temp[[1]][3],
-                   `An [mm/deg C/day]` = temp[[1]][4],
-                   `ThetaCri [-]` = temp[[1]][5],
-                   `bp [d/mm]` = temp[[1]][6],
-                   `Tcp1 [deg C]` = temp[[1]][7],
-                   `Tcp2 [deg C]` = temp[[1]][8],
-                   `Tcf [deg C]`= temp[[1]][9],
-                   `HGR3Max [m]`= temp[[1]][10],
-                   `KGR3 [1/s]`= temp[[1]][11],
-                   `L [m]`= temp[[1]][12],
-                   `J0 [-]`= temp[[1]][13],
-                   `Kr [m1/3/s]` = temp[[1]][14])
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name),
+                   `A [m2]` = as.numeric(temp[[1]][3]),
+                   `An [mm/deg C/day]` = as.numeric(temp[[1]][4]),
+                   `ThetaCri [-]` = as.numeric(temp[[1]][5]),
+                   `bp [d/mm]` = as.numeric(temp[[1]][6]),
+                   `Tcp1 [deg C]` = as.numeric(temp[[1]][7]),
+                   `Tcp2 [deg C]` = as.numeric(temp[[1]][8]),
+                   `Tcf [deg C]`= as.numeric(temp[[1]][9]),
+                   `HGR3Max [m]`= as.numeric(temp[[1]][10]),
+                   `KGR3 [1/s]`= as.numeric(temp[[1]][11]),
+                   `L [m]`= as.numeric(temp[[1]][12]),
+                   `J0 [-]`= as.numeric(temp[[1]][13]),
+                   `Kr [m1/3/s]` = as.numeric(temp[[1]][14]))
+  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
@@ -227,13 +235,13 @@ parseKinematic <- function(line) {
   object <- tibble::tibble(Object = "Kinematic",
                    Name = temp[[1]][1],
                    Zone = temp[[1]][2],
-                   `L [m]` = temp[[1]][3],
-                   `B0 [m]` = temp[[1]][4],
-                   `m [-]` = temp[[1]][5],
-                   `J0 [-]` = temp[[1]][6],
-                   `K [m1/3/s]` = temp[[1]][7],
-                   `N [-]` = temp[[1]][8])
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name),
+                   `L [m]` = as.numeric(temp[[1]][3]),
+                   `B0 [m]` = as.numeric(temp[[1]][4]),
+                   `m [-]` = as.numeric(temp[[1]][5]),
+                   `J0 [-]` = as.numeric(temp[[1]][6]),
+                   `K [m1/3/s]` = as.numeric(temp[[1]][7]),
+                   `N [-]` = as.numeric(temp[[1]][8]))
+  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
@@ -248,18 +256,18 @@ parseStation <- function(line) {
   object <- tibble::tibble(Object = "Station",
                    Name = temp[[1]][1],
                    Zone = temp[[1]][2],
-                   `X [m]` = temp[[1]][3],
-                   `Y [m]` = temp[[1]][4],
-                   `Z [masl]` = temp[[1]][5],
-                   `Search Radius [m]` = temp[[1]][6],
-                   `No. min. of stations [-]` = temp[[1]][7],
-                   `Gradient P [m/s/m]` = temp[[1]][8],
-                   `Gradient T [C/m]` = temp[[1]][9],
-                   `Gradient ETP [m/s/m]` = temp[[1]][10],
-                   `Coeff P [-]` = temp[[1]][11],
-                   `Coeff T [-]` = temp[[1]][12],
-                   `Coeff ETP [-]` = temp[[1]][13])
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name),
+                   `X [m]` = as.numeric(temp[[1]][3]),
+                   `Y [m]` = as.numeric(temp[[1]][4]),
+                   `Z [masl]` = as.numeric(temp[[1]][5]),
+                   `Search Radius [m]` = as.numeric(temp[[1]][6]),
+                   `No. min. of stations [-]` = as.numeric(temp[[1]][7]),
+                   `Gradient P [m/s/m]` = as.numeric(temp[[1]][8]),
+                   `Gradient T [C/m]` = as.numeric(temp[[1]][9]),
+                   `Gradient ETP [m/s/m]` = as.numeric(temp[[1]][10]),
+                   `Coeff P [-]` = as.numeric(temp[[1]][11]),
+                   `Coeff T [-]` = as.numeric(temp[[1]][12]),
+                   `Coeff ETP [-]` = as.numeric(temp[[1]][13]))
+  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
