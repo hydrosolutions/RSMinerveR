@@ -3,5 +3,6 @@
 export("%>%")
 export(getChunkSize)
 export(parse_block)
+export(readRSMParameters)
 export(readResultDXT)
 importFrom(magrittr,"%>%")

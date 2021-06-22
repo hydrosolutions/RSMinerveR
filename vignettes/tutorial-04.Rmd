@@ -112,6 +112,26 @@ ic_save_folder <-
 ```
 
 
+## Look at parameters
+
+```{r}
+params <- NULL
+for (f in c(1:5)) {
+  full_parameter_file <- base::paste0(parameter_file, f, ".txt")
+  temp <- readRSMParameters(full_parameter_file)
+  temp <- mutate(temp, "Parameter set" = f)
+  params <- rbind(params, temp)
+}
+
+params %>%
+  filter(Name == "SOCONT 3") %>%
+  ggplot() + 
+  geom_point(aes(`Parameter set`, Values)) + 
+  facet_wrap("Parameters", scales = "free_y") + 
+  theme_bw()
+```
+
+
 ## Applying settings and running the model
 The \code{clrCall} commands allow to call the Visual Basics commands documented in the RS Minerve Technical Manual. The calls return NULL when successful. Check your local paths to see if the output files have been created.  
 ```{r run-model}
