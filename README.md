@@ -36,8 +36,10 @@ To run the examples, download the vignette to your computer, adapt the file path
 
 ## Overview over currently implemented interfaces
 
-Function for reading RS Minerve results from .DXT: `readResultDXT`\
-Functions for reading and writing RS Minerve parameter files: `readRSMParameters`, `writeRSMParameters`
+Function for reading RS Minerve results from .DXT: `readResultDXT`  
+Functions for reading and writing RS Minerve parameter files: `readRSMParameters`, `writeRSMParameters`   
+
+[Overview over implemented RSMinerveR objects](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/OverviewObjects.Rmd)
 
 ## License Information
 
