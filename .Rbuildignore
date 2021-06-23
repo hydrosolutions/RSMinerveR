@@ -1,4 +1,4 @@
 ^RSMinerveR\.Rproj$
 ^\.Rproj\.user$
 ^doc$
-^doc/tutorial-01.html$
+'^_pkgdown\\.yml$'
