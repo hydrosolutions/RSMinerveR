@@ -23,8 +23,6 @@ Write parameters to RS Minerve parameter file
 \code{Name} is the user specified name of the object in the RSMinerve model (e.g. Meteo station A).
 \code{Parameters} names all parameters for each object (e.g. Zone, X \link{m}, Y \link{m}, etc.). See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
 \code{Values} contains the parameter values (e.g. "A", 4500, 3000).
-\verb{Parameter set} is used to differentiate between multiple parameter sets. The function will write length(unique(parameters$\verb{Parameter set})) parameter files, appending the value of Parameter set to the base file name.
-}
-\examples{
-To be written
+\verb{Parameter set} (optional) is used to differentiate between multiple parameter sets. The function will write length(unique(parameters$\verb{Parameter set})) parameter files, appending the value of Parameter set to the base file name.
+The outfilepath is edited in the case where several parameter sets are written
 }

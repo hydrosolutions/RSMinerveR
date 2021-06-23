@@ -69,6 +69,7 @@ parameter_file <- if (file.exists("../inst/extdata/Tutorial04_Parameters_1.txt")
 } else {
   "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial04_Parameters_"
 }
+parameter_file <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_"
 ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
    "../inst/extdata/Tutorial_IC.txt"
 } else {
@@ -94,15 +95,15 @@ timeStepUnit <- "Seconds"
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-results_SWE_"
+results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-results_"
 presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-preSimulationReport.txt"
 postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-postSimulationReport.txt"
 ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
 ```
 
 ```{r result-paths, eval=FALSE}
-results_SWE_savePath <-
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-results_SWE_"
+results_savePath <-
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-results_"
 presimreport_path <- 
   "C:/Users/<username>/Documents/scriping_rsm/tutorial04-preSimuReport.txt"
 postsimreport_path <- 
@@ -124,12 +125,40 @@ for (f in c(1:5)) {
 }
 
 params %>%
-  filter(Name == "SOCONT 3") %>%
+  filter(Object == "SOCONT") %>%
   ggplot() + 
-  geom_point(aes(`Parameter set`, Values)) + 
+  geom_point(aes(`Parameter set`, Values, colour = Name)) + 
   facet_wrap("Parameters", scales = "free_y") + 
   theme_bw()
 ```
+
+## Edit parameters and write to file
+
+```{r}
+params <- params %>% 
+  mutate(Values = ifelse((`Parameter set` == "2" & Parameters == "Tcp1 [deg C]"), 
+                         0.01, Values))
+params <- params %>% 
+  mutate(Values = ifelse((`Parameter set` == "3" & Parameters == "Tcp1 [deg C]"), 
+                         0.05, Values))
+params <- params %>% 
+  mutate(Values = ifelse((`Parameter set` == "4" & Parameters == "Tcp1 [deg C]"), 
+                         0.1, Values))
+params <- params %>% 
+  mutate(Values = ifelse((`Parameter set` == "5" & Parameters == "Kr [m1/3/s]"), 
+                         Values/2, Values))
+
+params %>%
+  filter(Object == "SOCONT") %>%
+  ggplot() + 
+  geom_point(aes(`Parameter set`, Values, colour = Name)) + 
+  facet_wrap("Parameters", scales = "free_y") + 
+  theme_bw()
+
+parameter_file_edit <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_edit"
+writeRSMParameters(params, paste0(parameter_file_edit, ".txt"))
+```
+
 
 
 ## Applying settings and running the model
@@ -155,12 +184,12 @@ clrCall(rsm, "LoadInitialConditionsFromFileAndCopyFile", ic_file, ic_save_folder
 
 # Load parameters from file & run the model
 for (f in c(1:5)) {
-  full_parameter_file <- base::paste0(parameter_file, f, ".txt")
-  full_save_SWE_results_file <- base::paste0(results_SWE_savePath, f, ".dsx")
+  full_parameter_file <- base::paste0(parameter_file_edit, "_", f, ".txt")
+  full_save_results_file <- base::paste0(results_savePath, f, ".dsx")
   clrCall(rsm, "LoadParametersFromFile", full_parameter_file)
   clrCall(rsm, "Simulate")
-  clrCall(rsm, "SaveSelectionResultsAs", full_save_SWE_results_file, 
-          saveDataInDstFile, "SnowWaterEquivalent")  
+  clrCall(rsm, "SaveFullResultsAs", full_save_results_file, 
+          saveDataInDstFile)  
 
 }
 
@@ -178,13 +207,13 @@ chunk_size <- getChunkSize(
   recordingTimeStep
 ) 
 
-result_swe <- NULL
+result <- NULL
 for (i in c(1:5)) {
-  full_save_SWE_results_file <- base::paste0(results_SWE_savePath, f, ".dsx")
-  temp <- readResultDXT(full_save_SWE_results_file, chunk_size)
+  full_save_results_file <- base::paste0(results_savePath, i, ".dsx")
+  temp <- readResultDXT(full_save_results_file, chunk_size)
   temp <- temp %>%
     dplyr::mutate(`Parameter set` = as.character(i))
-  result_swe <- rbind(result_swe, temp)
+  result <- rbind(result, temp)
 }
 ```
 
@@ -193,9 +222,12 @@ for (i in c(1:5)) {
 
 ### Snow water equivalent in non-glaciated sub-basins
 ```{r}
-result_swe %>% 
+result %>% 
+  filter(Variable == "SOCONT:Qtot") %>%
 ggplot() + 
-  geom_point(aes(Datetime, Value, colour = `Parameter set`)) +
+  geom_point(aes(Datetime, Value, colour = `Parameter set`, 
+                 size = `Parameter set`, shape = `Parameter set`), 
+             alpha = 0.3) +
   facet_wrap("Object", ncol = 1) + 
   theme_bw()
 ```
