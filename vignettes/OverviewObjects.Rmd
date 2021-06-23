@@ -18,6 +18,7 @@ The following RSMinerve objects are currently implemented in RSMinerveR:
 - Kinematic  
 - Junction  
 - GSM  
+- HBV92  
 - Comparator  
 
 The parameters for these objects are described in the RS Minerve User Manual available from the [CREALP website](https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html). The format of the parameter file is described below:  

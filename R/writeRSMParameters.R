@@ -32,7 +32,8 @@ writeRSMParameters <- function(parameters, outfilepath) {
 
     # Write header lines of parameter file
     base::writeLines("RS MINERVE - Parameters", conn)
-    base::writeLines(paste0("Version 4.0.0.0 - ", paste0(as_datetime(now()))), conn)
+    base::writeLines(paste0("Version 4.0.0.0 - ",
+                            paste0(lubridate::as_datetime(lubridate::now()))), conn)
     base::writeLines("Model: PATH", conn)
     base::writeLines("Description: Model", conn)
     base::writeLines("Database:", conn)
@@ -40,9 +41,9 @@ writeRSMParameters <- function(parameters, outfilepath) {
     # Write object summaries
     base::writeLines("OBJECTS", conn)
     object_summary <- parameters %>%
-      dplyr::filter(`Parameter set` == i) %>%
-      dplyr::group_by(Object) %>%
-      dplyr::summarise(no = base::length(base::unique(Name)))
+      dplyr::filter(.data$`Parameter set` == i) %>%
+      dplyr::group_by(.data$Object) %>%
+      dplyr::summarise(no = base::length(base::unique(.data$Name)))
     for (j in c(1:dim(object_summary)[1])) {
       base::writeLines(paste0(object_summary$Object[j], "\t",
                               object_summary$no[j]), conn)
@@ -51,23 +52,37 @@ writeRSMParameters <- function(parameters, outfilepath) {
     # Write parameters per object
     base::writeLines("VALUES", conn)
     parameter_summary <- parameters %>%
-      dplyr::filter(`Parameter set` == i)
+      dplyr::filter(.data$`Parameter set` == i)
     for (j in c(1:base::dim(object_summary)[1])) {
       if (object_summary$Object[j] == "Comparator") {
         temp <- parameter_summary %>%
-          dplyr::filter(Object == "Comparator")
+          dplyr::filter(.data$Object == "Comparator")
         base::writeLines("Comparator	Zone	", conn)
         for (k in c(1:base::dim(temp)[1])) {
           base::writeLines(paste0(temp$Name[k], "\t", temp$Zone[k]), conn)
         }
       } else if (object_summary$Object[j] == "GSM") {
         temp <- parameter_summary %>%
-          dplyr::filter(Object == "GSM")
+          dplyr::filter(.data$Object == "GSM")
         names <- base::unique(temp$Name)
         base::writeLines("GSM	Zone	A (m2)	An (mm/°C/day)	ThetaCri (-)	bp (d/mm)	Tcp1 (°C)	Tcp2 (°C)	Tcf (°C)	Agl (mm/°C/day)	Tcg (°C)	Kgl (1/d)	Ksn (1/d)", conn)
         for (l in c(1:base::length(names))) {
           temp2 <- parameter_summary %>%
-            dplyr::filter(Name == names[l])
+            dplyr::filter(.data$Name == names[l])
+          to_write <- base::paste0(names[l], "\t", temp2$Zone[1])
+          for (k in c(1:base::dim(temp2)[1])) {
+            to_write <- paste0(to_write, "\t", temp2$Values[k])
+          }
+          base::writeLines(to_write, conn)
+        }
+      } else if (object_summary$Object[j] == "HBV92") {
+        temp <- parameter_summary %>%
+          dplyr::filter(.data$Object == "HBV92")
+        names <- base::unique(temp$Name)
+        base::writeLines("HBV92	Zone	A (m2)	CFMax (mm/°C/d)	CFR (-)	CWH (-)	TT (°C)	TTInt (°C)	TTSM (°C)	Beta (-)	FC (mm)	PWP (-)	SUMax (mm)	Kr (1/d)	Ku (1/d)	Kl (1/d)	Kperc (1/d)", conn)
+        for (l in c(1:base::length(names))) {
+          temp2 <- parameter_summary %>%
+            dplyr::filter(.data$Name == names[l])
           to_write <- base::paste0(names[l], "\t", temp2$Zone[1])
           for (k in c(1:base::dim(temp2)[1])) {
             to_write <- paste0(to_write, "\t", temp2$Values[k])
@@ -76,19 +91,19 @@ writeRSMParameters <- function(parameters, outfilepath) {
         }
       } else if (object_summary$Object[j] == "Junction") {
         temp <- parameter_summary %>%
-          dplyr::filter(Object == "Junction")
+          dplyr::filter(.data$Object == "Junction")
         base::writeLines("Junction	Zone	", conn)
         for (k in c(1:base::dim(temp)[1])) {
           base::writeLines(paste0(temp$Name[k], "\t", temp$Zone[k]), conn)
         }
       } else if (object_summary$Object[j] == "Kinematic") {
         temp <- parameter_summary %>%
-          dplyr::filter(Object == "Kinematic")
+          dplyr::filter(.data$Object == "Kinematic")
         names <- base::unique(temp$Name)
         base::writeLines("Kinematic	Zone	L (m)	B0 (m)	m (-)	J0 (-)	K (m1/3/s)	N (-)", conn)
         for (l in c(1:base::length(names))) {
           temp2 <- parameter_summary %>%
-            dplyr::filter(Name == names[l])
+            dplyr::filter(.data$Name == names[l])
           to_write <- base::paste0(names[l], "\t", temp2$Zone[1])
           for (k in c(1:base::dim(temp2)[1])) {
             to_write <- paste0(to_write, "\t", temp2$Values[k])
@@ -97,12 +112,12 @@ writeRSMParameters <- function(parameters, outfilepath) {
         }
       } else if (object_summary$Object[j] == "SOCONT") {
         temp <- parameter_summary %>%
-          dplyr::filter(Object == "SOCONT")
+          dplyr::filter(.data$Object == "SOCONT")
         names <- base::unique(temp$Name)
         base::writeLines("SOCONT	Zone	A (m2)	An (mm/°C/day)	ThetaCri (-)	bp (d/mm)	Tcp1 (°C)	Tcp2 (°C)	Tcf (°C)	HGR3Max (m)	KGR3 (1/s)	L (m)	J0 (-)	Kr (m1/3/s)", conn)
         for (l in c(1:base::length(names))) {
           temp2 <- parameter_summary %>%
-            dplyr::filter(Name == names[l])
+            dplyr::filter(.data$Name == names[l])
           to_write <- base::paste0(names[l], "\t", temp2$Zone[1])
           for (k in c(1:base::dim(temp2)[1])) {
             to_write <- paste0(to_write, "\t", temp2$Values[k])
@@ -111,19 +126,19 @@ writeRSMParameters <- function(parameters, outfilepath) {
         }
       } else if (object_summary$Object[j] == "Source") {
         temp <- parameter_summary %>%
-          dplyr::filter(Object == "Source")
+          dplyr::filter(.data$Object == "Source")
         base::writeLines("Source	Zone	", conn)
         for (k in c(1:base::dim(temp)[1])) {
           base::writeLines(paste0(temp$Name[k], "\t", temp$Zone[k]), conn)
         }
       } else if (object_summary$Object[j] == "Station") {
         temp <- parameter_summary %>%
-          dplyr::filter(Object == "Station")
+          dplyr::filter(.data$Object == "Station")
         names <- base::unique(temp$Name)
         base::writeLines("Station	Zone	X (m)	Y (m)	Z (masl)	Search Radius (m)	No. min. of stations (-)	Gradient P", conn)
         for (l in c(1:base::length(names))) {
           temp2 <- parameter_summary %>%
-            dplyr::filter(Name == names[l])
+            dplyr::filter(.data$Name == names[l])
           to_write <- base::paste0(names[l], "\t", temp2$Zone[1])
           for (k in c(1:base::dim(temp2)[1])) {
             to_write <- paste0(to_write, "\t", temp2$Values[k])
