@@ -78,6 +78,12 @@ In RSMinerveR, the round brackets are replaced by [] and °C is replaced by deg 
 Note that Zone is parsed as character and the other parameters as numeric. 
 
 
+## HBV92
+The HBV92 parameters are: Zone, A (m2), CFMax (mm/°C/d), CFR (-), CWH (-), TT (°C), TTInt (°C), TTSM (°C), Beta (-), FC (mm), PWP (-), SUMax (mm), Kr (1/d), Ku (1/d), Kl (1/d), Kperc (1/d).   
+In RSMinerveR, the round brackets are replaced by [] and °C is replaced by deg C.  
+Note that Zone is parsed as character and the other parameters as numeric. 
+
+
 ## SOCONT	
 The SOCONT parameters are: Zone, A (m2), An (mm/°C/day), ThetaCri (-), bp (d/mm), Tcp1 (°C), Tcp2 (°C), Tcf (°C), HGR3Max (m), KGR3 (1/s), L (m), J0 (-), Kr (m1/3/s).   
 In RSMinerveR, the round brackets are replaced by [] and °C is replaced by deg C.   
