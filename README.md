@@ -1,4 +1,4 @@
-# RSMinerveR
+# RSMinerveR (under development)
 
 I/O for RSMinerve in R ([Package site](https://hydrosolutions.github.io/RSMinerveR/))
 
