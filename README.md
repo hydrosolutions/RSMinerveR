@@ -31,7 +31,7 @@ To run the examples, download the vignette to your computer, adapt the file path
 -   [Tutorial 01 - Example for scripting a simple model](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-01.Rmd)\
 -   [Tutorial 02 - Only save selected results](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-02.Rmd)\
 -   [Tutorial 03 - Load parameters & initial conditions from files](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-03.Rmd)\
--   [Tutorial 04 - Run multiple models with different parameters (work in progress)](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-04.Rmd)\
+-   [Tutorial 04 - Run multiple models with different parameters](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-04.Rmd)\
 -   Tutorial 05 - work in progress
 
 ## Overview over currently implemented interfaces
