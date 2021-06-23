@@ -55,12 +55,12 @@ clrLoadAssembly(file.path(dir_RSM_install, 'RSMinerve.Base.dll'))
 model_file <- if (file.exists("../inst/extdata/Tutorial_Model.rsm")) {
    "../inst/extdata/Tutorial_Model.rsm"
 } else {
-  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"
 }
 input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
    "../inst/extdata/Tutorial_DataMeteo.dsx"
 } else {
-  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
 }
 
 saveDataInDstFile <-  TRUE
