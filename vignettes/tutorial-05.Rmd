@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Tutorial 05 - Run multiple models with different parameter sets
-This example shows how to run multiple RS Minerve models with different parametersets.     
+# Tutorial 05 - Manage messages through log files
+This example shows how to run an RS Minerve model and handle error messages.     
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 
 
@@ -57,108 +57,43 @@ clrLoadAssembly(file.path(dir_RSM_install, 'RSMinerve.Base.dll'))
 model_file <- if (file.exists("../inst/extdata/Tutorial_Model.rsm")) {
    "../inst/extdata/Tutorial_Model.rsm"
 } else {
-  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/inst/extdata/Tutorial_Model.rsm"
 }
 input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
    "../inst/extdata/Tutorial_DataMeteo.dsx"
 } else {
-  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
 }
-parameter_file <- if (file.exists("../inst/extdata/Tutorial04_Parameters_1.txt")) {
-   "../inst/extdata/Tutorial04_Parameters_"
-} else {
-  "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial04_Parameters_"
-}
-parameter_file <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_"
-ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
-   "../inst/extdata/Tutorial_IC.txt"
-} else {
-   "https://github.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_IC.txt"
-}
-
 
 saveDataInDstFile <-  TRUE
 
 # The RS Minerve documentation describes the date format to be "%d.%m.%Y" 
 # but on some systems you will have to use "%m.%d.%Y". An error message 
-# about non-overlapping database and simulation time will give you the hint. 
+# about non-overlapping database and simulation time will give you the hint.  
+# Make sure that start_date and end_date are within the period of available 
+# model forcing in the database. 
 start_date <- "09.02.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
 end_date <- "09.09.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
 
 simulationTimeStep <- "600"  
 recordingTimeStep <- "3600"
 timeStepUnit <- "Seconds"
-
 ```
 
 
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-results_"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-preSimulationReport.txt"
-postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-postSimulationReport.txt"
-ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
+results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-results.dsx"
+presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-preSimulationReport.txt"
 ```
 
 ```{r result-paths, eval=FALSE}
-results_savePath <-
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-results_"
+results_savePath <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-results.dsx"
 presimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-preSimuReport.txt"
-postsimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial04-postSimuReport.txt"
-ic_save_folder <- 
-  "C:/Users/<username>/Documents/scriping_rsm"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-preSimuReport.txt"
 ```
-
-
-## Look at parameters
-
-```{r}
-params <- NULL
-for (f in c(1:5)) {
-  full_parameter_file <- base::paste0(parameter_file, f, ".txt")
-  temp <- readRSMParameters(full_parameter_file)
-  temp <- mutate(temp, "Parameter set" = f)
-  params <- rbind(params, temp)
-}
-
-params %>%
-  filter(Object == "SOCONT") %>%
-  ggplot() + 
-  geom_point(aes(`Parameter set`, Values, colour = Name)) + 
-  facet_wrap("Parameters", scales = "free_y") + 
-  theme_bw()
-```
-
-## Edit parameters and write to file
-
-```{r}
-params <- params %>% 
-  mutate(Values = ifelse((`Parameter set` == "2" & Parameters == "Tcp1 [deg C]"), 
-                         0.01, Values))
-params <- params %>% 
-  mutate(Values = ifelse((`Parameter set` == "3" & Parameters == "Tcp1 [deg C]"), 
-                         0.05, Values))
-params <- params %>% 
-  mutate(Values = ifelse((`Parameter set` == "4" & Parameters == "Tcp1 [deg C]"), 
-                         0.1, Values))
-params <- params %>% 
-  mutate(Values = ifelse((`Parameter set` == "5" & Parameters == "Kr [m1/3/s]"), 
-                         Values/2, Values))
-
-params %>%
-  filter(Object == "SOCONT") %>%
-  ggplot() + 
-  geom_point(aes(`Parameter set`, Values, colour = Name)) + 
-  facet_wrap("Parameters", scales = "free_y") + 
-  theme_bw()
-
-parameter_file_edit <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_edit"
-writeRSMParameters(params, paste0(parameter_file_edit, ".txt"))
-```
-
 
 
 ## Applying settings and running the model
@@ -179,19 +114,15 @@ clrCall(rsm, "SetDates", start_date, end_date)
 clrCall(rsm, "SetSimulationTimeStep", simulationTimeStep, timeStepUnit) 
 clrCall(rsm, "SetRecordingTimeStep", recordingTimeStep, timeStepUnit)  
 
-# Load initial conditions from file and copy file
-clrCall(rsm, "LoadInitialConditionsFromFileAndCopyFile", ic_file, ic_save_folder)
+# Write a pre-simulation report to check for possible errors (requires full 
+# path)
+clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)  
 
-# Load parameters from file & run the model
-for (f in c(1:5)) {
-  full_parameter_file <- base::paste0(parameter_file_edit, "_", f, ".txt")
-  full_save_results_file <- base::paste0(results_savePath, f, ".dsx")
-  clrCall(rsm, "LoadParametersFromFile", full_parameter_file)
-  clrCall(rsm, "Simulate")
-  clrCall(rsm, "SaveFullResultsAs", full_save_results_file, 
-          saveDataInDstFile)  
+# Run a simulation
+clrCall(rsm, "Simulate")
 
-}
+# Save results (requires full path)
+clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)  
 
 # Stop task
 clrCall(rsm, "Stop")
@@ -206,28 +137,21 @@ chunk_size <- getChunkSize(
   lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
+result_file_path <- normalizePath(file.path("..", "tests", "testthat",
+                                            "Tutorial01-results.dst"))
+result <- readResultDXT(result_file_path, chunk_size)
 
-result <- NULL
-for (i in c(1:5)) {
-  full_save_results_file <- base::paste0(results_savePath, i, ".dsx")
-  temp <- readResultDXT(full_save_results_file, chunk_size)
-  temp <- temp %>%
-    dplyr::mutate(`Parameter set` = as.character(i))
-  result <- rbind(result, temp)
-}
+
 ```
 
 
 ## Visualisation example
 
-### Snow water equivalent in non-glaciated sub-basins
+### GSM contributions to discharge
 ```{r}
 result %>% 
-  filter(Variable == "SOCONT:Qtot") %>%
+  filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) %>%
 ggplot() + 
-  geom_point(aes(Datetime, Value, colour = `Parameter set`, 
-                 size = `Parameter set`, shape = `Parameter set`), 
-             alpha = 0.3) +
-  facet_wrap("Object", ncol = 1) + 
+  geom_point(aes(Datetime, Value, colour = Variable)) +
   theme_bw()
 ```
