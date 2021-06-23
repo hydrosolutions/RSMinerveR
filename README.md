@@ -1,6 +1,6 @@
 # RSMinerveR
 
-I/O for RSMinerve in R
+I/O for RSMinerve in R ([Package site](https://hydrosolutions.github.io/RSMinerveR/))
 
 RSMinerve is a hydrological modelling software freely available from [CREALP](https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html). RSMinerve can be scripted from within R by calling the Visual Basics interface. This package provides functions to simplify R-RSMinerve interaction.  
 The Visual Basics interface is documented in the Technical Manual of RS Minerve. The Technical Manual can be viewed under "Help" from within RSMinerve or downloaded as PDF from CREALPs download site linked above.
