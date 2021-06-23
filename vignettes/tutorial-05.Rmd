@@ -1,8 +1,8 @@
 ---
-title: "tutorial-04"
+title: "tutorial-05"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tutorial-04}
+  %\VignetteIndexEntry{tutorial-05}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Tutorial 04 - Run multiple models with different parameter sets
+# Tutorial 05 - Run multiple models with different parameter sets
 This example shows how to run multiple RS Minerve models with different parametersets.     
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 

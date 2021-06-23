@@ -114,6 +114,8 @@ parseObject <- function(Object, line) {
     output <- parseComparator(line)
   } else if (Object == "GSM") {
     output <- parseGSM(line)
+  } else if (Object == "HBV92") {
+    output <- parseHBV(line)
   } else if (Object == "Junction") {
     output <- parseJunction(line)
   } else if (Object == "Kinematic") {
@@ -180,16 +182,45 @@ parseGSM <- function(line) {
                    Name = temp[[1]][1],
                    Zone = temp[[1]][2],
                    `A [m2]` = as.numeric(temp[[1]][3]),
-                   `An [mm/deg C/day]` = as.numeric(temp[[1]][4]),
+                   `An [mm/deg C/d]` = as.numeric(temp[[1]][4]),
                    `ThetaCri [-]` = as.numeric(temp[[1]][5]),
                    `bp [d/mm]` = as.numeric(temp[[1]][6]),
                    `Tcp1 [deg C]` = as.numeric(temp[[1]][7]),
                    `Tcp2 [deg C]` = as.numeric(temp[[1]][8]),
                    `Tcf [deg C]`= as.numeric(temp[[1]][9]),
-                   `Agl [mm/deg C/day]`= as.numeric(temp[[1]][10]),
+                   `Agl [mm/deg C/d]`= as.numeric(temp[[1]][10]),
                    `Tcg [deg C]`= as.numeric(temp[[1]][11]),
                    `Kgl [1/d]`= as.numeric(temp[[1]][12]),
                    `Ksn [1/d]`= as.numeric(temp[[1]][13]))
+  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
+                                names_to = "Parameters",
+                                values_to = "Values")
+  return(object)
+}
+
+#' Parse HBV object
+#' @param line A line string to be parsed
+#' @return tibble with object name, parameter names and values
+parseHBV <- function(line) {
+  temp <- base::strsplit(line, "\t", )
+  object <- tibble::tibble(Object = "HBV92",
+                           Name = temp[[1]][1],
+                           Zone = temp[[1]][2],
+                           `A [m2]` = as.numeric(temp[[1]][3]),
+                           `CFMax [mm/deg C/d]` = as.numeric(temp[[1]][4]),
+                           `CFR [-]` = as.numeric(temp[[1]][5]),
+                           `CWH [-]` = as.numeric(temp[[1]][6]),
+                           `TT [deg C]` = as.numeric(temp[[1]][7]),
+                           `TTInt [deg C]` = as.numeric(temp[[1]][8]),
+                           `TTSM [deg C]`= as.numeric(temp[[1]][9]),
+                           `Beta [-]`= as.numeric(temp[[1]][10]),
+                           `FC [mm]`= as.numeric(temp[[1]][11]),
+                           `PWP [-]`= as.numeric(temp[[1]][12]),
+                           `SUMax [mm]`= as.numeric(temp[[1]][13]),
+                           `Kr [1/d]`= as.numeric(temp[[1]][14]),
+                           `Ku [1/d]`= as.numeric(temp[[1]][15]),
+                           `Kl [1/d]`= as.numeric(temp[[1]][16]),
+                           `Kperc [1/d]`= as.numeric(temp[[1]][17]))
   object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
