@@ -90,10 +90,10 @@ readRSMParameters <- function(filepath) {
 }
 
 
-#' Read specified line from file
-#' @param filepath Character path to file to be read
-#' @param linenumber numeric or list of numerics indicating which line to read
-#' @return Character of line or list of character lines to read from file
+# Read specified line from file
+# @param filepath Character path to file to be read
+# @param linenumber numeric or list of numerics indicating which line to read
+# @return Character of line or list of character lines to read from file
 readSpecificLine <- function(filepath, linenumber) {
 
   conn <- base::file(filepath, open = "r")
@@ -105,10 +105,10 @@ readSpecificLine <- function(filepath, linenumber) {
 }
 
 
-#' Parses a line with the appropriate function
-#' @param Object Character string describing the object
-#' @param line Character string with line to read
-#' @return Tibble containing parameter values read from line
+# Parses a line with the appropriate function
+# @param Object Character string describing the object
+# @param line Character string with line to read
+# @return Tibble containing parameter values read from line
 parseObject <- function(Object, line) {
   if (Object == "Comparator") {
     output <- parseComparator(line)
@@ -137,6 +137,7 @@ parseObject <- function(Object, line) {
 #' Parse comparator object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
 parseComparator <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Comparator",
