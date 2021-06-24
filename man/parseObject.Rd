@@ -17,3 +17,4 @@ Tibble containing parameter values read from line
 \description{
 Parses a line with the appropriate function
 }
+\keyword{internal}

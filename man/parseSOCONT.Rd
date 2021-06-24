@@ -15,3 +15,4 @@ tibble with object name, parameter names and values
 \description{
 Parse SOCONT object
 }
+\keyword{internal}

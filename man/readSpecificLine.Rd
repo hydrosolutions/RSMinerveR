@@ -17,3 +17,4 @@ Character of line or list of character lines to read from file
 \description{
 Read specified line from file
 }
+\keyword{internal}

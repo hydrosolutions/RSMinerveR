@@ -116,7 +116,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hydrosolutions/RSMinerveR/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -131,7 +136,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Write parameters to RS Minerve parameter file</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hydrosolutions/RSMinerveR/blob/master/R/writeRSMParameters.R'><code>R/writeRSMParameters.R</code></a></small>
     <div class="hidden name"><code>writeRSMParameters.Rd</code></div>
     </div>
 
@@ -162,7 +167,7 @@
     <p><code>parameters</code> contains 5 columns:
 <code>Object</code> (character) identifying the RSMinerve object type (e.g. Station). See Vignette Parameters for more information on the objects available in RSMinerveR.
 <code>Name</code> is the user specified name of the object in the RSMinerve model (e.g. Meteo station A).
-<code>Parameters</code> names all parameters for each object (e.g. Zone, X m, Y m, etc.). See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
+<code>Parameters</code> names all parameters for each object (e.g. Zone, X [m], Y [m], etc.). See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
 <code>Values</code> contains the parameter values (e.g. "A", 4500, 3000).
 <code>Parameter set</code> (optional) is used to differentiate between multiple parameter sets. The function will write length(unique(parameters$<code>Parameter set</code>)) parameter files, appending the value of Parameter set to the base file name.
 The outfilepath is edited in the case where several parameter sets are written</p>
@@ -178,7 +183,7 @@ The outfilepath is edited in the case where several parameter sets are written</
 
       <footer>
       <div class="copyright">
-  <p>Developed by Beatrice Marti, Tobias Siegfried.</p>
+  <p>Developed by Beatrice Marti.</p>
 </div>
 
 <div class="pkgdown">

@@ -7,8 +7,13 @@
 #'    `Object` (character) identifying the RSMinerve object type (e.g. Station). See Vignette Parameters for more information on the objects available in RSMinerveR.
 #'    `Name` is the user specified name of the object in the RSMinerve model (e.g. Meteo station A).
 #'    `Zone` is the name of the zone an object is assigned to (e.g. "A").
-#'    `Parameters` names all parameters for each object (e.g. X [m], Y [m], etc.). The parameter names are the same as in the RS Minerve parameter file. See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
+#'    `Parameters` names all parameters for each object (e.g. X \[m\], Y \[m\], etc.). The parameter names are the same as in the RS Minerve parameter file. See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
 #'    `Values` contains the parameter values as numerics (e.g. 4500, 3000).
+#' @examples
+#' \dontrun{
+#' filepath <- normalizePath(file.path("Tutorial_Parameters.txt"))
+#' params <- readRSMParameters(filepath)
+#' }
 #' @export
 readRSMParameters <- function(filepath) {
 
@@ -94,6 +99,7 @@ readRSMParameters <- function(filepath) {
 #' @param filepath Character path to file to be read
 #' @param linenumber numeric or list of numerics indicating which line to read
 #' @return Character of line or list of character lines to read from file
+#' @keywords internal
 readSpecificLine <- function(filepath, linenumber) {
 
   conn <- base::file(filepath, open = "r")
@@ -109,6 +115,7 @@ readSpecificLine <- function(filepath, linenumber) {
 #' @param Object Character string describing the object
 #' @param line Character string with line to read
 #' @return Tibble containing parameter values read from line
+#' @keywords internal
 parseObject <- function(Object, line) {
   if (Object == "Comparator") {
     output <- parseComparator(line)
@@ -137,11 +144,12 @@ parseObject <- function(Object, line) {
 #' Parse comparator object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
 parseComparator <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Comparator",
                    Name = temp[[1]][1],
-                   Zone = temp[[1]][2]) %>%
+                   Zone = temp[[1]][2]) |>
     dplyr::mutate(Parameters = as.character(NA),
                   Values = as.numeric(NA))
   return(object)
@@ -150,11 +158,12 @@ parseComparator <- function(line) {
 #' Parse junction object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
 parseJunction <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Junction",
                    Name = temp[[1]][1],
-                   Zone = temp[[1]][2]) %>%
+                   Zone = temp[[1]][2]) |>
     dplyr::mutate(Parameters = as.character(NA),
                   Values = as.numeric(NA))
   return(object)
@@ -163,11 +172,12 @@ parseJunction <- function(line) {
 #' Parse source object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
 parseSource <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Source",
                    Name = temp[[1]][1],
-                   Zone = temp[[1]][2]) %>%
+                   Zone = temp[[1]][2]) |>
     dplyr::mutate(Parameters = as.character(NA),
                   Values = as.numeric(NA))
   return(object)
@@ -176,6 +186,8 @@ parseSource <- function(line) {
 #' Parse GSM object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
+#' @importFrom rlang .data
 parseGSM <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "GSM",
@@ -192,7 +204,7 @@ parseGSM <- function(line) {
                    `Tcg [deg C]`= as.numeric(temp[[1]][11]),
                    `Kgl [1/d]`= as.numeric(temp[[1]][12]),
                    `Ksn [1/d]`= as.numeric(temp[[1]][13]))
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
+  object <- tidyr::pivot_longer(object, cols = -c(.data$Object, .data$Name, .data$Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
@@ -201,6 +213,8 @@ parseGSM <- function(line) {
 #' Parse HBV object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
+#' @importFrom rlang .data
 parseHBV <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "HBV92",
@@ -221,7 +235,7 @@ parseHBV <- function(line) {
                            `Ku [1/d]`= as.numeric(temp[[1]][15]),
                            `Kl [1/d]`= as.numeric(temp[[1]][16]),
                            `Kperc [1/d]`= as.numeric(temp[[1]][17]))
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
+  object <- tidyr::pivot_longer(object, cols = -c(.data$Object, .data$Name, .data$Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
@@ -230,6 +244,8 @@ parseHBV <- function(line) {
 #' Parse SOCONT object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
+#' @importFrom rlang .data
 parseSOCONT <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "SOCONT",
@@ -247,7 +263,7 @@ parseSOCONT <- function(line) {
                    `L [m]`= as.numeric(temp[[1]][12]),
                    `J0 [-]`= as.numeric(temp[[1]][13]),
                    `Kr [m1/3/s]` = as.numeric(temp[[1]][14]))
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
+  object <- tidyr::pivot_longer(object, cols = -c(.data$Object, .data$Name, .data$Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
@@ -257,6 +273,8 @@ parseSOCONT <- function(line) {
 #' Parse Kinematic object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
+#' @importFrom rlang .data
 parseKinematic <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Kinematic",
@@ -268,7 +286,7 @@ parseKinematic <- function(line) {
                    `J0 [-]` = as.numeric(temp[[1]][6]),
                    `K [m1/3/s]` = as.numeric(temp[[1]][7]),
                    `N [-]` = as.numeric(temp[[1]][8]))
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
+  object <- tidyr::pivot_longer(object, cols = -c(.data$Object, .data$Name, .data$Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)
@@ -278,6 +296,8 @@ parseKinematic <- function(line) {
 #' Parse Station object
 #' @param line A line string to be parsed
 #' @return tibble with object name, parameter names and values
+#' @keywords internal
+#' @importFrom rlang .data
 parseStation <- function(line) {
   temp <- base::strsplit(line, "\t", )
   object <- tibble::tibble(Object = "Station",
@@ -294,7 +314,7 @@ parseStation <- function(line) {
                    `Coeff P [-]` = as.numeric(temp[[1]][11]),
                    `Coeff T [-]` = as.numeric(temp[[1]][12]),
                    `Coeff ETP [-]` = as.numeric(temp[[1]][13]))
-  object <- tidyr::pivot_longer(object, cols = -c(Object, Name, Zone),
+  object <- tidyr::pivot_longer(object, cols = -c(.data$Object, .data$Name, .data$Zone),
                                 names_to = "Parameters",
                                 values_to = "Values")
   return(object)

@@ -21,8 +21,18 @@ Write parameters to RS Minerve parameter file
 \code{parameters} contains 5 columns:
 \code{Object} (character) identifying the RSMinerve object type (e.g. Station). See Vignette Parameters for more information on the objects available in RSMinerveR.
 \code{Name} is the user specified name of the object in the RSMinerve model (e.g. Meteo station A).
-\code{Parameters} names all parameters for each object (e.g. Zone, X \link{m}, Y \link{m}, etc.). See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
+\code{Parameters} names all parameters for each object (e.g. Zone, X [m], Y [m], etc.). See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
 \code{Values} contains the parameter values (e.g. "A", 4500, 3000).
 \verb{Parameter set} (optional) is used to differentiate between multiple parameter sets. The function will write length(unique(parameters$\verb{Parameter set})) parameter files, appending the value of Parameter set to the base file name.
 The outfilepath is edited in the case where several parameter sets are written
+}
+\examples{
+\dontrun{
+filepath <- normalizePath(file.path("Tutorial_Parameters.txt"))
+params <- readRSMParameters(filepath)
+params <- params |>
+mutate(Values = ifelse((\`Parameter set\` == "5" & Parameters == "Kr \[m1/3/s\]"),
+                        Values/2, Values))
+writeRSMParameters(filepath)
+}
 }

@@ -21,6 +21,12 @@ The suported RSMInerve objects are described in the vignette Overview Objects.
 \code{Object} (character) identifying the RSMinerve object type (e.g. Station). See Vignette Parameters for more information on the objects available in RSMinerveR.
 \code{Name} is the user specified name of the object in the RSMinerve model (e.g. Meteo station A).
 \code{Zone} is the name of the zone an object is assigned to (e.g. "A").
-\code{Parameters} names all parameters for each object (e.g. X \link{m}, Y \link{m}, etc.). The parameter names are the same as in the RS Minerve parameter file. See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
+\code{Parameters} names all parameters for each object (e.g. X [m], Y [m], etc.). The parameter names are the same as in the RS Minerve parameter file. See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
 \code{Values} contains the parameter values as numerics (e.g. 4500, 3000).
+}
+\examples{
+\dontrun{
+filepath <- normalizePath(file.path("Tutorial_Parameters.txt"))
+params <- readRSMParameters(filepath)
+}
 }
