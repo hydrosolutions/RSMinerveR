@@ -23,16 +23,16 @@ rClr is a package for low-level access from R to a Common Language Runtime (CLR)
 
     install.packages("rClr_0.9.1.zip", repos = NULL, type = "source")
 
-## Tutorials
+## Examples
 
 Existing examples in Visual Basics provided by CREALP are being translated to R and made available as vignettes for this package. Many thanks to CREALP for providing these examples.  
 To run the examples, download the vignette to your computer, adapt the file paths and run the code.
 
--   [Tutorial 01 - Example for scripting a simple model](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-01.Rmd)  
--   [Tutorial 02 - Only save selected results](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-02.Rmd)  
--   [Tutorial 03 - Load parameters & initial conditions from files](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-03.Rmd)  
--   [Tutorial 04 - Run multiple models with different parameters](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/tutorial-04.Rmd)  
--   Tutorial 05 - work in progress
+-   [Example 01 - Scripting a simple model](https://hydrosolutions.github.io/RSMinerveR/articles/Example-01.Rmd)  
+-   [Example 02 - Only save selected results](https://hydrosolutions.github.io/RSMinerveR/articles/Example-02.Rmd)  
+-   [Example 03 - Load parameters & initial conditions from files](https://hydrosolutions.github.io/RSMinerveR/articles/Example-03.Rmd)  
+-   [Example 04 - Run multiple models with different parameters](https://hydrosolutions.github.io/RSMinerveR/articles/Example-04.Rmd)  
+-   Example 05 - work in progress
 
 ## Overview over currently implemented interfaces
 

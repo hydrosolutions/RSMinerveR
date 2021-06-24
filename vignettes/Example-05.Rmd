@@ -1,8 +1,8 @@
 ---
-title: "tutorial-03"
+title: "Example-05"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tutorial-03}
+  %\VignetteIndexEntry{Example-05}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Tutorial 03 - Define parameters and initial conditions
-This example shows how to load parameters and initial conditions.    
+# Manage messages through log files
+This example shows how to run an RS Minerve model and handle error messages.     
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 
 
@@ -57,61 +57,42 @@ clrLoadAssembly(file.path(dir_RSM_install, 'RSMinerve.Base.dll'))
 model_file <- if (file.exists("../inst/extdata/Tutorial_Model.rsm")) {
    "../inst/extdata/Tutorial_Model.rsm"
 } else {
-  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/inst/extdata/Tutorial_Model.rsm"
 }
 input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
    "../inst/extdata/Tutorial_DataMeteo.dsx"
 } else {
   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
 }
-parameter_file <- if (file.exists("../inst/extdata/Tutorial_Parameters.txt")) {
-   "../inst/extdata/Tutorial_Parameters.txt"
-} else {
-  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Parameters.txt"
-}
-ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
-   "../inst/extdata/Tutorial_IC.txt"
-} else {
-   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_IC.txt"
-}
-
 
 saveDataInDstFile <-  TRUE
 
 # The RS Minerve documentation describes the date format to be "%d.%m.%Y" 
 # but on some systems you will have to use "%m.%d.%Y". An error message 
-# about non-overlapping database and simulation time will give you the hint. 
+# about non-overlapping database and simulation time will give you the hint.  
+# Make sure that start_date and end_date are within the period of available 
+# model forcing in the database. 
 start_date <- "09.02.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
 end_date <- "09.09.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
 
 simulationTimeStep <- "600"  
 recordingTimeStep <- "3600"
 timeStepUnit <- "Seconds"
-
 ```
 
 
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_GlacierDischarge_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_GlacierDischarge.dsx"
-results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_SWE.dsx"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-preSimulationReport.txt"
-postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-postSimulationReport.txt"
-ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
+results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-results.dsx"
+presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-preSimulationReport.txt"
 ```
 
 ```{r result-paths, eval=FALSE}
-results_GlacierDischarge_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-results_GlacierDischarge.dsx"
-results_SWE_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-results_SWE.dsx"
+results_savePath <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-results.dsx"
 presimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-preSimuReport.txt"
-postsimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-postSimuReport.txt"
-ic_save_folder <- 
-  "C:/Users/<username>/Documents/scriping_rsm"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-preSimuReport.txt"
 ```
 
 
@@ -133,12 +114,6 @@ clrCall(rsm, "SetDates", start_date, end_date)
 clrCall(rsm, "SetSimulationTimeStep", simulationTimeStep, timeStepUnit) 
 clrCall(rsm, "SetRecordingTimeStep", recordingTimeStep, timeStepUnit)  
 
-# Load initial conditions from file and copy file
-clrCall(rsm, "LoadInitialConditionsFromFileAndCopyFile", ic_file, ic_save_folder)
-
-# Load parameters from file
-clrCall(rsm, "LoadParametersFromFile", parameter_file)
-
 # Write a pre-simulation report to check for possible errors (requires full 
 # path)
 clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)  
@@ -146,15 +121,8 @@ clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)
 # Run a simulation
 clrCall(rsm, "Simulate")
 
-# Write a post-simulation report to check for possible errors (requires full 
-# path)
-clrCall(rsm, "SavePostSimulationReportAs", postsimreport_path)  
-
-# Save selected results (requires full path)
-clrCall(rsm, "SaveSelectionResultsAs", results_GlacierDischarge_savePath, 
-        saveDataInDstFile, "DischargeGlacier")  
-clrCall(rsm, "SaveSelectionResultsAs", results_SWE_savePath, 
-        saveDataInDstFile, "SnowWaterEquivalent")  
+# Save results (requires full path)
+clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)  
 
 # Stop task
 clrCall(rsm, "Stop")
@@ -169,26 +137,21 @@ chunk_size <- getChunkSize(
   lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
-result_glacier <- readResultDXT(results_GlacierDischarge_savePath, chunk_size)
-result_swe <- readResultDXT(results_SWE_savePath, chunk_size)
+result_file_path <- normalizePath(file.path("..", "tests", "testthat",
+                                            "Tutorial01-results.dst"))
+result <- readResultDXT(result_file_path, chunk_size)
+
 
 ```
 
 
 ## Visualisation example
 
-### Glacier melt contributions to discharge
+### GSM contributions to discharge
 ```{r}
-result_glacier %>% 
+result %>% 
+  filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) %>%
 ggplot() + 
-  geom_point(aes(Datetime, Value, colour = Object)) +
-  theme_bw()
-```
-
-### Snow water equivalent in non-glaciated sub-basins
-```{r}
-result_swe %>% 
-ggplot() + 
-  geom_point(aes(Datetime, Value, colour = Object)) +
+  geom_point(aes(Datetime, Value, colour = Variable)) +
   theme_bw()
 ```

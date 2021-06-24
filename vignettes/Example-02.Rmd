@@ -1,8 +1,8 @@
 ---
-title: "tutorial-05"
+title: "Example-02"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tutorial-05}
+  %\VignetteIndexEntry{Example-02}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Tutorial 05 - Manage messages through log files
-This example shows how to run an RS Minerve model and handle error messages.     
+# Save selected results only
+This example shows how to select results for saving. Saving only selected results can save time.    
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 
 
@@ -57,7 +57,7 @@ clrLoadAssembly(file.path(dir_RSM_install, 'RSMinerve.Base.dll'))
 model_file <- if (file.exists("../inst/extdata/Tutorial_Model.rsm")) {
    "../inst/extdata/Tutorial_Model.rsm"
 } else {
-  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/inst/extdata/Tutorial_Model.rsm"
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"
 }
 input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
    "../inst/extdata/Tutorial_DataMeteo.dsx"
@@ -69,30 +69,35 @@ saveDataInDstFile <-  TRUE
 
 # The RS Minerve documentation describes the date format to be "%d.%m.%Y" 
 # but on some systems you will have to use "%m.%d.%Y". An error message 
-# about non-overlapping database and simulation time will give you the hint.  
-# Make sure that start_date and end_date are within the period of available 
-# model forcing in the database. 
+# about non-overlapping database and simulation time will give you the hint. 
 start_date <- "09.02.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
 end_date <- "09.09.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
 
 simulationTimeStep <- "600"  
 recordingTimeStep <- "3600"
 timeStepUnit <- "Seconds"
+
 ```
 
 
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-results.dsx"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-preSimulationReport.txt"
+results_GlacierDischarge_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-results_GlacierDischarge.dsx"
+results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-results_SWE.dsx"
+presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-preSimulationReport.txt"
+postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-postSimulationReport.txt"
 ```
 
 ```{r result-paths, eval=FALSE}
-results_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-results.dsx"
+results_GlacierDischarge_savePath <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-results_GlacierDischarge.dsx"
+results_SWE_savePath <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-results_SWE.dsx"
 presimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-preSimuReport.txt"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-preSimuReport.txt"
+postsimreport_path <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-postSimuReport.txt"
 ```
 
 
@@ -121,8 +126,15 @@ clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)
 # Run a simulation
 clrCall(rsm, "Simulate")
 
-# Save results (requires full path)
-clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)  
+# Write a post-simulation report to check for possible errors (requires full 
+# path)
+clrCall(rsm, "SavePostSimulationReportAs", postsimreport_path)  
+
+# Save selected results (requires full path)
+clrCall(rsm, "SaveSelectionResultsAs", results_GlacierDischarge_savePath, 
+        saveDataInDstFile, "DischargeGlacier")  
+clrCall(rsm, "SaveSelectionResultsAs", results_SWE_savePath, 
+        saveDataInDstFile, "SnowWaterEquivalent")  
 
 # Stop task
 clrCall(rsm, "Stop")
@@ -137,21 +149,26 @@ chunk_size <- getChunkSize(
   lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
-result_file_path <- normalizePath(file.path("..", "tests", "testthat",
-                                            "Tutorial01-results.dst"))
-result <- readResultDXT(result_file_path, chunk_size)
-
+result_glacier <- readResultDXT(results_GlacierDischarge_savePath, chunk_size)
+result_swe <- readResultDXT(results_SWE_savePath, chunk_size)
 
 ```
 
 
 ## Visualisation example
 
-### GSM contributions to discharge
+### Glacier melt contributions to discharge
 ```{r}
-result %>% 
-  filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) %>%
+result_glacier %>% 
 ggplot() + 
-  geom_point(aes(Datetime, Value, colour = Variable)) +
+  geom_point(aes(Datetime, Value, colour = Object)) +
+  theme_bw()
+```
+
+### Snow water equivalent in non-glaciated sub-basins
+```{r}
+result_swe %>% 
+ggplot() + 
+  geom_point(aes(Datetime, Value, colour = Object)) +
   theme_bw()
 ```
