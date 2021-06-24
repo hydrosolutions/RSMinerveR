@@ -2,11 +2,11 @@ pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  Example-01: Example-01.html
+  Example-02: Example-02.html
+  Example-03: Example-03.html
+  Example-04: Example-04.html
+  Example-05: Example-05.html
   OverviewObjects: OverviewObjects.html
-  tutorial-01: tutorial-01.html
-  tutorial-02: tutorial-02.html
-  tutorial-03: tutorial-03.html
-  tutorial-04: tutorial-04.html
-  tutorial-05: tutorial-05.html
-last_built: 2021-06-24T08:04Z
+last_built: 2021-06-24T10:13Z
 

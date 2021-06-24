@@ -1,8 +1,8 @@
 ---
-title: "tutorial-01"
+title: "Example-01"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tutorial-01}
+  %\VignetteIndexEntry{Example-01}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Tutorial 01 - Simple model run
+# Simple model run
 This example demonstrates how to run a simple model in RSMinerve from R.    
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 

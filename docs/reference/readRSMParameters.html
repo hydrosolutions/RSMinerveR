@@ -95,22 +95,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Example-01.html">Example-01</a>
+    </li>
+    <li>
+      <a href="../articles/Example-02.html">Example-02</a>
+    </li>
+    <li>
+      <a href="../articles/Example-03.html">Example-03</a>
+    </li>
+    <li>
+      <a href="../articles/Example-04.html">Example-04</a>
+    </li>
+    <li>
+      <a href="../articles/Example-05.html">Example-05</a>
+    </li>
+    <li>
       <a href="../articles/OverviewObjects.html">Overview Objects Implemented</a>
-    </li>
-    <li>
-      <a href="../articles/tutorial-01.html">tutorial-01</a>
-    </li>
-    <li>
-      <a href="../articles/tutorial-02.html">tutorial-02</a>
-    </li>
-    <li>
-      <a href="../articles/tutorial-03.html">tutorial-03</a>
-    </li>
-    <li>
-      <a href="../articles/tutorial-04.html">tutorial-04</a>
-    </li>
-    <li>
-      <a href="../articles/tutorial-05.html">tutorial-05</a>
     </li>
   </ul>
 </li>
@@ -168,6 +168,12 @@
 <code>Parameters</code> names all parameters for each object (e.g. X [m], Y [m], etc.). The parameter names are the same as in the RS Minerve parameter file. See Vignette Parameters for more information on the parameters of the available objects in RSMinerveR.
 <code>Values</code> contains the parameter values as numerics (e.g. 4500, 3000).</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>filepath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/normalizePath.html'>normalizePath</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='st'>"Tutorial_Parameters.txt"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>params</span> <span class='op'>&lt;-</span> <span class='fu'>readRSMParameters</span><span class='op'>(</span><span class='va'>filepath</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -1,8 +1,8 @@
 ---
-title: "tutorial-02"
+title: "Example-03"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tutorial-02}
+  %\VignetteIndexEntry{Example-03}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Tutorial 02 - Save selected results
-This example shows how to select results for saving. Saving only selected results can save time.    
+# Load parameters and initial conditions from files
+This example shows how to load parameters and initial conditions.    
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 
 
@@ -64,6 +64,17 @@ input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
 } else {
   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
 }
+parameter_file <- if (file.exists("../inst/extdata/Tutorial_Parameters.txt")) {
+   "../inst/extdata/Tutorial_Parameters.txt"
+} else {
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Parameters.txt"
+}
+ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
+   "../inst/extdata/Tutorial_IC.txt"
+} else {
+   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_IC.txt"
+}
+
 
 saveDataInDstFile <-  TRUE
 
@@ -83,21 +94,24 @@ timeStepUnit <- "Seconds"
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_GlacierDischarge_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-results_GlacierDischarge.dsx"
-results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-results_SWE.dsx"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-preSimulationReport.txt"
-postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial02-postSimulationReport.txt"
+results_GlacierDischarge_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_GlacierDischarge.dsx"
+results_SWE_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-results_SWE.dsx"
+presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-preSimulationReport.txt"
+postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial03-postSimulationReport.txt"
+ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
 ```
 
 ```{r result-paths, eval=FALSE}
 results_GlacierDischarge_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-results_GlacierDischarge.dsx"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-results_GlacierDischarge.dsx"
 results_SWE_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-results_SWE.dsx"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-results_SWE.dsx"
 presimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-preSimuReport.txt"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-preSimuReport.txt"
 postsimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial02-postSimuReport.txt"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial03-postSimuReport.txt"
+ic_save_folder <- 
+  "C:/Users/<username>/Documents/scriping_rsm"
 ```
 
 
@@ -118,6 +132,12 @@ clrCall(rsm, "SetDates", start_date, end_date)
 # SetSimulationTimeStep and SetRecordingTimeStep require characters
 clrCall(rsm, "SetSimulationTimeStep", simulationTimeStep, timeStepUnit) 
 clrCall(rsm, "SetRecordingTimeStep", recordingTimeStep, timeStepUnit)  
+
+# Load initial conditions from file and copy file
+clrCall(rsm, "LoadInitialConditionsFromFileAndCopyFile", ic_file, ic_save_folder)
+
+# Load parameters from file
+clrCall(rsm, "LoadParametersFromFile", parameter_file)
 
 # Write a pre-simulation report to check for possible errors (requires full 
 # path)
