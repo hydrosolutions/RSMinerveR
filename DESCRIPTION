@@ -11,9 +11,10 @@ Authors@R:
              role = c("ctb"),
              email = "siegfried@hydrosolutions.ch"))
 Description: RSMinerveR comprises functions to write input files for RSMinerve and to read output files from RSMinerve. It also allows aggregation of flow components from models and includes plotting functions to visualize inputs and results. 
+URL: https://hydrosolutions.github.io/RSMinerveR/index.html
+BugReports: https://github.com/hydrosolutions/RSMinerveR/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
@@ -24,7 +25,8 @@ Imports:
     tibble, 
     tidyr, 
     lubridate, 
-    R.utils
+    R.utils, 
+    rlang
 Suggests: 
     knitr,
     rmarkdown,
