@@ -12,12 +12,16 @@ readResultDXT(filepath, chunk_size)
 \item{chunk_size}{Numeric telling how many lines to read for each model component.}
 }
 \value{
-tibble with time series of simulation results for all model components.
+A tibble with time series of simulation results for all model components.
 }
 \description{
 Reading RSMinerve result file
 }
+\details{
+Use \code{\link{getChunkSize}} to retrieve the chunk size for the simulation resutls to read.
+}
 \examples{
+\dontrun{
 filepath <- normalizePath(file.path("Tutorial01-results.dst"))
 chunk_size <- getChunkSize(
   lubridate::as_datetime("09.02.2013 00:00:00",format = "\%m.\%d.\%Y \%H:\%M:\%S"),
@@ -25,4 +29,8 @@ chunk_size <- getChunkSize(
   3600
 )
 result <- readResultDXT(filepath, chunk_size)
+}
+}
+\seealso{
+\code{\link{getChunkSize}}
 }

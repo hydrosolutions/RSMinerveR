@@ -278,8 +278,8 @@
 <h3 class="hasAnchor">
 <a href="#gsm-contributions-to-discharge" class="anchor"></a>GSM contributions to discharge</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Variable</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GSM:Qglacier"</span>, <span class="st">"GSM:Qsnow"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">result</span> |&gt; 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Variable</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GSM:Qglacier"</span>, <span class="st">"GSM:Qsnow"</span><span class="op">)</span><span class="op">)</span> |&gt;
 <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Datetime</span>, <span class="va">Value</span>, colour <span class="op">=</span> <span class="va">Variable</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
