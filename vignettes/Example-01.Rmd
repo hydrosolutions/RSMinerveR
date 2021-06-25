@@ -147,8 +147,8 @@ result <- readResultDXT(result_file_path, chunk_size)
 
 ### GSM contributions to discharge
 ```{r}
-result %>% 
-  filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) %>%
+result |> 
+  filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) |>
 ggplot() + 
   geom_point(aes(Datetime, Value, colour = Variable)) +
   theme_bw()

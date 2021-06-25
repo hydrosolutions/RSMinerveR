@@ -124,8 +124,8 @@ for (f in c(1:5)) {
   params <- rbind(params, temp)
 }
 
-params %>%
-  filter(Object == "SOCONT") %>%
+params |>
+  filter(Object == "SOCONT") |>
   ggplot() + 
   geom_point(aes(`Parameter set`, Values, colour = Name)) + 
   facet_wrap("Parameters", scales = "free_y") + 
@@ -135,21 +135,21 @@ params %>%
 ## Edit parameters and write to file
 
 ```{r}
-params <- params %>% 
+params <- params |> 
   mutate(Values = ifelse((`Parameter set` == "2" & Parameters == "Tcp1 [deg C]"), 
                          0.01, Values))
-params <- params %>% 
+params <- params |> 
   mutate(Values = ifelse((`Parameter set` == "3" & Parameters == "Tcp1 [deg C]"), 
                          0.05, Values))
-params <- params %>% 
+params <- params |> 
   mutate(Values = ifelse((`Parameter set` == "4" & Parameters == "Tcp1 [deg C]"), 
                          0.1, Values))
-params <- params %>% 
+params <- params |> 
   mutate(Values = ifelse((`Parameter set` == "5" & Parameters == "Kr [m1/3/s]"), 
                          Values/2, Values))
 
-params %>%
-  filter(Object == "SOCONT") %>%
+params |>
+  filter(Object == "SOCONT") |>
   ggplot() + 
   geom_point(aes(`Parameter set`, Values, colour = Name)) + 
   facet_wrap("Parameters", scales = "free_y") + 
@@ -211,7 +211,7 @@ result <- NULL
 for (i in c(1:5)) {
   full_save_results_file <- base::paste0(results_savePath, i, ".dsx")
   temp <- readResultDXT(full_save_results_file, chunk_size)
-  temp <- temp %>%
+  temp <- temp |>
     dplyr::mutate(`Parameter set` = as.character(i))
   result <- rbind(result, temp)
 }
@@ -222,8 +222,8 @@ for (i in c(1:5)) {
 
 ### Snow water equivalent in non-glaciated sub-basins
 ```{r}
-result %>% 
-  filter(Variable == "SOCONT:Qtot") %>%
+result |> 
+  filter(Variable == "SOCONT:Qtot") |>
 ggplot() + 
   geom_point(aes(Datetime, Value, colour = `Parameter set`, 
                  size = `Parameter set`, shape = `Parameter set`), 

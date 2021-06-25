@@ -159,7 +159,7 @@ result_swe <- readResultDXT(results_SWE_savePath, chunk_size)
 
 ### Glacier melt contributions to discharge
 ```{r}
-result_glacier %>% 
+result_glacier |> 
 ggplot() + 
   geom_point(aes(Datetime, Value, colour = Object)) +
   theme_bw()
@@ -167,7 +167,7 @@ ggplot() +
 
 ### Snow water equivalent in non-glaciated sub-basins
 ```{r}
-result_swe %>% 
+result_swe |> 
 ggplot() + 
   geom_point(aes(Datetime, Value, colour = Object)) +
   theme_bw()
