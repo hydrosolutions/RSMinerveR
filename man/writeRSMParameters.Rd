@@ -31,7 +31,7 @@ The outfilepath is edited in the case where several parameter sets are written
 filepath <- normalizePath(file.path("Tutorial_Parameters.txt"))
 params <- readRSMParameters(filepath)
 params <- params |>
-mutate(Values = ifelse((\`Parameter set\` == "5" & Parameters == "Kr \[m1/3/s\]"),
+mutate(Values = ifelse((`Parameter set` == "5" & Parameters == "Kr [m1/3/s]"),
                         Values/2, Values))
 writeRSMParameters(filepath)
 }

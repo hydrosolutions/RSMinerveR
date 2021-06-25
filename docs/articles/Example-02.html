@@ -288,7 +288,7 @@
 <h3 class="hasAnchor">
 <a href="#glacier-melt-contributions-to-discharge" class="anchor"></a>Glacier melt contributions to discharge</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result_glacier</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">result_glacier</span> |&gt; 
 <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Datetime</span>, <span class="va">Value</span>, colour <span class="op">=</span> <span class="va">Object</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -298,7 +298,7 @@
 <h3 class="hasAnchor">
 <a href="#snow-water-equivalent-in-non-glaciated-sub-basins" class="anchor"></a>Snow water equivalent in non-glaciated sub-basins</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result_swe</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">result_swe</span> |&gt; 
 <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Datetime</span>, <span class="va">Value</span>, colour <span class="op">=</span> <span class="va">Object</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>

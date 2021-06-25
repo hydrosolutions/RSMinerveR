@@ -7,11 +7,11 @@
 getChunkSize(start_date, end_date, recordingTimeStep)
 }
 \arguments{
-\item{start_date}{lubridate datetime of the start of the simulation}
+\item{start_date}{Lubridate datetime of the start of the simulation}
 
-\item{end_date}{lubridate datetime of the end of the simulation}
+\item{end_date}{Lubridate datetime of the end of the simulation}
 
-\item{recordingTimeStep}{The simulations recording time step in character or as numeric. Should be in seconds.}
+\item{recordingTimeStep}{The simulations recording time step (in seconds) in character or as numeric.}
 }
 \value{
 A numeric of the number of time steps, including one header line, to be read.
@@ -26,6 +26,6 @@ start_date <- lubridate::as_datetime("01.20.2021 00:00:00",
                                      format = "\%m.\%d.\%Y \%H:\%M:\%S")
 end_date <- lubridate::as_datetime("01.25.2021 00:00:00",
                                    format = "\%m.\%d.\%Y \%H:\%M:\%S")
-recordingTimeStep <- 3600
+recordingTimeStep <- 3600  # In seconds
 chunk_size <- getChunkSize(start_date, end_date, recordingTimeStep)
 }
