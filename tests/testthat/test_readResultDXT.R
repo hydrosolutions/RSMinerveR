@@ -23,3 +23,27 @@ test_that("readResultsDXT returns expected", {
   expect_equal(0, testvalue$Value)
 
 })
+
+test_that("readResultsDXT returns expected for the Sokh example", {
+  filepath <- normalizePath(file.path("Test-Sokh-results.dst"))
+  start_date <- lubridate::as_datetime("01.01.1991 01:00:00",
+                                       format = "%m.%d.%Y %H:%M:%S")
+  end_date <- lubridate::as_datetime("12.31.2013 23:00:00",
+                                     format = "%m.%d.%Y %H:%M:%S")
+  recordingTimeStep <- "2592000"
+  chunk_size <- getChunkSize(start_date, end_date, recordingTimeStep)
+
+  result <- readResultDXT(filepath, chunk_size)
+
+  expect_false(is.null(result))
+
+  testvalue <- result %>%
+    dplyr::filter(Variable == "GSM:Qglacier",
+                  Object == "Akterek_eb3",
+                  Datetime == lubridate::as_datetime("2003-09-01 01:00:00"))
+
+  expect_equal(554, dim(result)[1])
+  expect_equal(4, dim(result)[2])
+  expect_equal(16.75677, testvalue$Value)
+
+})
