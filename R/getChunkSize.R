@@ -19,16 +19,24 @@
 #' @export
 getChunkSize <- function(start_date, end_date, recordingTimeStep) {
 
+  recordingTimeStep = as.numeric(recordingTimeStep)
+
   if (recordingTimeStep <= 86400) {
+
     # Sub-daily to daily time steps
     chunk_size <- lubridate::interval(start_date, end_date) /
-      lubridate::seconds(1) / as.numeric(recordingTimeStep) + 2
+      lubridate::seconds(1) / recordingTimeStep + 2
+
   } else if (recordingTimeStep == 2628000 | recordingTimeStep == 2592000) {
+
     # Montly time steps (365*24*60*60/12 | 60*60*24*30)
     chunk_size <- base::length(base::seq(start_date, end_date, "month")) + 2
+
   } else {
+
     cat("recordingTimeStep =", recordingTimeStep, "is currently not implemented.")
     return(NULL)
+
   }
   return(chunk_size)
 
