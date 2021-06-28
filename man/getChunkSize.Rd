@@ -21,6 +21,9 @@ RSMinerve result files can be stored in .dst files where time series of each
 model component are stored in rows. \code{getChunkSize} can be used to
 determine the chunk size of each model output.
 }
+\note{
+Currently only sub-daily, daily and monthly time steps are implemented.
+}
 \examples{
 start_date <- lubridate::as_datetime("01.20.2021 00:00:00",
                                      format = "\%m.\%d.\%Y \%H:\%M:\%S")
