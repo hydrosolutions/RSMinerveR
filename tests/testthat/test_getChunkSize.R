@@ -16,3 +16,12 @@ test_that("getChunkSize returns as expected for Sokh parameters", {
   recordingTimeStep <- 2592000  # Monthly
   expect_equal(278, getChunkSize(start_date, end_date, recordingTimeStep))
 })
+
+test_that("getChunkSize returns as expected for Sokh parameters", {
+  start_date <- lubridate::as_datetime("01.01.1991 01:00:00",
+                                       format = "%m.%d.%Y %H:%M:%S")
+  end_date <- lubridate::as_datetime("12.31.2013 23:00:00",
+                                     format = "%m.%d.%Y %H:%M:%S")
+  recordingTimeStep <- 2292000  # Monthly
+  expect_equal(NULL, getChunkSize(start_date, end_date, recordingTimeStep))
+})
