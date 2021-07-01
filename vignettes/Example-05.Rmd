@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Manage messages through log files
-This example shows how to run an RS Minerve model and handle error messages.     
+# Use initial conditions from previous simulation
+This example shows how to apply initial conditions from a model spin-up.      
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 
 
