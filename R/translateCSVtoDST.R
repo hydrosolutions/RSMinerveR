@@ -15,9 +15,10 @@ translateCSVtoDST <- function(csvfilepath) {
 
     # Reformat data to dst
     data_w <- data |>
-      dplyr::select(Date, Station, Sensor, Value) |>
-      tidyr::pivot_wider(id_cols = Date, names_from = c(Station, Sensor),
-                         names_sep = "\\", values_from = Value)
+      dplyr::select(.data$Date, .data$Station, .data$Sensor, .data$Value) |>
+      tidyr::pivot_wider(id_cols = .data$Date,
+                         names_from = c(.data$Station, .data$Sensor),
+                         names_sep = "\\", values_from = .data$Value)
 
     # Write data to dst file
     outfilepath <- gsub("csv", "dst", csvfilepath)

@@ -17,7 +17,3 @@ Includes all attributes of the csv file
 \description{
 The data is in a csv file that can also be imported to RS Minerve to form a database.
 }
-\examples{
-load_minerve_input_csv("filename.csv")
-
-}

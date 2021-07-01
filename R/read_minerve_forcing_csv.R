@@ -3,14 +3,9 @@
 #' The data is in a csv file that can also be imported to RS Minerve to form a database.
 #'
 #' @param filename Path to file with input data for RS Minerve.
-#'
 #' @return Returns a tibble of the same format as \code{data} with data
 #'         in hourly (climate) to decadal or monthly (discharge) time steps.
 #'         Includes all attributes of the csv file
-#'
-#' @examples
-#' load_minerve_input_csv("filename.csv")
-#'
 #' @export
 
 read_minerve_forcing_csv <- function(filename) {
@@ -29,10 +24,13 @@ read_minerve_forcing_csv <- function(filename) {
   if (is.na(date_vec[1])) {
     date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%y %H:%M")
   }
+  if (is.na(date_vec[1])) {
+    date_vec <- lubridate::as_datetime(data$Date, format = "%Y-%m.%d %H:%M:%S")
+  }
   data$Date <- date_vec
 
   # Reformat data table and drop superfluous rows
-  data_long <- tidyr::pivot_longer(data, -Date,
+  data_long <- tidyr::pivot_longer(data, -.data$Date,
                                    names_to = c("Station", "X", "Y", "Z", "Sensor",
                                                 "Category", "Unit"),
                                    names_sep = "\\-", values_to = "Value",
