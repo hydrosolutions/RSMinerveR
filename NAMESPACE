@@ -3,5 +3,7 @@
 export(getChunkSize)
 export(readRSMParameters)
 export(readResultDXT)
+export(read_minerve_forcing_csv)
+export(translateCSVtoDST)
 export(writeRSMParameters)
 importFrom(rlang,.data)

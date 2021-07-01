@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • RSMinerveR</title>
+<title>Translate csv to dst — translateCSVtoDST • RSMinerveR</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Translate csv to dst — translateCSVtoDST" />
+<meta property="og:description" content="This function is meant to translate forcing data for RSMinerve in the csv format to dst which can be loaded when scripting RSMinerve. The dst output file is written to the same location as the input file." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -132,72 +133,36 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Translate csv to dst</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hydrosolutions/RSMinerveR/blob/master/R/translateCSVtoDST.R'><code>R/translateCSVtoDST.R</code></a></small>
+    <div class="hidden name"><code>translateCSVtoDST.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This function is meant to translate forcing data for RSMinerve in the csv format to dst which can be loaded when scripting RSMinerve. The dst output file is written to the same location as the input file.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>translateCSVtoDST</span><span class='op'>(</span><span class='va'>csvfilepath</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="getChunkSize.html">getChunkSize()</a></code> </p>
-        </td>
-        <td><p>Calculate the number of time steps to read for each model component.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readResultDXT.html">readResultDXT()</a></code> </p>
-        </td>
-        <td><p>Reading RSMinerve result file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readRSMParameters.html">readRSMParameters()</a></code> </p>
-        </td>
-        <td><p>Reads parameters from RSMinerve parameter file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_minerve_forcing_csv.html">read_minerve_forcing_csv()</a></code> </p>
-        </td>
-        <td><p>Reads climate and discharge data into a tibble.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="translateCSVtoDST.html">translateCSVtoDST()</a></code> </p>
-        </td>
-        <td><p>Translate csv to dst</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="writeRSMParameters.html">writeRSMParameters()</a></code> </p>
-        </td>
-        <td><p>Write parameters to RS Minerve parameter file</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>csvfilepath</th>
+      <td><p>string path to csv file to be read.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>NULL for success and 1 for failure.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>When scripting RSMinerve, climate forcing is read from dst files and not from csv files as are used when RSMinerve is run from the user interface. The csv files can be transformed to dst files using this function.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
