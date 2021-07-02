@@ -13,7 +13,7 @@ translateCSVtoDST(csvfilepath)
 NULL for success and 1 for failure.
 }
 \description{
-This function is meant to translate forcing data for RSMinerve in the csv format to dst which can be loaded when scripting RSMinerve. The dst output file is written to the same location as the input file.
+!UNDER DEVELOPMENT! This function is meant to translate forcing data for RSMinerve in the csv format to dst which can be loaded when scripting RSMinerve. The dst output file is written to the same location as the input file.
 }
 \details{
 When scripting RSMinerve, climate forcing is read from dst files and not from csv files as are used when RSMinerve is run from the user interface. The csv files can be transformed to dst files using this function.
