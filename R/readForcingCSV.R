@@ -6,9 +6,10 @@
 #' @return Returns a tibble of the same format as \code{data} with data
 #'         in hourly (climate) to decadal or monthly (discharge) time steps.
 #'         Includes all attributes of the csv file
+#' @note An example forcing csv file is given under \url{http://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_translateCSVtoDST.csv}
 #' @export
 
-read_minerve_forcing_csv <- function(filename) {
+readForcingCSV <- function(filename) {
 
   # Read Metadata from file, write column headers and determine column types.
   header <- readr::read_csv(filename, col_names = FALSE, skip = 0, n_max = 7)

@@ -11,7 +11,7 @@ translateCSVtoDST <- function(csvfilepath) {
   if (base::file.exists(csvfilepath)) {
 
     # Read data
-    data <- read_minerve_forcing_csv(csvfilepath)
+    data <- readForcingCSV(csvfilepath)
 
     # Reformat data to dst
     data_w <- data |>
