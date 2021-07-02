@@ -104,10 +104,10 @@
 
     
     
-<div id="manage-messages-through-log-files" class="section level1">
+<div id="use-initial-conditions-from-previous-simulation" class="section level1">
 <h1 class="hasAnchor">
-<a href="#manage-messages-through-log-files" class="anchor"></a>Manage messages through log files</h1>
-<p>This example shows how to run an RS Minerve model and handle error messages.</p>
+<a href="#use-initial-conditions-from-previous-simulation" class="anchor"></a>Use initial conditions from previous simulation</h1>
+<p>This example shows how to apply initial conditions from a model spin-up.</p>
 <p>The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP).</p>
 <div id="prerequisites" class="section level2">
 <h2 class="hasAnchor">
@@ -117,7 +117,7 @@
 <p>Open the model in  and load &amp; link the data base with the model objects. If you don’t know how to do this please follow the examples in the RS Minerve User Manual prior to continuing with this tutorial.</p>
 <p>Open the <code>Selection and plots</code> tab by clicking on its icon in the in the modules toolbar. Define a selection of model results to visualize (here we define two result groups: <code>DischargeGlacier</code> and <code>SnowWaterEquivalent</code>. Save the model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RSMinerveR</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://hydrosolutions.github.io/RSMinerveR/index.html">RSMinerveR</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmp75/rClr">rClr</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading the dynamic library for Microsoft .NET runtime...</span>
 <span class="co">#&gt; Loaded Common Language Runtime version 4.0.30319.42000</span>
