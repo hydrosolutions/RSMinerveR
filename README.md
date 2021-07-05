@@ -32,7 +32,7 @@ To run the examples, download the vignette to your computer, adapt the file path
 -   [Example 02 - Only save selected results](https://hydrosolutions.github.io/RSMinerveR/articles/Example-02.Rmd)  
 -   [Example 03 - Load parameters & initial conditions from files](https://hydrosolutions.github.io/RSMinerveR/articles/Example-03.Rmd)  
 -   [Example 04 - Run multiple models with different parameters](https://hydrosolutions.github.io/RSMinerveR/articles/Example-04.Rmd)  
--   Example 05 - work in progress
+-   [Example 05 - Use IC from previous simulation](https://hydrosolutions.github.io/RSMinerveR/articles/Example-05.Rmd)
 
 ## Overview over currently implemented interfaces
 

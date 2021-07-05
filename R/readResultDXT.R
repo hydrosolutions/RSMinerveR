@@ -36,7 +36,7 @@ readResultDXT <- function(filepath, chunk_size) {
     output <- NULL
 
     for (i in c(1:no_chunks)) {
-      cat("Reading chunk", i, "of", no_chunks)
+      cat("Reading chunk", i, "of", no_chunks, "\n")
       next_chunk <- base::readLines(conn, n = chunk_size)
       output <- base::rbind(output, parse_block(next_chunk))
     }

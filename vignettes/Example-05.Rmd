@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 # Use initial conditions from previous simulation
-This example shows how to apply initial conditions from a model spin-up.      
+This example shows how to apply initial conditions from previous model run.       
 
 The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 
 
@@ -59,10 +59,24 @@ model_file <- if (file.exists("../inst/extdata/Tutorial_Model.rsm")) {
 } else {
   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/inst/extdata/Tutorial_Model.rsm"
 }
+
 input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
    "../inst/extdata/Tutorial_DataMeteo.dsx"
 } else {
   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
+}
+
+parameter_file <- if (file.exists("../inst/extdata/Tutorial_Parameters.txt")) {
+   "../inst/extdata/Tutorial_Parameters.txt"
+} else {
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Parameters.txt"
+}
+
+
+results_previous <- if (file.exists("../inst/extdata/ResultsPrevious.dsx")) {
+  "../inst/extdata/ResultsPrevious.dsx"
+} else {
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/ResultsPrevious.dst"
 }
 
 saveDataInDstFile <-  TRUE
@@ -84,15 +98,18 @@ timeStepUnit <- "Seconds"
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-results.dsx"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-preSimulationReport.txt"
+results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial05-results.dsx"
+presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial05-preSimulationReport.txt"
+postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial05-postSimulationReport.txt"
 ```
 
 ```{r result-paths, eval=FALSE}
 results_savePath <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-results.dsx"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial05-results.dsx"
 presimreport_path <- 
-  "C:/Users/<username>/Documents/scriping_rsm/tutorial01-preSimuReport.txt"
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial05-preSimuReport.txt"
+postsimreport_path <- 
+  "C:/Users/<username>/Documents/scriping_rsm/tutorial05-postSimuReport.txt"
 ```
 
 
@@ -108,11 +125,27 @@ clrCall(rsm, "Start", model_file)
 # Load data
 clrCall(rsm, "LoadDatasetAndSetDates", input_dataset, TRUE, TRUE)
 
-# Set simulation parameters
-clrCall(rsm, "SetDates", start_date, end_date)
+# Get dates from previous and current simulation and check validity
+EndDatePrevious = clrCall(rsm, "GetEndDateFromDataset", results_previous, TRUE)
+StartDateNew = clrCall(rsm, "GetStartDateFromModel")
+EndDateNew = clrCall(rsm, "GetEndDateFromModel")
+
+if (EndDatePrevious >= StartDateNew & EndDatePrevious < EndDateNew) {
+  clrCall(rsm, "SetStartDate", format(EndDatePrevious, format = "%m.%d.%Y %H:%M:%S")) 
+} else {
+  cat("Error: EndDatePrevious not within simulation period. ")
+  clrCall(rsm, "Stop")
+}
+
 # SetSimulationTimeStep and SetRecordingTimeStep require characters
 clrCall(rsm, "SetSimulationTimeStep", simulationTimeStep, timeStepUnit) 
 clrCall(rsm, "SetRecordingTimeStep", recordingTimeStep, timeStepUnit)  
+
+# Load IC from previous simulations
+clrCall(rsm, "LoadInitialConditionsFromDataset", results_previous)
+
+# Load parameters from file
+clrCall(rsm, "LoadParametersFromFile", parameter_file)
 
 # Write a pre-simulation report to check for possible errors (requires full 
 # path)
@@ -120,6 +153,10 @@ clrCall(rsm, "SavePreSimulationReportAs", presimreport_path)
 
 # Run a simulation
 clrCall(rsm, "Simulate")
+
+# Write a post-simulation report to check for possible errors (requires full 
+# path)
+clrCall(rsm, "SavePostSimulationReportAs", postsimreport_path)  
 
 # Save results (requires full path)
 clrCall(rsm, "SaveFullResultsAs", results_savePath, saveDataInDstFile)  

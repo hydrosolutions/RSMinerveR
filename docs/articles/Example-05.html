@@ -107,7 +107,7 @@
 <div id="use-initial-conditions-from-previous-simulation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#use-initial-conditions-from-previous-simulation" class="anchor"></a>Use initial conditions from previous simulation</h1>
-<p>This example shows how to apply initial conditions from a model spin-up.</p>
+<p>This example shows how to apply initial conditions from previous model run.</p>
 <p>The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP).</p>
 <div id="prerequisites" class="section level2">
 <h2 class="hasAnchor">
@@ -188,10 +188,17 @@
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
   <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/inst/extdata/Tutorial_Model.rsm"</span>
 <span class="op">}</span>
+
 <span class="va">input_dataset</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial_DataMeteo.dsx"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
    <span class="st">"../inst/extdata/Tutorial_DataMeteo.dsx"</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
   <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"</span>
+<span class="op">}</span>
+
+<span class="va">results_previous</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/ResultsPrevious.dsx"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="st">"../inst/extdata/ResultsPrevious.dsx"</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/ResultsPrevious.dst"</span>
 <span class="op">}</span>
 
 <span class="va">saveDataInDstFile</span> <span class="op">&lt;-</span>  <span class="cn">TRUE</span>
@@ -230,9 +237,19 @@
 <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"LoadDatasetAndSetDates"</span>, <span class="va">input_dataset</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; NULL</span>
 
-<span class="co"># Set simulation parameters</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SetDates"</span>, <span class="va">start_date</span>, <span class="va">end_date</span><span class="op">)</span>
+<span class="co"># Get dates from previous and current simulation and check validity</span>
+<span class="va">EndDatePrevious</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"GetEndDateFromDataset"</span>, <span class="va">results_previous</span>, <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">StartDateNew</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"GetStartDateFromModel"</span><span class="op">)</span>
+<span class="va">EndDateNew</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"GetEndDateFromModel"</span><span class="op">)</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">EndDatePrevious</span> <span class="op">&gt;=</span> <span class="va">StartDateNew</span> <span class="op">&amp;</span> <span class="va">EndDatePrevious</span> <span class="op">&lt;</span> <span class="va">EndDateNew</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SetStartDate"</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">EndDatePrevious</span>, format <span class="op">=</span> <span class="st">"%m.%d.%Y %H:%M:%S"</span><span class="op">)</span><span class="op">)</span> 
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/Non-documented_objects.html">cat</a></span><span class="op">(</span><span class="st">"Error: EndDatePrevious not within simulation period. "</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"Stop"</span><span class="op">)</span>
+<span class="op">}</span>
 <span class="co">#&gt; NULL</span>
+
 <span class="co"># SetSimulationTimeStep and SetRecordingTimeStep require characters</span>
 <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SetSimulationTimeStep"</span>, <span class="va">simulationTimeStep</span>, <span class="va">timeStepUnit</span><span class="op">)</span> 
 <span class="co">#&gt; NULL</span>
@@ -263,8 +280,8 @@
 <code class="sourceCode R"><span class="co"># Calculate the number of time steps to read for each model component, i.e. the </span>
 <span class="co"># chunk size. Including the header of each chunk. </span>
 <span class="va">chunk_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getChunkSize.html">getChunkSize</a></span><span class="op">(</span>
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">start_date</span>,format <span class="op">=</span> <span class="st">"%m.%d.%Y %H:%M:%S"</span><span class="op">)</span>, 
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%m.%d.%Y %H:%M:%S"</span><span class="op">)</span>, 
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lubridate/man/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">start_date</span>,format <span class="op">=</span> <span class="st">"%m.%d.%Y %H:%M:%S"</span><span class="op">)</span>, 
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lubridate/man/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%m.%d.%Y %H:%M:%S"</span><span class="op">)</span>, 
   <span class="va">recordingTimeStep</span>
 <span class="op">)</span> 
 <span class="va">result_file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">".."</span>, <span class="st">"tests"</span>, <span class="st">"testthat"</span>,
