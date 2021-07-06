@@ -71,6 +71,9 @@
     <li>
       <a href="../articles/OverviewObjects.html">Overview Objects Implemented</a>
     </li>
+    <li>
+      <a href="../articles/Troubleshooting.html">Troubleshooting</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -119,52 +122,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://hydrosolutions.github.io/RSMinerveR/index.html">RSMinerveR</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmp75/rClr">rClr</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading the dynamic library for Microsoft .NET runtime...</span>
-<span class="co">#&gt; Loaded Common Language Runtime version 4.0.30319.42000</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="co">#&gt; -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</span>
-<span class="co">#&gt; v ggplot2 3.3.4     v purrr   0.3.4</span>
-<span class="co">#&gt; v tibble  3.1.2     v dplyr   1.0.7</span>
-<span class="co">#&gt; v tidyr   1.1.3     v stringr 1.4.0</span>
-<span class="co">#&gt; v readr   1.4.0     v forcats 0.5.1</span>
-<span class="co">#&gt; -- Conflicts ------------------------------------------ tidyverse_conflicts() --</span>
-<span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
-<span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'lubridate'</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     date, intersect, setdiff, union</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/R.utils">R.utils</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: R.oo</span>
-<span class="co">#&gt; Loading required package: R.methodsS3</span>
-<span class="co">#&gt; R.methodsS3 v1.8.1 (2020-08-26 16:20:06 UTC) successfully loaded. See ?R.methodsS3 for help.</span>
-<span class="co">#&gt; R.oo v1.24.0 (2020-08-26 16:11:58 UTC) successfully loaded. See ?R.oo for help.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'R.oo'</span>
-<span class="co">#&gt; The following object is masked from 'package:R.methodsS3':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     throw</span>
-<span class="co">#&gt; The following objects are masked from 'package:methods':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     getClasses, getMethods</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     attach, detach, load, save</span>
-<span class="co">#&gt; R.utils v2.10.1 (2020-08-26 22:50:31 UTC) successfully loaded. See ?R.utils for help.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'R.utils'</span>
-<span class="co">#&gt; The following object is masked from 'package:tidyr':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     extract</span>
-<span class="co">#&gt; The following object is masked from 'package:utils':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     timestamp</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     cat, commandArgs, getOption, inherits, isOpen, nullfile, parse,</span>
-<span class="co">#&gt;     warnings</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/R.utils">R.utils</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="loading-assemblies" class="section level2">
 <h2 class="hasAnchor">
@@ -188,17 +148,19 @@
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
   <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"</span>
 <span class="op">}</span>
+
 <span class="va">input_dataset</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial_DataMeteo.dsx"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
    <span class="st">"../inst/extdata/Tutorial_DataMeteo.dsx"</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
   <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"</span>
 <span class="op">}</span>
+
 <span class="va">parameter_file</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial04_Parameters_1.txt"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
    <span class="st">"../inst/extdata/Tutorial04_Parameters_"</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial04_Parameters_"</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/Non-documented_objects.html">cat</a></span><span class="op">(</span><span class="st">"Cannot find file Tutorial04_Parameters_1.txt. Please download from https://github.com/hydrosolutions/RSMinerveR/inst/extdata/. "</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="va">parameter_file</span> <span class="op">&lt;-</span> <span class="st">"C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_"</span>
+
 <span class="va">ic_file</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial_IC.txt"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
    <span class="st">"../inst/extdata/Tutorial_IC.txt"</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
@@ -209,10 +171,8 @@
 <span class="va">saveDataInDstFile</span> <span class="op">&lt;-</span>  <span class="cn">TRUE</span>
 
 <span class="co"># The RS Minerve documentation describes the date format to be "%d.%m.%Y" </span>
-<span class="co"># but on some systems you will have to use "%m.%d.%Y". An error message </span>
-<span class="co"># about non-overlapping database and simulation time will give you the hint. </span>
-<span class="va">start_date</span> <span class="op">&lt;-</span> <span class="st">"09.02.2013 00:00:00"</span>  <span class="co"># format = "%m.%d.%Y %H:%M:%S"</span>
-<span class="va">end_date</span> <span class="op">&lt;-</span> <span class="st">"09.09.2013 00:00:00"</span>  <span class="co"># format = "%m.%d.%Y %H:%M:%S"</span>
+<span class="va">start_date</span> <span class="op">&lt;-</span> <span class="st">"02.09.2013 00:00:00"</span>  <span class="co"># format = "%d.%m.%Y %H:%M:%S"</span>
+<span class="va">end_date</span> <span class="op">&lt;-</span> <span class="st">"09.09.2013 00:00:00"</span>  <span class="co"># format = "%d.%m.%Y %H:%M:%S"</span>
 
 <span class="va">simulationTimeStep</span> <span class="op">&lt;-</span> <span class="st">"600"</span>  
 <span class="va">recordingTimeStep</span> <span class="op">&lt;-</span> <span class="st">"3600"</span>
@@ -246,7 +206,7 @@
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">`Parameter set`</span>, <span class="va">Values</span>, colour <span class="op">=</span> <span class="va">Name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">facet_wrap</span><span class="op">(</span><span class="st">"Parameters"</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="Example-04_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="Example-04_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 </div>
 <div id="edit-parameters-and-write-to-file" class="section level2">
 <h2 class="hasAnchor">
@@ -271,10 +231,9 @@
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">`Parameter set`</span>, <span class="va">Values</span>, colour <span class="op">=</span> <span class="va">Name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">facet_wrap</span><span class="op">(</span><span class="st">"Parameters"</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="Example-04_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="Example-04_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">parameter_file_edit</span> <span class="op">&lt;-</span> <span class="st">"C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_edit"</span>
 <span class="fu"><a href="../reference/writeRSMParameters.html">writeRSMParameters</a></span><span class="op">(</span><span class="va">params</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">parameter_file_edit</span>, <span class="st">".txt"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; NULL</span></code></pre></div>
 </div>
@@ -329,15 +288,15 @@
 <code class="sourceCode R"><span class="co"># Calculate the number of time steps to read for each model component, i.e. the </span>
 <span class="co"># chunk size. Including the header of each chunk. </span>
 <span class="va">chunk_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getChunkSize.html">getChunkSize</a></span><span class="op">(</span>
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lubridate/man/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">start_date</span>,format <span class="op">=</span> <span class="st">"%m.%d.%Y %H:%M:%S"</span><span class="op">)</span>, 
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lubridate/man/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%m.%d.%Y %H:%M:%S"</span><span class="op">)</span>, 
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">start_date</span>,format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
   <span class="va">recordingTimeStep</span>
 <span class="op">)</span> 
 
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">full_save_results_file</span> <span class="op">&lt;-</span> <span class="fu">base</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">results_savePath</span>, <span class="va">i</span>, <span class="st">".dsx"</span><span class="op">)</span>
-  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readResultDXT.html">readResultDXT</a></span><span class="op">(</span><span class="va">full_save_results_file</span>, <span class="va">chunk_size</span><span class="op">)</span>
+  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readResultDST.html">readResultDST</a></span><span class="op">(</span><span class="va">full_save_results_file</span>, <span class="va">chunk_size</span><span class="op">)</span>
   <span class="va">temp</span> <span class="op">&lt;-</span> <span class="va">temp</span> |&gt;
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`Parameter set` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span>
   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">result</span>, <span class="va">temp</span><span class="op">)</span>
@@ -359,7 +318,7 @@
   <span class="fu">facet_wrap</span><span class="op">(</span><span class="st">"Object"</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Using size for a discrete variable is not advised.</span></code></pre></div>
-<p><img src="Example-04_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="Example-04_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 </div>
 </div>
 </div>
