@@ -27,7 +27,7 @@ Copy this vignette to your local computer and adapt the paths.
 Open the model in \code{RSMinerveR/data/Model.rsm} and load & link the data base with the model objects. If you don't know how to do this please follow the examples in the RS Minerve User Manual prior to continuing with this tutorial.  
 
 
-```{r setup}
+```{r setup, message=FALSE,warning=FALSE,results='hide'}
 library(RSMinerveR)
 library(rClr)
 library(tidyverse)
@@ -65,13 +65,9 @@ input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
 
 saveDataInDstFile <-  TRUE
 
-# The RS Minerve documentation describes the date format to be "%d.%m.%Y" 
-# but on some systems you will have to use "%m.%d.%Y". An error message 
-# about non-overlapping database and simulation time will give you the hint.  
-# Make sure that start_date and end_date are within the period of available 
-# model forcing in the database. 
-start_date <- "09.02.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
-end_date <- "09.09.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
+# The RS Minerve documentation describes the date format to be "%d.%m.%Y". 
+start_date <- "02.09.2013 00:00:00"  # format = "%d.%m.%Y %H:%M:%S"
+end_date <- "09.09.2013 00:00:00"  # format = "%d.%m.%Y %H:%M:%S"
 
 simulationTimeStep <- "600"  
 recordingTimeStep <- "3600"
@@ -82,8 +78,30 @@ timeStepUnit <- "Seconds"
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-results.dsx"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial01-preSimulationReport.txt"
+output_path <- file.path("C:", "Users", "marti", "Dropbox (hydrosolutions)", 
+                         "HYDRO4U_TECHNICAL_WORK", "MODELS", 
+                         "test_RSMinerveRvignettes")
+
+if (dir.exists(output_path)) {
+  
+  results_savePath <- file.path(output_path, "tutorial01-results.dsx")
+  presimreport_path <- file.path(output_path, "tutorial01-preSimulationReport.txt")
+  
+} else {
+  
+  cat("Warning: Result folder not found. Attemping to write to temporary folder in the current working directory. \n")
+  dir.create("temporary_RSMinerveR_output")
+  
+  if (dir.exists("temporary_RSMinerveR_output")) {
+    results_savePath <- normalizePath(file.path("temporary_RSMinerveR_output", 
+                                                "tutorial01-results.dsx"), 
+                                      mustWork = FALSE)
+    presimreport_path <- normalizePath(file.path("temporary_RSMinerveR_output",
+                                                 "tutorial01-preSimulationReport.txt"), 
+                                       mustWork = FALSE)
+  }
+
+}
 ```
 
 ```{r result-paths, eval=FALSE}
@@ -131,13 +149,13 @@ clrCall(rsm, "Stop")
 # Calculate the number of time steps to read for each model component, i.e. the 
 # chunk size. Including the header of each chunk. 
 chunk_size <- getChunkSize(
-  lubridate::as_datetime(start_date,format = "%m.%d.%Y %H:%M:%S"), 
-  lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
+  lubridate::as_datetime(start_date,format = "%d.%m.%Y %H:%M:%S"), 
+  lubridate::as_datetime(end_date, format = "%d.%m.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
 result_file_path <- normalizePath(file.path("..", "tests", "testthat",
                                             "Tutorial01-results.dst"))
-result <- readResultDXT(result_file_path, chunk_size)
+result <- readResultDST(result_file_path, chunk_size)
 
 
 ```
@@ -146,7 +164,7 @@ result <- readResultDXT(result_file_path, chunk_size)
 ## Visualisation example
 
 ### GSM contributions to discharge
-```{r}
+```{r, fig.fullwidth=TRUE, fig.width=6}
 result |> 
   filter(Variable %in% c("GSM:Qglacier", "GSM:Qsnow")) |>
 ggplot() + 

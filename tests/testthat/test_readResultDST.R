@@ -9,7 +9,7 @@ test_that("readResultsDXT returns expected", {
     recordingTimeStep
   )
 
-  result <- readResultDXT(filepath, chunk_size)
+  result <- readResultDST(filepath, chunk_size)
 
   expect_false(is.null(result))
 
@@ -33,7 +33,7 @@ test_that("readResultsDXT returns expected for the Sokh example", {
   recordingTimeStep <- "2592000"
   chunk_size <- getChunkSize(start_date, end_date, recordingTimeStep)
 
-  result <- readResultDXT(filepath, chunk_size)
+  result <- readResultDST(filepath, chunk_size)
 
   expect_false(is.null(result))
 
@@ -57,7 +57,7 @@ test_that("readResultsDXT returns expected for the Sokh example", {
   recordingTimeStep <- "2592000"
   chunk_size <- getChunkSize(start_date, end_date, recordingTimeStep)
 
-  result <- readResultDXT(filepath, chunk_size)
+  result <- readResultDST(filepath, chunk_size)
 
   expect_false(is.null(result))
 

@@ -25,10 +25,10 @@ determine the chunk size of each model output.
 Currently only sub-daily, daily and monthly time steps are implemented.
 }
 \examples{
-start_date <- lubridate::as_datetime("01.20.2021 00:00:00",
-                                     format = "\%m.\%d.\%Y \%H:\%M:\%S")
-end_date <- lubridate::as_datetime("01.25.2021 00:00:00",
-                                   format = "\%m.\%d.\%Y \%H:\%M:\%S")
+start_date <- lubridate::as_datetime("20.01.2021 00:00:00",
+                                     format = "\%d.\%m.\%Y \%H:\%M:\%S")
+end_date <- lubridate::as_datetime("25.01.2021 00:00:00",
+                                   format = "\%d.\%m.\%Y \%H:\%M:\%S")
 recordingTimeStep <- 3600  # In seconds
 chunk_size <- getChunkSize(start_date, end_date, recordingTimeStep)
 }
