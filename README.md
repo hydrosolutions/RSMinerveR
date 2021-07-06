@@ -34,12 +34,13 @@ To run the examples, download the vignette to your computer, adapt the file path
 -   [Example 04 - Run multiple models with different parameters](https://hydrosolutions.github.io/RSMinerveR/articles/Example-04.Rmd)  
 -   [Example 05 - Use IC from previous simulation](https://hydrosolutions.github.io/RSMinerveR/articles/Example-05.Rmd)
 
+## Troubleshooting
+RSMinerve is a mature software but problems may occur when it is run on different locales. The [troubleshooting](https://hydrosolutions.github.io/RSMinerveR/articles/Troubleshooting.Rmd) page hepls solve such problems. 
+
 ## Overview over currently implemented interfaces
+The functions relate to reading and writing of RSMinerve inputs and outputs. The function [reference](https://hydrosolutions.github.io/RSMinerveR/reference/index.html) on the package site summarises the currently implemented functions.     
 
-Function for reading RS Minerve results from .DXT: `readResultDXT`  
-Functions for reading and writing RS Minerve parameter files: `readRSMParameters`, `writeRSMParameters`   
-
-[Overview over implemented RSMinerveR objects](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/OverviewObjects.Rmd)
+Especially relevant for writing parameter files: [Overview over implemented RSMinerveR objects](https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/OverviewObjects.Rmd)
 
 
 

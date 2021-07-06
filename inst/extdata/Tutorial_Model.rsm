@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RSM version="2.9">
-  <DatabaseFilename>C:\Users\bea\Documents\test_rsminerve\RSM_Scripts\Example VBS\Inputs\MeteoInputs.dbx</DatabaseFilename>
   <Objects>
     <GSMs>
       <GSM>
@@ -230,7 +229,7 @@
         <DownLinks />
         <DisplaySettings>
           <XMin>0</XMin>
-          <YMin>16.1415445071187</YMin>
+          <YMin>0</YMin>
           <Scale>0.662494552060518</Scale>
           <Rotation>0</Rotation>
         </DisplaySettings>
@@ -1252,7 +1251,7 @@
     <DataSources>
       <DataSource>
         <Name>Station</Name>
-        <GroupName>Measurements</GroupName>
+        <GroupName>New group</GroupName>
         <DatasetIndex>1</DatasetIndex>
       </DataSource>
     </DataSources>

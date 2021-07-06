@@ -8,15 +8,15 @@
 #' \dontrun{
 #' filepath <- normalizePath(file.path("Tutorial01-results.dst"))
 #' chunk_size <- getChunkSize(
-#'   lubridate::as_datetime("09.02.2013 00:00:00",format = "%m.%d.%Y %H:%M:%S"),
-#'   lubridate::as_datetime("09.09.2013 00:00:00", format = "%m.%d.%Y %H:%M:%S"),
+#'   lubridate::as_datetime("02.09.2013 00:00:00",format = "%d.%m.%Y %H:%M:%S"),
+#'   lubridate::as_datetime("09.09.2013 00:00:00", format = "%d.%m.%Y %H:%M:%S"),
 #'   3600
 #' )
 #' result <- readResultDXT(filepath, chunk_size)
 #' }
 #' @seealso \code{\link{getChunkSize}}
 #' @export
-readResultDXT <- function(filepath, chunk_size) {
+readResultDST <- function(filepath, chunk_size) {
 
   if (base::file.exists(filepath)) {
 

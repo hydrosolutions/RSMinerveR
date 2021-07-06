@@ -29,7 +29,7 @@ Open the model in \code{RSMinerveR/data/Model.rsm} and load & link the data base
 Open the ```Selection and plots``` tab by clicking on its icon in the in the modules toolbar. Define a selection of model results to visualize (here we define two result groups: ```DischargeGlacier``` and ```SnowWaterEquivalent```. Save the model.  
 
 
-```{r setup}
+```{r setup, message=FALSE,warning=FALSE,results='hide'}
 library(RSMinerveR)
 library(rClr)
 library(tidyverse)
@@ -59,17 +59,19 @@ model_file <- if (file.exists("../inst/extdata/Tutorial_Model.rsm")) {
 } else {
   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"
 }
+
 input_dataset <- if (file.exists("../inst/extdata/Tutorial_DataMeteo.dsx")) {
    "../inst/extdata/Tutorial_DataMeteo.dsx"
 } else {
   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"
 }
+
 parameter_file <- if (file.exists("../inst/extdata/Tutorial04_Parameters_1.txt")) {
    "../inst/extdata/Tutorial04_Parameters_"
 } else {
-  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial04_Parameters_"
+  cat("Cannot find file Tutorial04_Parameters_1.txt. Please download from https://github.com/hydrosolutions/RSMinerveR/inst/extdata/. ")
 }
-parameter_file <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_"
+
 ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
    "../inst/extdata/Tutorial_IC.txt"
 } else {
@@ -80,10 +82,8 @@ ic_file <- if (file.exists("../inst/extdata/Tutorial_IC.txt")) {
 saveDataInDstFile <-  TRUE
 
 # The RS Minerve documentation describes the date format to be "%d.%m.%Y" 
-# but on some systems you will have to use "%m.%d.%Y". An error message 
-# about non-overlapping database and simulation time will give you the hint. 
-start_date <- "09.02.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
-end_date <- "09.09.2013 00:00:00"  # format = "%m.%d.%Y %H:%M:%S"
+start_date <- "02.09.2013 00:00:00"  # format = "%d.%m.%Y %H:%M:%S"
+end_date <- "09.09.2013 00:00:00"  # format = "%d.%m.%Y %H:%M:%S"
 
 simulationTimeStep <- "600"  
 recordingTimeStep <- "3600"
@@ -95,11 +95,45 @@ timeStepUnit <- "Seconds"
 The paths for the result files need to be full paths. Below are example paths. You'll need to adapt these. 
 
 ```{r, echo=FALSE}
-results_savePath <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-results_"
-presimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-preSimulationReport.txt"
-postsimreport_path <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/tutorial04-postSimulationReport.txt"
-ic_save_folder <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs"
+# Edit output_path to your local settings
+output_path <- file.path("C:", "Users", "marti", "Dropbox (hydrosolutions)", 
+                         "HYDRO4U_TECHNICAL_WORK", "MODELS", 
+                         "test_RSMinerveRvignettes")
+
+if (dir.exists(output_path)) {
+  
+  results_savePath <- file.path(output_path, "tutorial04-results_")
+  presimreport_path <- file.path(output_path, "tutorial04-preSimulationReport.txt")
+  postsimreport_path <- file.path(output_path, "tutorial04-postSimulationReport.txt")
+  ic_save_folder <- output_path
+  parameter_file_edit <- file.path(output_path, "test_writeRSMParameters_edit")
+
+  
+} else {
+  
+  cat("Warning: Result folder not found. Attemping to write to temporary folder in the current working directory. \n")
+  dir.create("temporary_RSMinerveR_output")
+  
+  if (dir.exists("temporary_RSMinerveR_output")) {
+    results_savePath <- normalizePath(file.path("temporary_RSMinerveR_output", 
+                                                "tutorial04-results_"), 
+                                      mustWork = FALSE)
+    presimreport_path <- normalizePath(file.path("temporary_RSMinerveR_output",
+                                                 "tutorial04-preSimulationReport.txt"), 
+                                       mustWork = FALSE)
+    postsimreport_path <- normalizePath(file.path("temporary_RSMinerveR_output", 
+                                                  "tutorial04-postSimulationReport.txt"), 
+                                       mustWork = FALSE)
+    ic_save_folder <- normalizePath("temporary_RSMinerveR_output", 
+                                    mustWork = FALSE)
+    parameter_file_edit <- normalizePath(file.path("temporary_RSMinerveR_output", 
+                                                   "test_writeRSMParameters_edit"), 
+                                         mustWork = FALSE)
+  }
+
+}
 ```
+
 
 ```{r result-paths, eval=FALSE}
 results_savePath <-
@@ -115,7 +149,7 @@ ic_save_folder <-
 
 ## Look at parameters
 
-```{r}
+```{r, fig.fullwidth=TRUE, fig.width=6}
 params <- NULL
 for (f in c(1:5)) {
   full_parameter_file <- base::paste0(parameter_file, f, ".txt")
@@ -134,7 +168,7 @@ params |>
 
 ## Edit parameters and write to file
 
-```{r}
+```{r, fig.fullwidth=TRUE, fig.width=6}
 params <- params |> 
   mutate(Values = ifelse((`Parameter set` == "2" & Parameters == "Tcp1 [deg C]"), 
                          0.01, Values))
@@ -155,7 +189,6 @@ params |>
   facet_wrap("Parameters", scales = "free_y") + 
   theme_bw()
 
-parameter_file_edit <- "C:/Users/bea/Documents/test_rsminerve/RSM_Scripts/Example VBS/Outputs/test_writeRSMParameters_edit"
 writeRSMParameters(params, paste0(parameter_file_edit, ".txt"))
 ```
 
@@ -202,15 +235,15 @@ clrCall(rsm, "Stop")
 # Calculate the number of time steps to read for each model component, i.e. the 
 # chunk size. Including the header of each chunk. 
 chunk_size <- getChunkSize(
-  lubridate::as_datetime(start_date,format = "%m.%d.%Y %H:%M:%S"), 
-  lubridate::as_datetime(end_date, format = "%m.%d.%Y %H:%M:%S"), 
+  lubridate::as_datetime(start_date,format = "%d.%m.%Y %H:%M:%S"), 
+  lubridate::as_datetime(end_date, format = "%d.%m.%Y %H:%M:%S"), 
   recordingTimeStep
 ) 
 
 result <- NULL
 for (i in c(1:5)) {
   full_save_results_file <- base::paste0(results_savePath, i, ".dsx")
-  temp <- readResultDXT(full_save_results_file, chunk_size)
+  temp <- readResultDST(full_save_results_file, chunk_size)
   temp <- temp |>
     dplyr::mutate(`Parameter set` = as.character(i))
   result <- rbind(result, temp)
@@ -221,7 +254,7 @@ for (i in c(1:5)) {
 ## Visualisation example
 
 ### Snow water equivalent in non-glaciated sub-basins
-```{r}
+```{r, fig.fullwidth=TRUE, fig.width=6}
 result |> 
   filter(Variable == "SOCONT:Qtot") |>
 ggplot() + 

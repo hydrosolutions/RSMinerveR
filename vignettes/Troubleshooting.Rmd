@@ -1,0 +1,29 @@
+---
+title: "Troubleshooting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Troubleshooting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+RSMinerve is a very well developed software but some hickups may occur. Below we list a few problems that may (or may not) occur and how they can be solved.
+
+# Problems related to locale
+
+## Date is not read corretcly 
+RSMinerve uses %d.%m.%Y as date format. When scripting RSMinerve from R it reads the systems default date format which may differ from RSMinerves internal default date format.   
+Make sure to either set the systems date format to %d.%m.%Y under Control Panel, Clock and Region, Region, Date and time formats or test your systems date interactions with RSMinerve by trying out Example 1 of RSMinerveR. The pre-simulation report will tell you if it encounteres a date problem. 
+
+## Numbers in csv cannot be read
+RSMinerve excepts "." as a decimal separator but it will write the default decimal separator of your system.   
+You can change your preferences under Control Panel, Clock and Region, Region, Additional settings, Decimal Symbol. Choose , and apply your changes before closing the windows. 
+
+
