@@ -110,6 +110,9 @@
       <a href="../articles/Example-05.html">Example-05</a>
     </li>
     <li>
+      <a href="../articles/Example-06.html">Example-06</a>
+    </li>
+    <li>
       <a href="../articles/OverviewObjects.html">Overview Objects Implemented</a>
     </li>
     <li>
@@ -154,13 +157,13 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>filename</th>
-      <td><p>Path to file to be read. It is any csv file that is written by saving data from the Selection and plots tab in RSMinerve to a csv file.</p></td>
+      <td><p>Path to file to be read. It is any csv file that is written by saving data from the Selection and plots tab in RSMinerve to a csv file. Depending on the systems locale, the csv may use comas or semi-colons as separators. The decimal separator must be a point, commas are not recognized.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data Tibble with data from file</p>
+    <p>data Tibble with data from file. Null if file not found or cant be read.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>An example RSMinerve results csv file is available under <a href='http://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_translateCSVtoDST.csv'>http://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_translateCSVtoDST.csv</a>. If the function generates funny numbers, please check the csv file. The decimal separators must be <code>.</code> and not <code>,</code>. If you find commas please change the settings of your PC (Control Panel, Clock and Region, Region, Additional settings, select <code>.</code> for the Decimal symbol, press "Apply" and close the Control Panel windows. and RSMinerve will write <code>,</code>.</p>

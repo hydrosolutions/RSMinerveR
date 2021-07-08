@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Example-03 • RSMinerveR</title>
+<title>Example-06 • RSMinerveR</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Example-03">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Example-06">
 <meta property="og:description" content="RSMinerveR">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -97,24 +97,25 @@
 
       
 
-      </header><script src="Example-03_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="Example-06_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Example-03</h1>
+      <h1 data-toc-skip>Example-06</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/master/vignettes/Example-03.Rmd"><code>vignettes/Example-03.Rmd</code></a></small>
-      <div class="hidden name"><code>Example-03.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/master/vignettes/Example-06.Rmd"><code>vignettes/Example-06.Rmd</code></a></small>
+      <div class="hidden name"><code>Example-06.Rmd</code></div>
 
     </div>
 
     
     
-<div id="load-parameters-and-initial-conditions-from-files" class="section level1">
+<div id="simulating-the-nauvalisoy-catchment" class="section level1">
 <h1 class="hasAnchor">
-<a href="#load-parameters-and-initial-conditions-from-files" class="anchor"></a>Load parameters and initial conditions from files</h1>
-<p>This example shows how to load parameters and initial conditions.</p>
-<p>The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP).</p>
+<a href="#simulating-the-nauvalisoy-catchment" class="anchor"></a>Simulating the Nauvalisoy catchment</h1>
+<p>This example simulates discharge of the Nauvalisoy catchment in the Chirchiq river basin in Central Asia.</p>
+<p>Check out the on-line book <a href="https://tobiassiegfried.github.io/HydrologicalModeling_CentralAsia/">Applied Modeling of Hydrological Systems in Central Asia</a> for descriptions of how to set up a hydrological model in RSMinerve and the R package <a href="https://github.com/hydrosolutions/riversCentralAsia">riversCentralAsia</a> for helpful functions.</p>
+<p>The data for this vignette are available in the on-line <a href="https://www.dropbox.com/sh/yps9c9v110lz53k/AAAc8vwZROC1OyG_r_F37-uDa?dl=0">repository</a>. This vignette will attempt to download the required files to a local folder.</p>
 <div id="prerequisites" class="section level2">
 <h2 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h2>
@@ -149,24 +150,26 @@
 <code class="sourceCode R"><span class="va">model_file</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial_Model.rsm"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
    <span class="st">"../inst/extdata/Tutorial_Model.rsm"</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Model.rsm"</span>
+  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/inst/extdata/Tutorial_Model.rsm"</span>
 <span class="op">}</span>
+
 <span class="va">input_dataset</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial_DataMeteo.dsx"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
    <span class="st">"../inst/extdata/Tutorial_DataMeteo.dsx"</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
   <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_DataMeteo.dst"</span>
 <span class="op">}</span>
+
 <span class="va">parameter_file</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial_Parameters.txt"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
    <span class="st">"../inst/extdata/Tutorial_Parameters.txt"</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
   <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_Parameters.txt"</span>
 <span class="op">}</span>
-<span class="va">ic_file</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/Tutorial_IC.txt"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-   <span class="st">"../inst/extdata/Tutorial_IC.txt"</span>
-<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-   <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/Tutorial_IC.txt"</span>
-<span class="op">}</span>
 
+<span class="va">results_previous</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../inst/extdata/ResultsPrevious.dsx"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="st">"../inst/extdata/ResultsPrevious.dsx"</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/blob/main/inst/extdata/ResultsPrevious.dst"</span>
+<span class="op">}</span>
 
 <span class="va">saveDataInDstFile</span> <span class="op">&lt;-</span>  <span class="cn">TRUE</span>
 
@@ -179,16 +182,12 @@
 <span class="va">timeStepUnit</span> <span class="op">&lt;-</span> <span class="st">"Seconds"</span></code></pre></div>
 <p>The paths for the result files need to be full paths. Below are example paths. You’ll need to adapt these.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results_GlacierDischarge_savePath</span> <span class="op">&lt;-</span> 
-  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm/tutorial03-results_GlacierDischarge.dsx"</span>
-<span class="va">results_SWE_savePath</span> <span class="op">&lt;-</span> 
-  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm/tutorial03-results_SWE.dsx"</span>
+<code class="sourceCode R"><span class="va">results_savePath</span> <span class="op">&lt;-</span> 
+  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm/tutorial05-results.dsx"</span>
 <span class="va">presimreport_path</span> <span class="op">&lt;-</span> 
-  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm/tutorial03-preSimuReport.txt"</span>
+  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm/tutorial05-preSimuReport.txt"</span>
 <span class="va">postsimreport_path</span> <span class="op">&lt;-</span> 
-  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm/tutorial03-postSimuReport.txt"</span>
-<span class="va">ic_save_folder</span> <span class="op">&lt;-</span> 
-  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm"</span></code></pre></div>
+  <span class="st">"C:/Users/&lt;username&gt;/Documents/scriping_rsm/tutorial05-postSimuReport.txt"</span></code></pre></div>
 </div>
 <div id="applying-settings-and-running-the-model" class="section level2">
 <h2 class="hasAnchor">
@@ -206,17 +205,27 @@
 <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"LoadDatasetAndSetDates"</span>, <span class="va">input_dataset</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; NULL</span>
 
-<span class="co"># Set simulation parameters</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SetDates"</span>, <span class="va">start_date</span>, <span class="va">end_date</span><span class="op">)</span>
+<span class="co"># Get dates from previous and current simulation and check validity</span>
+<span class="va">EndDatePrevious</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"GetEndDateFromDataset"</span>, <span class="va">results_previous</span>, <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">StartDateNew</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"GetStartDateFromModel"</span><span class="op">)</span>
+<span class="va">EndDateNew</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"GetEndDateFromModel"</span><span class="op">)</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">EndDatePrevious</span> <span class="op">&gt;=</span> <span class="va">StartDateNew</span> <span class="op">&amp;</span> <span class="va">EndDatePrevious</span> <span class="op">&lt;</span> <span class="va">EndDateNew</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SetStartDate"</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">EndDatePrevious</span>, format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span><span class="op">)</span> 
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/Non-documented_objects.html">cat</a></span><span class="op">(</span><span class="st">"Error: EndDatePrevious not within simulation period. "</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"Stop"</span><span class="op">)</span>
+<span class="op">}</span>
 <span class="co">#&gt; NULL</span>
+
 <span class="co"># SetSimulationTimeStep and SetRecordingTimeStep require characters</span>
 <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SetSimulationTimeStep"</span>, <span class="va">simulationTimeStep</span>, <span class="va">timeStepUnit</span><span class="op">)</span> 
 <span class="co">#&gt; NULL</span>
 <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SetRecordingTimeStep"</span>, <span class="va">recordingTimeStep</span>, <span class="va">timeStepUnit</span><span class="op">)</span>  
 <span class="co">#&gt; NULL</span>
 
-<span class="co"># Load initial conditions from file and copy file</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"LoadInitialConditionsFromFileAndCopyFile"</span>, <span class="va">ic_file</span>, <span class="va">ic_save_folder</span><span class="op">)</span>
+<span class="co"># Load IC from previous simulations</span>
+<span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"LoadInitialConditionsFromDataset"</span>, <span class="va">results_previous</span><span class="op">)</span>
 <span class="co">#&gt; NULL</span>
 
 <span class="co"># Load parameters from file</span>
@@ -237,12 +246,8 @@
 <span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SavePostSimulationReportAs"</span>, <span class="va">postsimreport_path</span><span class="op">)</span>  
 <span class="co">#&gt; NULL</span>
 
-<span class="co"># Save selected results (requires full path)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SaveSelectionResultsAs"</span>, <span class="va">results_GlacierDischarge_savePath</span>, 
-        <span class="va">saveDataInDstFile</span>, <span class="st">"DischargeGlacier"</span><span class="op">)</span>  
-<span class="co">#&gt; NULL</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SaveSelectionResultsAs"</span>, <span class="va">results_SWE_savePath</span>, 
-        <span class="va">saveDataInDstFile</span>, <span class="st">"SnowWaterEquivalent"</span><span class="op">)</span>  
+<span class="co"># Save results (requires full path)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/rClr/man/clrCall.html">clrCall</a></span><span class="op">(</span><span class="va">rsm</span>, <span class="st">"SaveFullResultsAs"</span>, <span class="va">results_savePath</span>, <span class="va">saveDataInDstFile</span><span class="op">)</span>  
 <span class="co">#&gt; NULL</span>
 
 <span class="co"># Stop task</span>
@@ -256,35 +261,25 @@
 <code class="sourceCode R"><span class="co"># Calculate the number of time steps to read for each model component, i.e. the </span>
 <span class="co"># chunk size. Including the header of each chunk. </span>
 <span class="va">chunk_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getChunkSize.html">getChunkSize</a></span><span class="op">(</span>
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">start_date</span>,format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">EndDatePrevious</span><span class="op">)</span>, 
   <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
   <span class="va">recordingTimeStep</span>
 <span class="op">)</span> 
-<span class="va">result_glacier</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readResultDST.html">readResultDST</a></span><span class="op">(</span><span class="va">results_GlacierDischarge_savePath</span>, <span class="va">chunk_size</span><span class="op">)</span>
-<span class="va">result_swe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readResultDST.html">readResultDST</a></span><span class="op">(</span><span class="va">results_SWE_savePath</span>, <span class="va">chunk_size</span><span class="op">)</span></code></pre></div>
+<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readResultDST.html">readResultDST</a></span><span class="op">(</span><span class="va">results_savePath</span>, <span class="va">chunk_size</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="visualisation-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualisation-example" class="anchor"></a>Visualisation example</h2>
-<div id="glacier-melt-contributions-to-discharge" class="section level3">
+<div id="gsm-contributions-to-discharge" class="section level3">
 <h3 class="hasAnchor">
-<a href="#glacier-melt-contributions-to-discharge" class="anchor"></a>Glacier melt contributions to discharge</h3>
+<a href="#gsm-contributions-to-discharge" class="anchor"></a>GSM contributions to discharge</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result_glacier</span> |&gt; 
+<code class="sourceCode R"><span class="va">result</span> |&gt; 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Variable</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GSM:Qglacier"</span>, <span class="st">"GSM:Qsnow"</span><span class="op">)</span><span class="op">)</span> |&gt;
 <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Datetime</span>, <span class="va">Value</span>, colour <span class="op">=</span> <span class="va">Object</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Datetime</span>, <span class="va">Value</span>, colour <span class="op">=</span> <span class="va">Variable</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="Example-03_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
-</div>
-<div id="snow-water-equivalent-in-non-glaciated-sub-basins" class="section level3">
-<h3 class="hasAnchor">
-<a href="#snow-water-equivalent-in-non-glaciated-sub-basins" class="anchor"></a>Snow water equivalent in non-glaciated sub-basins</h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result_swe</span> |&gt; 
-<span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Datetime</span>, <span class="va">Value</span>, colour <span class="op">=</span> <span class="va">Object</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="Example-03_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
+<p><img src="Example-06_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
 </div>
 </div>
