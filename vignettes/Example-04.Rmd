@@ -26,9 +26,6 @@ Copy this vignette to your local computer and adapt the paths.
   
 Open the model in \code{RSMinerveR/data/Model.rsm} and load & link the data base with the model objects. If you don't know how to do this please follow the examples in the RS Minerve User Manual prior to continuing with this tutorial.  
 
-Open the ```Selection and plots``` tab by clicking on its icon in the in the modules toolbar. Define a selection of model results to visualize (here we define two result groups: ```DischargeGlacier``` and ```SnowWaterEquivalent```. Save the model.  
-
-
 ```{r setup, message=FALSE,warning=FALSE,results='hide'}
 library(RSMinerveR)
 library(rClr)

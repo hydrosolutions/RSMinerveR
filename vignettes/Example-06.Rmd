@@ -1,8 +1,8 @@
 ---
-title: "Example-05"
+title: "Example-06"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Example-05}
+  %\VignetteIndexEntry{Example-06}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,10 +14,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Use initial conditions from previous simulation
-This example shows how to apply initial conditions from previous model run.       
+# Simulating the Nauvalisoy catchment
+This example simulates discharge of the Nauvalisoy catchment in the Chirchiq river basin in Central Asia.     
 
-The tutorial is adapted from Visual Basic scripts provided by Javier Fluixa Sanmartin (CREALP). 
+Check out the on-line book [Applied Modeling of Hydrological Systems in Central Asia](https://tobiassiegfried.github.io/HydrologicalModeling_CentralAsia/) for descriptions of how to set up a hydrological model in RSMinerve and the R package [riversCentralAsia](https://github.com/hydrosolutions/riversCentralAsia) for helpful functions.   
+
+The data for this vignette are available in the on-line [repository](https://www.dropbox.com/sh/yps9c9v110lz53k/AAAc8vwZROC1OyG_r_F37-uDa?dl=0). This vignette will attempt to download the required files to a local folder. 
 
 ## Prerequisites
 Install R, RTools, RStudio, RSMinerve and the R package rClr (see [README](https://github.com/hydrosolutions/RSMinerveR#readme) for instructions and links).   
@@ -25,6 +27,8 @@ Install R, RTools, RStudio, RSMinerve and the R package rClr (see [README](https
 Copy this vignette to your local computer and adapt the paths.   
   
 Open the model in \code{RSMinerveR/data/Model.rsm} and load & link the data base with the model objects. If you don't know how to do this please follow the examples in the RS Minerve User Manual prior to continuing with this tutorial.  
+
+Open the ```Selection and plots``` tab by clicking on its icon in the in the modules toolbar. Define a selection of model results to visualize (here we define two result groups: ```DischargeGlacier``` and ```SnowWaterEquivalent```. Save the model.  
 
 
 ```{r setup, message=FALSE,warning=FALSE,results='hide'}
