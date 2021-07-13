@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Simulating the Nauvalisoy catchment
-This example simulates discharge of the Nauvalisoy catchment in the Chirchiq river basin in Central Asia.     
+# Simulating the Shakhimardan catchment
+This example simulates discharge of the Shakhimardan catchment, a left tributary of the Syr Darya in the Ferghana valley.     
 
 Check out the on-line book [Applied Modeling of Hydrological Systems in Central Asia](https://tobiassiegfried.github.io/HydrologicalModeling_CentralAsia/) for descriptions of how to set up a hydrological model in RSMinerve and the R package [riversCentralAsia](https://github.com/hydrosolutions/riversCentralAsia) for helpful functions.   
 
