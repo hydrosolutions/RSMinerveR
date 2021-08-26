@@ -1,0 +1,45 @@
+---
+title: "Example-07"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example-07}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Generating GIS layers for RSMinerve using QGIS and/or R
+Based on the example of the Shakhimardan catchment, this vignette demonstrates how to generate the GIS layers for semi-automated model creation in RS Minerve. The GIS layers can be generated either in QGIS using the process modeler (LINK) or in R using the generateGISlazers function in the package RSMinerveR. Both methods are explained here below. 
+
+# Generate GIS layers in R
+## Prerequisites
+You need an installation of R (>=4.1) and RStudio (>=1.4). As well as an installation of QGIS 3.16 or later. Take care to install the long-term support version of QGIS for Windows which is based on the so-called previous version of OSGeo4W.
+
+```{r setup, message=FALSE,warning=FALSE,results='hide'}
+library(RSMinerveR)
+library(tidyverse)
+library(lubridate)
+library(sf)
+library(raster)
+```
+
+### Linking R with QGIS processor
+Tell R where to find the QGIS processor. On the Windows version of QGIS 3.16 the processor is called qgis_process-qgis-ltr. (see detailed description of how to interface on the [RSAGA3 repository on GitHub](https://github.com/r-spatial/RQGIS3). 
+
+```{r}
+# Locate OSGeo4W.bat and qgis_process-qgis-ltr (the name of the qgis processor 
+# may vary depending on your QGIS version). 
+os_shell = "C:/Program Files/QGIS 3.16/OSGeo4W.bat"
+system2(os_shell, args = "qgis_process-qgis-ltr")
+```
+
+
+
+# Generate GIS layers in QGIS using process modeler
+
