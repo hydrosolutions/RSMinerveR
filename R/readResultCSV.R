@@ -7,7 +7,7 @@
 #'
 readResultCSV <- function(filename) {
 
-  if (!file_test("-f", filename)) {
+  if (!utils::file_test("-f", filename)) {
     cat("ERROR: File", filename, "not found.\n")
     return(NULL)
   }

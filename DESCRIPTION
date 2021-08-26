@@ -27,7 +27,10 @@ Imports:
     lubridate, 
     R.utils, 
     rlang, 
-    readr
+    readr, 
+    sf, 
+    raster, 
+    riversCentralAsia
 Suggests: 
     knitr,
     rmarkdown,
