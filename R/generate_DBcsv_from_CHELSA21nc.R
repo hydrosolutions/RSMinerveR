@@ -118,7 +118,7 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
   if (data_type == "pr"){
     sensorType <- "P" |> base::rep(nBands)
     category <- "Precipitation" |> base::rep(nBands)
-    unit <- "mm/h" |> base::rep(nBands)
+    unit <- "mm/d" |> base::rep(nBands)
     interpolation <- "Linear" |> base::rep(nBands)
     sensor <- base::rbind(sensorType, category, unit, interpolation) |>
       tibble::as_tibble()
