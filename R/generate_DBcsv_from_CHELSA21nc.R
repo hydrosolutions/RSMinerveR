@@ -54,7 +54,8 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
     return(NULL)
   }
   # Only keep the years the user is interested in
-  filelist <- filelist[base::sapply(base::as.character(yrs), base::grep, filelist)]
+  filelist <- filelist[base::sapply(paste0("_", base::as.character(yrs), "_55"),
+                                    base::grep, filelist)]
 
   # Since the CHELSA V2.1 data is in +longlat, ensure HRU is in the same crs.
   HRU <- sf::st_transform(HRU,crs = sf::st_crs(4326))
