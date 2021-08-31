@@ -80,6 +80,12 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
     dates_vec <- dates_vec |> tibble::add_row(temp_dates_vec)
   }
 
+  # There are date problems in the CHELSA data set downloaded from WSL. A few
+  # dates of a few years show 0001-01-01. We discard these values, assuming that
+  # the errors in the data set are minor...
+  dataHRU_df <- dataHRU_df[dates_vec$Date != "0001-01-01", ]
+  dates_vec <- dates_vec[dates_vec$Date != "0001-01-01", ]
+
   # Now, solve that obnoxious time formatting problem for compatibility with
   # RSMinerve (see function posixct2rsminerveChar() for more details)
   datesChar <- riversCentralAsia::posixct2rsminerveChar(dates_vec$Date)
