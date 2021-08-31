@@ -95,6 +95,17 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
   dataHRU_df_data <- dataHRU_df |> dplyr::mutate_all(as.character)
   dataHRU_df_data <- base::cbind(datesChar, dataHRU_df) |> tibble::as_tibble()
 
+  # Fill in missing data
+  dataHRU_df_data <- dataHRU_df_data |>
+    dplyr::mutate(Station = lubridate::as_date(Station, format = "%d.%m.%Y %H:%M:%S")) |>
+    timetk::pad_by_time(.date_var = Station,
+                        .by = "day",.fill_na_direction = "downup",
+                        .start_date = lubridate::as_date(base::paste(start_year, "01", "01", sep = "-"),
+                                                         format = "%Y-%m-%d"),
+                        .end_date = lubridate::as_date(base::paste(end_year, "12", "31", sep = "-"),
+                                                       format = "%Y-%m-%d")) |>
+    dplyr::mutate_all(as.character)
+
   # Construct csv-file header.  See the definition of the RSMinerve .csv database file at:
   # https://www.youtube.com/watch?v=p4Zh7zBoQho
   dataHRU_df_header_Station <-
