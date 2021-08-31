@@ -60,21 +60,13 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
   # Since the CHELSA V2.1 data is in +longlat, ensure HRU is in the same crs.
   HRU <- sf::st_transform(HRU,crs = sf::st_crs(4326))
 
-  # Generate date sequence (Note: Dates sequence in accordance with RSMinerve
-  # requirements)
-  dates <- riversCentralAsia::generateSeqDates(start_year, end_year, 'day')
-
-  # Now, solve that obnoxious time formatting problem for compatibility with
-  # RSMinerve (see function posixct2rsminerveChar() for more details)
-  datesChar <- riversCentralAsia::posixct2rsminerveChar(dates$date)
-  datesChar <- datesChar |> dplyr::rename(Station = .data$value)
-
-  namesHRU <- HRU[[HRU_name_column]]
+  namesHRU <- c(HRU[[HRU_name_column]])
   # Fancy trick to generate an empty dataframe with column names from a vector
   # of characters.
   dataHRU_df <- namesHRU |>
-    purrr::map_dfc(stats::setNames, object = base::list(base::logical()))
-
+    purrr::map_dfc(stats::setNames, object = base::list(base::numeric()))
+  dates_vec <- c("Date") |>
+    purrr::map_dfc(stats::setNames, object = base::list(base::character()))
   # Now, loop through the subbasins, one by one.
   for (yr in 1:length(filelist)){
     base::print(base::paste0('Processing File: ', filelist[yr]))
@@ -82,13 +74,20 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
     hru_data <- raster::extract(raw_data, HRU) |>
       base::lapply(colMeans, na.rm = TRUE)
     hru_data <- hru_data |> tibble::as_tibble(.name_repair = "unique")
+    temp_dates_vec <- tibble::tibble(Date = base::as.character(raw_data@z$Date))
     base::names(hru_data) <- base::names(dataHRU_df)
     dataHRU_df <- dataHRU_df |> tibble::add_row(hru_data)
+    dates_vec <- dates_vec |> tibble::add_row(temp_dates_vec)
   }
+
+  # Now, solve that obnoxious time formatting problem for compatibility with
+  # RSMinerve (see function posixct2rsminerveChar() for more details)
+  datesChar <- riversCentralAsia::posixct2rsminerveChar(dates_vec$Date)
+  datesChar <- datesChar |> dplyr::rename(Station = .data$value)
 
   # Final data tibble
   dataHRU_df_data <- dataHRU_df |> dplyr::mutate_all(as.character)
-  dataHRU_df_data <- base::cbind(datesChar,dataHRU_df) |> tibble::as_tibble()
+  dataHRU_df_data <- base::cbind(datesChar, dataHRU_df) |> tibble::as_tibble()
 
   # Construct csv-file header.  See the definition of the RSMinerve .csv database file at:
   # https://www.youtube.com/watch?v=p4Zh7zBoQho
