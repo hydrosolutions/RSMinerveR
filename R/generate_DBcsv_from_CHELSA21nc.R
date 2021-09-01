@@ -96,7 +96,7 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
   dataHRU_df_data <- base::cbind(datesChar, dataHRU_df) |> tibble::as_tibble()
 
   # Fill in missing data
-  dataHRU_df_data <- dataHRU_df_data |>
+  temp_data <- dataHRU_df_data |>
     dplyr::mutate(Station = lubridate::as_date(Station, format = "%d.%m.%Y %H:%M:%S")) |>
     timetk::pad_by_time(.date_var = Station,
                         .by = "day",.fill_na_direction = "downup",
@@ -105,6 +105,11 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
                         .end_date = lubridate::as_date(base::paste(end_year, "12", "31", sep = "-"),
                                                        format = "%Y-%m-%d")) |>
     dplyr::mutate_all(as.character)
+  temp_dates <- riversCentralAsia::posixct2rsminerveChar(
+    lubridate::as_date(temp_data$Station, format = "%Y-%m-%d"))
+  temp_data$Station <- temp_dates$value
+
+  dataHRU_df_data <- temp_data
 
   # Construct csv-file header.  See the definition of the RSMinerve .csv database file at:
   # https://www.youtube.com/watch?v=p4Zh7zBoQho
