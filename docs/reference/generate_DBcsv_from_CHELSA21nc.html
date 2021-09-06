@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • RSMinerveR</title>
+<title>Extract hourly time series from pre-cut CHELSA V2.1 raster bricks — generate_DBcsv_from_CHELSA21nc • RSMinerveR</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Extract hourly time series from pre-cut CHELSA V2.1 raster bricks — generate_DBcsv_from_CHELSA21nc" />
+<meta property="og:description" content="Function extracts precipitation (pr) or temperature (tas) data from raster
+bricks and prepares a dataframe for later import in RSMinerve. Use
+write.table() function to export as csv." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -138,90 +141,85 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Extract hourly time series from pre-cut CHELSA V2.1 raster bricks</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hydrosolutions/RSMinerveR/blob/master/R/generate_DBcsv_from_CHELSA21nc.R'><code>R/generate_DBcsv_from_CHELSA21nc.R</code></a></small>
+    <div class="hidden name"><code>generate_DBcsv_from_CHELSA21nc.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Function extracts precipitation (pr) or temperature (tas) data from raster
+bricks and prepares a dataframe for later import in RSMinerve. Use
+write.table() function to export as csv.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>generate_DBcsv_from_CHELSA21nc</span><span class='op'>(</span>
+  <span class='va'>CHELSA21_dir</span>,
+  <span class='va'>data_type</span>,
+  <span class='va'>HRU</span>,
+  <span class='va'>HRU_name_column</span>,
+  <span class='va'>start_year</span>,
+  <span class='va'>end_year</span>
+<span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="generate_DBcsv_from_CHELSA21nc.html">generate_DBcsv_from_CHELSA21nc()</a></code> </p>
-        </td>
-        <td><p>Extract hourly time series from pre-cut CHELSA V2.1 raster bricks</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getChunkSize.html">getChunkSize()</a></code> </p>
-        </td>
-        <td><p>Calculate the number of time steps to read for each model component.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readForcingCSV.html">readForcingCSV()</a></code> </p>
-        </td>
-        <td><p>Reads climate and discharge data into a tibble.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readForcingSTR.html">readForcingSTR()</a></code> </p>
-        </td>
-        <td><p>Reads climate and discharge data from a character string into a tibble.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readResultCSV.html">readResultCSV()</a></code> </p>
-        </td>
-        <td><p>Reads RS Minerve result file and returns data.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readResultDST.html">readResultDST()</a></code> </p>
-        </td>
-        <td><p>Reading RSMinerve result file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readRSMParameters.html">readRSMParameters()</a></code> </p>
-        </td>
-        <td><p>Reads parameters from RSMinerve parameter file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="translateCSVtoDST.html">translateCSVtoDST()</a></code> </p>
-        </td>
-        <td><p>Translate csv to dst</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="writeRSMParameters.html">writeRSMParameters()</a></code> </p>
-        </td>
-        <td><p>Write parameters to RS Minerve parameter file</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>CHELSA21_dir</th>
+      <td><p>Path to CHELSA precipitation or temperature nc files
+which have been clipped to the bounding box of the catchment of interest.</p></td>
+    </tr>
+    <tr>
+      <th>data_type</th>
+      <td><p>Specifies the variable to extract. Precipitation data :
+data_type = "pr" or temperature data: data_type = "tas".</p></td>
+    </tr>
+    <tr>
+      <th>HRU</th>
+      <td><p>Vector object (multi-polygons) with hydrological response units
+for which the CHELSA V2.1 data should be extracted.</p></td>
+    </tr>
+    <tr>
+      <th>HRU_name_column</th>
+      <td><p>(string) Name of the column in HRU with unique names
+for the hydrological response units. These names will be used as
+identifiers in RSMinerve.</p></td>
+    </tr>
+    <tr>
+      <th>start_year</th>
+      <td><p>First year for which data should be made available
+(assuming data 'is' available from the start of that year)</p></td>
+    </tr>
+    <tr>
+      <th>end_year</th>
+      <td><p>Last year from which data should be extracted (assuming data 'is' actually available until the end of that year)</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Dataframe tibble with temperature in deg. C. and/or precipitation in
+mm/h</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The CHELSA V2.1 raster bricks should be clipped to the bounding box
+of the catchment to be modelled for higher speed. The clipping can be done
+efficiently in cda (to do: Write a vignette on how to use cda for this). The
+CHELSA V2.1 nc files contain precipitation or temperature data for each
+raster point and each day of one year between 1979 and 2018. In some
+areas of Central Asia, the quality of the ERA5 product underlying the
+CHELSA v2.1 data set is not sufficient and only data until 2011 should be
+used. Please validate the CHELSA V2.1 data set prior to using it for
+modelling.
+The function assumes GMT time zone.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Acknowledgement: This function builds on
+hydrosolutions/riversCentralAsia::generate_ERA5_Subbasin_CSV</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
