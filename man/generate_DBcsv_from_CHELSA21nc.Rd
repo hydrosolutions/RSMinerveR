@@ -51,6 +51,7 @@ areas of Central Asia, the quality of the ERA5 product underlying the
 CHELSA v2.1 data set is not sufficient and only data until 2011 should be
 used. Please validate the CHELSA V2.1 data set prior to using it for
 modelling.
+The function assumes GMT time zone.
 }
 \note{
 Acknowledgement: This function builds on
