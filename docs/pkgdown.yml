@@ -2,6 +2,7 @@ pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  Editing-Selection-files: Editing-Selection-files.html
   Example-01: Example-01.html
   Example-02: Example-02.html
   Example-03: Example-03.html
@@ -10,5 +11,5 @@ articles:
   Example-06: Example-06.html
   OverviewObjects: OverviewObjects.html
   Troubleshooting: Troubleshooting.html
-last_built: 2021-09-07T10:23Z
+last_built: 2021-09-07T13:17Z
 
