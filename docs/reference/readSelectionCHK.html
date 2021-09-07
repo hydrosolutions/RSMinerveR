@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • RSMinerveR</title>
+<title>Reads a chk file containing the variables selected for printing — readSelectionCHK • RSMinerveR</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Reads a chk file containing the variables selected for printing — readSelectionCHK" />
+<meta property="og:description" content="RSMinerve writes result files or performs plots for a selection of variables.
+This selection can be stored in and loaded to RSMInerve from a chk file. The
+function readSelectionCHK reads such a file to a tibble." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -138,96 +141,63 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Reads a chk file containing the variables selected for printing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hydrosolutions/RSMinerveR/blob/master/R/readSelectionCHK.R'><code>R/readSelectionCHK.R</code></a></small>
+    <div class="hidden name"><code>readSelectionCHK.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>RSMinerve writes result files or performs plots for a selection of variables.
+This selection can be stored in and loaded to RSMInerve from a chk file. The
+function <code>readSelectionCHK</code> reads such a file to a tibble.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>readSelectionCHK</span><span class='op'>(</span><span class='va'>filepath</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="generate_DBcsv_from_CHELSA21nc.html">generate_DBcsv_from_CHELSA21nc()</a></code> </p>
-        </td>
-        <td><p>Extract hourly time series from pre-cut CHELSA V2.1 raster bricks</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getChunkSize.html">getChunkSize()</a></code> </p>
-        </td>
-        <td><p>Calculate the number of time steps to read for each model component.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readForcingCSV.html">readForcingCSV()</a></code> </p>
-        </td>
-        <td><p>Reads climate and discharge data into a tibble.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readForcingSTR.html">readForcingSTR()</a></code> </p>
-        </td>
-        <td><p>Reads climate and discharge data from a character string into a tibble.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readResultCSV.html">readResultCSV()</a></code> </p>
-        </td>
-        <td><p>Reads RS Minerve result file and returns data.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readResultDST.html">readResultDST()</a></code> </p>
-        </td>
-        <td><p>Reading RSMinerve result file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readRSMParameters.html">readRSMParameters()</a></code> </p>
-        </td>
-        <td><p>Reads parameters from RSMinerve parameter file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readSelectionCHK.html">readSelectionCHK()</a></code> </p>
-        </td>
-        <td><p>Reads a chk file containing the variables selected for printing</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="translateCSVtoDST.html">translateCSVtoDST()</a></code> </p>
-        </td>
-        <td><p>Translate csv to dst</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="writeRSMParameters.html">writeRSMParameters()</a></code> </p>
-        </td>
-        <td><p>Write parameters to RS Minerve parameter file</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>filepath</th>
+      <td><p>Path to file to be read.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list with the name of the selection and the content of the Paths
+in the chk file as a tibble.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The chk file is structured as shown in the following example: <br />  &lt;?xml version="1.0" encoding="utf-8"?&gt;  \cr</p>
+
+<p>&lt;Selection&gt;  <br />
+&lt;Name&gt;New selection&lt;/Name&gt;  <br />
+&lt;Path&gt;Model Koksu\Source QSpring\Kichkinesay - QUp (m3/s)&lt;/Path&gt;  <br />
+&lt;Path&gt;Model Koksu\Comparator Comparator 1\QReference (m3/s)&lt;/Path&gt;  <br />
+&lt;Path&gt;Model Koksu\Comparator Comparator 1\QSimulation (m3/s)&lt;/Path&gt;  <br />
+...  <br />
+The content of the Path parts is parsed to a tibble with columns Model,
+Object, ID and Variable. The output tibble of the example above would be: <br />
+A tibble: 94 x 3  <br />
+Model       Object                     Variable    <br />
+&lt;chr&gt;       &lt;chr&gt;                      &lt;chr&gt;             <br />
+Model Koksu Source QSpring             Kichkinesay - QUp (m3/s)  <br />
+Model Koksu Comparator Comparator 1    QReference (m3/s)     <br />
+Model Koksu Comparator Comparator 1    QSimulation (m3/s)    <br />
+...         ...                        ...  <br /></p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>filepath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/normalizePath.html'>normalizePath</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='st'>"test_selection.chk"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>selection_list</span> <span class='op'>&lt;-</span> <span class='fu'>readSelectionCHK</span><span class='op'>(</span><span class='va'>filepath</span><span class='op'>)</span>
+<span class='va'>selection_name</span> <span class='op'>&lt;-</span> <span class='va'>selection_list</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>selection_data</span> <span class='op'>&lt;-</span> <span class='va'>selection_list</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+<span class='op'>}</span>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
