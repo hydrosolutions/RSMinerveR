@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read specified line from file — readSpecificLine • RSMinerveR</title>
+<title>Writes a chk file containing the variables selected for printing — writeSelectionCHK • RSMinerveR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Read specified line from file — readSpecificLine" />
-<meta property="og:description" content="Read specified line from file" />
+<meta property="og:title" content="Writes a chk file containing the variables selected for printing — writeSelectionCHK" />
+<meta property="og:description" content="RSMinerve writes result files or performs plots for a selection of variables.
+This selection can be stored in and loaded to RSMInerve from a chk file. The
+function writeSelectionCHK writes such a file from a tibble." />
 
 
 
@@ -144,34 +146,73 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read specified line from file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hydrosolutions/RSMinerveR/blob/master/R/readRSMParameters.R'><code>R/readRSMParameters.R</code></a></small>
-    <div class="hidden name"><code>readSpecificLine.Rd</code></div>
+    <h1>Writes a chk file containing the variables selected for printing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hydrosolutions/RSMinerveR/blob/master/R/writeSelectionCHK.R'><code>R/writeSelectionCHK.R</code></a></small>
+    <div class="hidden name"><code>writeSelectionCHK.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read specified line from file</p>
+    <p>RSMinerve writes result files or performs plots for a selection of variables.
+This selection can be stored in and loaded to RSMInerve from a chk file. The
+function <code>writeSelectionCHK</code> writes such a file from a tibble.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readSpecificLine</span><span class='op'>(</span><span class='va'>filepath</span>, <span class='va'>linenumber</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>writeSelectionCHK</span><span class='op'>(</span><span class='va'>filepath</span>, <span class='va'>data</span>, <span class='va'>name</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>filepath</th>
-      <td><p>Character path to file to be read</p></td>
+      <td><p>Path to file to be written.</p></td>
     </tr>
     <tr>
-      <th>linenumber</th>
-      <td><p>numeric or list of numerics indicating which line to read</p></td>
+      <th>data</th>
+      <td><p>Tibble or data frame with description of variables to be written.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>A character string for the name of the selection.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Character of line or list of character lines to read from file</p>
+    <p>NULL if successful.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>The chk file is structured as shown in the following example:  <br />  &lt;?xml version="1.0" encoding="utf-8"?&gt;   \cr</p>
+
+<p>&lt;Selection&gt;   <br />
+&lt;Name&gt;New selection&lt;/Name&gt;  <br />
+&lt;Path&gt;Model Koksu\Source QSpring\Kichkinesay - QUp (m3/s)&lt;/Path&gt;  <br />
+&lt;Path&gt;Model Koksu\Comparator Comparator 1\QReference (m3/s)&lt;/Path&gt;  <br />
+&lt;Path&gt;Model Koksu\Comparator Comparator 1\QSimulation (m3/s)&lt;/Path&gt;  <br />
+...  <br />
+The content of the Path parts is parsed from a tibble with columns Model,
+Object, ID and Variable. The input tibble of the example above would be: <br />
+A tibble: 94 x 3  <br />
+Model       Object                     Variable    <br />
+&lt;chr&gt;       &lt;chr&gt;                      &lt;chr&gt;             <br />
+Model Koksu Source QSpring             Kichkinesay - QUp (m3/s)  <br />
+Model Koksu Comparator Comparator 1    QReference (m3/s)     <br />
+Model Koksu Comparator Comparator 1    QSimulation (m3/s)    <br />
+...         ...                        ...  <br /></p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>filepath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/normalizePath.html'>normalizePath</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='st'>"test_writeSelectionCHK.chk"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>Object_IDs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SOCONT 1"</span>, <span class='st'>"SOCONT 2"</span>, <span class='st'>"SOCONT 3"</span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  Model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Tutorial_Model"</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>Object_IDs</span><span class='op'>)</span><span class='op'>)</span>,
+  Object <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"SOCONT"</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>Object_IDs</span><span class='op'>)</span><span class='op'>)</span>,
+  ID <span class='op'>=</span> <span class='va'>Object_IDs</span>,
+  Variable <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Qtot (m3/s)"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>name</span> <span class='op'>&lt;-</span> <span class='st'>"SOCONT Qtot"</span>
+<span class='fu'>writeSelectionCHK</span><span class='op'>(</span><span class='va'>filepath</span>, <span class='va'>data</span>, <span class='va'>name</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

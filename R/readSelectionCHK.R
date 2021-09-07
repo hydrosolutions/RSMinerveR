@@ -4,9 +4,9 @@
 #' This selection can be stored in and loaded to RSMInerve from a chk file. The
 #' function \code{readSelectionCHK} reads such a file to a tibble.
 #'
-#' @details The chk file is structured as shown in the following example: \cr
-#'   <?xml version="1.0" encoding="utf-8"?>  \cr
-#'   <Selection>  \cr
+#' @details The chk file is structured as shown in the following example:  \cr
+#'   <?xml version="1.0" encoding="utf-8"?>   \cr
+#'   <Selection>   \cr
 #'     <Name>New selection</Name>  \cr
 #'     <Path>Model Koksu\\Source QSpring\\Kichkinesay - QUp (m3/s)</Path>  \cr
 #'     <Path>Model Koksu\\Comparator Comparator 1\\QReference (m3/s)</Path>  \cr

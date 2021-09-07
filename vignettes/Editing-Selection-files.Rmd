@@ -1,0 +1,82 @@
+---
+title: "Editing Selection files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Editing-Selection-files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+RS Minerve can plot simulation results and print result files for selections of simulation results. These selections can be edited in the user interface, saved to a chk file and also loaded from chk files. As the manual editing of the plot selection can be tedious for large models, it can be useful to automate the reading and writing of the chk files in R. The present vignette demonstrates how to do this.  
+
+```{r setup, message=FALSE,warning=FALSE,results='hide'}
+library(RSMinerveR)
+```
+
+## Reading a chk file
+```{r}
+filepath <- if (file.exists("../tests/testthat/test_selection.chk")) {
+   "../tests/testthat/test_selection.chk"
+} else {
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_selection.chk"
+}
+
+xmldata <- readSelectionCHK(filepath)
+```
+
+The name of the selection: 
+```{r}
+selection_name <- xmldata[[1]]
+print(selection_name)
+```
+
+The description of the objects in the selection: 
+```{r}
+selection_data <- xmldata[[2]]
+print(selection_data)
+```
+
+## Write a new selection
+New selection name
+```{r}
+new_selection_name <- "SOCONT Qtot"
+```
+
+Edit the selection to include all data for variable Qtot of all SOCONT objects in the model. To get a list of all SOCONT objects the user can read a parameter file or a file of initial conditions of the model. Another possibility is to read the gis layer with the hydrological response units used for the semi-automatic model creation in RSMinerve.   
+Let's read the names of the SOCONT objects from the parameter file of one of the tutorials. The procedure is, of course, analogous for any other RSMinerve Object for which data should be extracted.     
+
+```{r}
+parfilepath <- if (file.exists("../tests/testthat/Tutorial_Parameters.txt")) {
+   "../tests/testthat/Tutorial_Parameters.txt"
+} else {
+  "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/Tutorial_Parameters.txt"
+}
+par <- RSMinerveR::readRSMParameters(parfilepath) |> 
+  dplyr::filter(Object == "SOCONT")
+Object_IDs <- unique(par$Name)
+print(Object_IDs)
+```
+
+Now construct a tibble of the variables for each object we'd like to select results from. 
+```{r}
+new_selection <- tibble::tibble(
+  Model = rep("Tutorial_Model", length(Object_IDs)), 
+  Object = rep("SOCONT", length(Object_IDs)), 
+  ID = Object_IDs, 
+  Variable = rep("Qtot (m3/s)")
+)
+print(new_selection)
+```
+
+Now write the data to a new file. In the codechuck below you will need to replace ```<filepath>``` with an actual path to a file to write. 
+```{r, eval=FALSE}
+writeSelectionCHK(<filepath>, new_selection, new_selection_name)
+```
+
