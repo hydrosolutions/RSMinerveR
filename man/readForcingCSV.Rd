@@ -4,10 +4,13 @@
 \alias{readForcingCSV}
 \title{Reads climate and discharge data into a tibble.}
 \usage{
-readForcingCSV(filename)
+readForcingCSV(filename, tz = "UTC")
 }
 \arguments{
 \item{filename}{Path to file with input data for RS Minerve.}
+
+\item{tz}{Optional time zone string, passed to lubridate::as_datetime (for
+details refer to POSIXt documentation). Defauls to "UTC"}
 }
 \value{
 Returns a tibble of the same format as \code{data} with data
@@ -15,7 +18,8 @@ in hourly (climate) to decadal or monthly (discharge) time steps.
 Includes all attributes of the csv file
 }
 \description{
-The data is in a csv file that can also be imported to RS Minerve to form a database.
+The data is in a csv file that can also be imported to RS Minerve to form a
+database.
 }
 \note{
 An example forcing csv file is given under \url{http://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_translateCSVtoDST.csv}

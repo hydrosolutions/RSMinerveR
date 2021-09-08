@@ -155,7 +155,7 @@ that can also be imported to RS Minerve to form a database." />
 that can also be imported to RS Minerve to form a database.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readForcingSTR</span><span class='op'>(</span><span class='va'>string</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>readForcingSTR</span><span class='op'>(</span><span class='va'>string</span>, tz <span class='op'>=</span> <span class='st'>"UTC"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,6 +163,11 @@ that can also be imported to RS Minerve to form a database.</p>
     <tr>
       <th>string</th>
       <td><p>Character string with input data for RS Minerve.</p></td>
+    </tr>
+    <tr>
+      <th>tz</th>
+      <td><p>Time zone character to be passed to lubridate::as_datetime.
+Defaults to "UTC"</p></td>
     </tr>
     </table>
 

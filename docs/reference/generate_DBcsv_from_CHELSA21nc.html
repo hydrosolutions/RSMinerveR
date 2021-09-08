@@ -163,7 +163,8 @@ write.table() function to export as csv.</p>
   <span class='va'>HRU</span>,
   <span class='va'>HRU_name_column</span>,
   <span class='va'>start_year</span>,
-  <span class='va'>end_year</span>
+  <span class='va'>end_year</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -197,7 +198,12 @@ identifiers in RSMinerve.</p></td>
     </tr>
     <tr>
       <th>end_year</th>
-      <td><p>Last year from which data should be extracted (assuming data 'is' actually available until the end of that year)</p></td>
+      <td><p>Last year from which data should be extracted (assuming data
+'is' actually available until the end of that year)</p></td>
+    </tr>
+    <tr>
+      <th>tz</th>
+      <td><p>Time zone string to be passed to as_datetime. Defaults to "UTC".</p></td>
     </tr>
     </table>
 

@@ -4,10 +4,12 @@
 \alias{translateCSVtoDST}
 \title{Translate csv to dst}
 \usage{
-translateCSVtoDST(csvfilepath)
+translateCSVtoDST(csvfilepath, tz = "UTC")
 }
 \arguments{
 \item{csvfilepath}{string path to csv file to be read.}
+
+\item{tz}{Time zone string to be passed to base::format. Defaults to "UTC".}
 }
 \value{
 NULL for success and 1 for failure.

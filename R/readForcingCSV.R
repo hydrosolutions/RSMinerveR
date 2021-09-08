@@ -1,15 +1,18 @@
 #' Reads climate and discharge data into a tibble.
 #'
-#' The data is in a csv file that can also be imported to RS Minerve to form a database.
+#' The data is in a csv file that can also be imported to RS Minerve to form a
+#' database.
 #'
 #' @param filename Path to file with input data for RS Minerve.
+#' @param tz Optional time zone string, passed to lubridate::as_datetime (for
+#'         details refer to POSIXt documentation). Defauls to "UTC"
 #' @return Returns a tibble of the same format as \code{data} with data
 #'         in hourly (climate) to decadal or monthly (discharge) time steps.
 #'         Includes all attributes of the csv file
 #' @note An example forcing csv file is given under \url{http://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_translateCSVtoDST.csv}
 #' @export
 
-readForcingCSV <- function(filename) {
+readForcingCSV <- function(filename, tz = "UTC") {
 
   # Read Metadata from file, write column headers and determine column types.
   header <- readr::read_csv(filename, col_names = FALSE, skip = 0, n_max = 7)
@@ -21,12 +24,15 @@ readForcingCSV <- function(filename) {
 
   data <- readr::read_csv(filename, col_names = colnames(header), skip = 8,
                           col_types = coltypes)
-  date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%Y %H:%M:%S")
+  date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%Y %H:%M:%S",
+                                     tz = tz)
   if (is.na(date_vec[1])) {
-    date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%y %H:%M")
+    date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%y %H:%M",
+                                       tz = tz)
   }
   if (is.na(date_vec[1])) {
-    date_vec <- lubridate::as_datetime(data$Date, format = "%Y-%m.%d %H:%M:%S")
+    date_vec <- lubridate::as_datetime(data$Date, format = "%Y-%m.%d %H:%M:%S",
+                                       tz = tz)
   }
   data$Date <- date_vec
 

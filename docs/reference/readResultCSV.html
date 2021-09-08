@@ -153,14 +153,22 @@
     <p>Reads RS Minerve result file and returns data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readResultCSV</span><span class='op'>(</span><span class='va'>filename</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>readResultCSV</span><span class='op'>(</span><span class='va'>filename</span>, tz <span class='op'>=</span> <span class='st'>"UTC"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>filename</th>
-      <td><p>Path to file to be read. It is any csv file that is written by saving data from the Selection and plots tab in RSMinerve to a csv file. Depending on the systems locale, the csv may use comas or semi-colons as separators. The decimal separator must be a point, commas are not recognized.</p></td>
+      <td><p>Path to file to be read. It is any csv file that is written
+by saving data from the Selection and plots tab in RSMinerve to a csv file.
+Depending on the systems locale, the csv may use comas or semi-colons as
+separators. The decimal separator must be a point, commas are not
+recognized.</p></td>
+    </tr>
+    <tr>
+      <th>tz</th>
+      <td><p>Time zone character passed to as.POSIXct. Defaults to "UTC".</p></td>
     </tr>
     </table>
 
