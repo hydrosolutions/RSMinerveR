@@ -15,7 +15,9 @@
 #'    identifiers in RSMinerve.
 #' @param start_year First year for which data should be made available
 #'   (assuming data 'is' available from the start of that year)
-#' @param end_year Last year from which data should be extracted (assuming data 'is' actually available until the end of that year)
+#' @param end_year Last year from which data should be extracted (assuming data
+#'   'is' actually available until the end of that year)
+#' @param tz Time zone string to be passed to as_datetime. Defaults to "UTC".
 #' @return Dataframe tibble with temperature in deg. C. and/or precipitation in
 #'    mm/h
 #' @note Acknowledgement: This function builds on
@@ -33,7 +35,8 @@
 #' @export
 #'
 generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
-                                           HRU_name_column, start_year, end_year) {
+                                           HRU_name_column, start_year,
+                                           end_year, tz = "UTC") {
 
   # Generate file list to load
   yrs <- start_year:end_year
@@ -89,7 +92,7 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
 
   # Now, solve that obnoxious time formatting problem for compatibility with
   # RSMinerve (see function posixct2rsminerveChar() for more details)
-  datesChar <- riversCentralAsia::posixct2rsminerveChar(dates_vec$Date, "GMT")
+  datesChar <- riversCentralAsia::posixct2rsminerveChar(dates_vec$Date, tz)
   datesChar <- datesChar |> dplyr::rename(Station = .data$value)
 
   # Final data tibble
@@ -99,16 +102,16 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
   # Fill in missing data
   temp_data <- dataHRU_df_data |>
     dplyr::mutate(Station = lubridate::as_datetime(Station, format = "%d.%m.%Y %H:%M:%S",
-                                               tz = "GMT")) |>
+                                               tz = tz)) |>
     timetk::pad_by_time(.date_var = Station,
                         .by = "day",.fill_na_direction = "downup",
                         .start_date = lubridate::as_datetime(base::paste(start_year, "01", "01", sep = "-"),
-                                                         format = "%Y-%m-%d", tz = "GMT"),
+                                                         format = "%Y-%m-%d", tz = tz),
                         .end_date = lubridate::as_datetime(base::paste(end_year, "12", "31", sep = "-"),
-                                                       format = "%Y-%m-%d", tz = "GMT")) |>
+                                                       format = "%Y-%m-%d", tz = tz)) |>
     dplyr::mutate_all(as.character)
   temp_dates <- riversCentralAsia::posixct2rsminerveChar(
-    lubridate::as_datetime(temp_data$Station, format = "%Y-%m-%d", "GMT"))
+    lubridate::as_datetime(temp_data$Station, format = "%Y-%m-%d", tz = tz))
   temp_data$Station <- temp_dates$value
 
   dataHRU_df_data <- temp_data
