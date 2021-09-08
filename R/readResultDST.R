@@ -1,6 +1,7 @@
 #' Reading RSMinerve result file
 #'
 #' @param filepath String with path to file to be read.
+#' @param tz Time zone to be passed to as_datetime. Defaults to "UTC".
 #' @param chunk_size Numeric telling how many lines to read for each model component.
 #' @return A tibble with time series of simulation results for all model components.
 #' @details Use \code{\link{getChunkSize}} to retrieve the chunk size for the simulation resutls to read.
@@ -16,7 +17,7 @@
 #' }
 #' @seealso \code{\link{getChunkSize}}
 #' @export
-readResultDST <- function(filepath, chunk_size) {
+readResultDST <- function(filepath, chunk_size, tz = "UTC") {
 
   if (base::file.exists(filepath)) {
 
@@ -57,13 +58,17 @@ readResultDST <- function(filepath, chunk_size) {
 
 #' Parse individual blocks of data from lines
 #'
-#' Internal function called by readResultDXT to read individual data chunks from file.
+#' Internal function called by readResultDXT to read individual data chunks from
+#' file.
 #'
-#' @param block_lines A bunch of lines read from an RSMinerve .dst simulation output file.
+#' @param block_lines A bunch of lines read from an RSMinerve .dst simulation
+#'   output file.
+#' @param tz Time zone string to be passed to lubridate::as_datetime. Defaults
+#'   to "UTC".
 #' @return A tibble with the data from the block.
 #' @importFrom rlang .data
 #' @keywords internal
-parse_block <- function(block_lines) {
+parse_block <- function(block_lines, tz = "UTC") {
 
   # Block name is just first line
   chars <- block_lines[1]
@@ -81,7 +86,8 @@ parse_block <- function(block_lines) {
   output_plus <- output |>
     tidyr::unnest(c(.data$Datetime, .data$Value)) |>
     dplyr::mutate(Datetime = lubridate::as_datetime(.data$Datetime,
-                                                    format = "%d.%m.%Y %H:%M:%S"),
+                                                    format = "%d.%m.%Y %H:%M:%S",
+                                                    tz = tz),
                   Value = base::as.numeric(.data$Value),
                   Object = name,
                   Variable = variable)
