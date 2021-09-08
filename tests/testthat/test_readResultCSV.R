@@ -9,7 +9,7 @@ test_that("readResultsCSV returns expected", {
     dplyr::filter(model == "GSM 1",
                   variable == "Qglacier",
                   date == lubridate::as_datetime("2013-09-09 00:00:00",
-                                                 tz = "CEST"))
+                                                 tz = "UTC"))
 
   expect_equal(169, dim(result)[1])
   expect_equal(5, dim(result)[2])
@@ -29,7 +29,7 @@ test_that("readResultsCSV also reads ;-separated files", {
     dplyr::filter(model == "So_Sokh_eb20",
                   variable == "Qglacier",
                   date == lubridate::as_datetime("1981-02-01 01:00:00",
-                                                 tz = "CET"))
+                                                 tz = "UTC"))
 
   expect_equal(1634, dim(result)[1])
   expect_equal(5, dim(result)[2])
