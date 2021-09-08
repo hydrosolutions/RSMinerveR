@@ -4,12 +4,14 @@
 #' that can also be imported to RS Minerve to form a database.
 #'
 #' @param string Character string with input data for RS Minerve.
+#' @param tz Time zone character to be passed to lubridate::as_datetime.
+#'         Defaults to "UTC"
 #' @return Returns a tibble of the same format as \code{data} with data
 #'         in hourly (climate) to decadal or monthly (discharge) time steps.
 #'         Includes all attributes of the csv file.
 #' @export
 
-readForcingSTR <- function(string) {
+readForcingSTR <- function(string, tz = "UTC") {
 
   # Read Metadata from file, write column headers and determine column types.
   header <- string[1:7, ]
@@ -21,12 +23,15 @@ readForcingSTR <- function(string) {
 
   data <- string[-c(1:8), ]
   colnames(data) <- colnames(header)
-  date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%Y %H:%M:%S")
+  date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%Y %H:%M:%S",
+                                     tz = tz)
   if (is.na(date_vec[1])) {
-    date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%y %H:%M")
+    date_vec <- lubridate::as_datetime(data$Date, format = "%d.%m.%y %H:%M",
+                                       tz = tz)
   }
   if (is.na(date_vec[1])) {
-    date_vec <- lubridate::as_datetime(data$Date, format = "%Y-%m.%d %H:%M:%S")
+    date_vec <- lubridate::as_datetime(data$Date, format = "%Y-%m.%d %H:%M:%S",
+                                       tz = tz)
   }
   data$Date <- date_vec
 
