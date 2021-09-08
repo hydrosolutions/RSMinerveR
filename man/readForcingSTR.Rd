@@ -4,10 +4,13 @@
 \alias{readForcingSTR}
 \title{Reads climate and discharge data from a character string into a tibble.}
 \usage{
-readForcingSTR(string)
+readForcingSTR(string, tz = "UTC")
 }
 \arguments{
 \item{string}{Character string with input data for RS Minerve.}
+
+\item{tz}{Time zone character to be passed to lubridate::as_datetime.
+Defaults to "UTC"}
 }
 \value{
 Returns a tibble of the same format as \code{data} with data

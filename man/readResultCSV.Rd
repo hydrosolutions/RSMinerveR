@@ -4,10 +4,16 @@
 \alias{readResultCSV}
 \title{Reads RS Minerve result file and returns data.}
 \usage{
-readResultCSV(filename)
+readResultCSV(filename, tz = "UTC")
 }
 \arguments{
-\item{filename}{Path to file to be read. It is any csv file that is written by saving data from the Selection and plots tab in RSMinerve to a csv file. Depending on the systems locale, the csv may use comas or semi-colons as separators. The decimal separator must be a point, commas are not recognized.}
+\item{filename}{Path to file to be read. It is any csv file that is written
+by saving data from the Selection and plots tab in RSMinerve to a csv file.
+Depending on the systems locale, the csv may use comas or semi-colons as
+separators. The decimal separator must be a point, commas are not
+recognized.}
+
+\item{tz}{Time zone character passed to as.POSIXct. Defaults to "UTC".}
 }
 \value{
 data Tibble with data from file. Null if file not found or cant be read.

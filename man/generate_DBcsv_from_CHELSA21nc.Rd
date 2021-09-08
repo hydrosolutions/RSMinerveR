@@ -10,7 +10,8 @@ generate_DBcsv_from_CHELSA21nc(
   HRU,
   HRU_name_column,
   start_year,
-  end_year
+  end_year,
+  tz = "UTC"
 )
 }
 \arguments{
@@ -30,7 +31,10 @@ identifiers in RSMinerve.}
 \item{start_year}{First year for which data should be made available
 (assuming data 'is' available from the start of that year)}
 
-\item{end_year}{Last year from which data should be extracted (assuming data 'is' actually available until the end of that year)}
+\item{end_year}{Last year from which data should be extracted (assuming data
+'is' actually available until the end of that year)}
+
+\item{tz}{Time zone string to be passed to as_datetime. Defaults to "UTC".}
 }
 \value{
 Dataframe tibble with temperature in deg. C. and/or precipitation in

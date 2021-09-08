@@ -101,8 +101,9 @@ generate_DBcsv_from_CHELSA21nc <- function(CHELSA21_dir, data_type, HRU,
 
   # Fill in missing data
   temp_data <- dataHRU_df_data |>
-    dplyr::mutate(Station = lubridate::as_datetime(Station, format = "%d.%m.%Y %H:%M:%S",
-                                               tz = tz)) |>
+    dplyr::mutate(Station = lubridate::as_datetime(.data$Station,
+                                                   format = "%d.%m.%Y %H:%M:%S",
+                                                   tz = tz)) |>
     timetk::pad_by_time(.date_var = Station,
                         .by = "day",.fill_na_direction = "downup",
                         .start_date = lubridate::as_datetime(base::paste(start_year, "01", "01", sep = "-"),

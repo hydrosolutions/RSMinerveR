@@ -4,12 +4,14 @@
 \alias{readResultDST}
 \title{Reading RSMinerve result file}
 \usage{
-readResultDST(filepath, chunk_size)
+readResultDST(filepath, chunk_size, tz = "UTC")
 }
 \arguments{
 \item{filepath}{String with path to file to be read.}
 
 \item{chunk_size}{Numeric telling how many lines to read for each model component.}
+
+\item{tz}{Time zone to be passed to as_datetime. Defaults to "UTC".}
 }
 \value{
 A tibble with time series of simulation results for all model components.
