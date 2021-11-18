@@ -224,8 +224,8 @@
 <code class="sourceCode R"><span class="co"># Calculate the number of time steps to read for each model component, i.e. the </span>
 <span class="co"># chunk size. Including the header of each chunk. </span>
 <span class="va">chunk_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getChunkSize.html">getChunkSize</a></span><span class="op">(</span>
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">start_date</span>,format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">start_date</span>,format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, 
   <span class="va">recordingTimeStep</span>
 <span class="op">)</span> 
 <span class="va">result_file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">".."</span>, <span class="st">"tests"</span>, <span class="st">"testthat"</span>,
