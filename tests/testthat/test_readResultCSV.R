@@ -37,3 +37,41 @@ test_that("readResultsCSV also reads ;-separated files", {
 
 
 })
+
+test_that("reads even funny file format", {
+
+  filepath <- normalizePath(file.path("Koksu_Results_Kichkinesay.csv"))
+  result <- readResultCSV(filepath)
+
+  expect_false(is.null(result))
+
+  testvalue <- result |>
+    dplyr::filter(model == "Kichkinesay",
+                  variable == "QDown",
+                  date == lubridate::as_datetime("1979-01-01 00:00:00",
+                                                 tz = "UTC"))
+
+  expect_equal(24, dim(result)[1])
+  expect_equal(5, dim(result)[2])
+  expect_equal(2.240976, testvalue$value)
+
+})
+
+test_that("reads also this result file correctly", {
+
+  filepath <- normalizePath(file.path("test_readResultCSV2.csv"))
+  result <- readResultCSV(filepath)
+
+  expect_false(is.null(result))
+
+  testvalue <- result |>
+    dplyr::filter(model == "Comparator 1",
+                  variable == "QSimulation",
+                  date == lubridate::as_datetime("1979-01-01",
+                                                 tz = "UTC"))
+
+  expect_equal(2193, dim(result)[1])
+  expect_equal(5, dim(result)[2])
+  expect_equal(1.908915, testvalue$value)
+
+})

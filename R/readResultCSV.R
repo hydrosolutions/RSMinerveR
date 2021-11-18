@@ -22,7 +22,8 @@ readResultCSV <- function(filename, tz = "UTC") {
   if (dim(test)[2] == 1) {
 
     # Not tab delimited, try semi-colon
-    data <- readr::read_csv2(filename, skip = 1, col_names = T)
+    data <- readr::read_delim(filename, skip = 1, col_names = T,
+                              delim = ";")
 
   } else {
 
@@ -34,8 +35,11 @@ readResultCSV <- function(filename, tz = "UTC") {
   data$date <- as.POSIXct(data$date, format = "%d.%m.%Y %H:%M:%S", tz = tz)
   data <- data |>
     dplyr::mutate(dplyr::across(-.data$date, ~base::as.numeric(.))) |>
-    tidyr::pivot_longer(-.data$date, names_to = c("model", "variable"),
-                        values_to = "value", names_sep = "( - )") |>
-    tidyr::separate(.data$variable, into = c("variable", "unit"), sep = "\\s")
+    tidyr::pivot_longer(-.data$date, names_to = "model", values_to = "value") |>
+    tidyr::separate(.data$model, into = c("model", "variable"), sep = "( - )",
+                    extra = "merge") |>
+    tidyr::separate(.data$variable, into = c("variable", "unit"),
+                    sep = "\\s\\(") |>
+    dplyr::mutate(unit = gsub("\\)", "", .data$unit))
   return(data)
 }
