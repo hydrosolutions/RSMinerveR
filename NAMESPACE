@@ -2,6 +2,7 @@
 
 export(generate_DBcsv_from_CHELSA21nc)
 export(getChunkSize)
+export(readDBCSV)
 export(readForcingCSV)
 export(readForcingSTR)
 export(readRSMParameters)
