@@ -19,9 +19,9 @@ RSMinerveR is written in R 4.1.0 in RStudio 1.4.1717. RTools40 needs to be downl
 
 ### Installation of rClr
 
-rClr is a package for low-level access from R to a Common Language Runtime (CLR). The supported CLR implementations are Microsoft '.NET' framework on Windows. Using rClr we can interact with the Visual Basics Interface implemented for RSMinerve. For this package we use the rClr implementation from [Open-Systems-Pharmacology] (<https://github.com/Open-Systems-Pharmacology/rClr/releases>) (v0.9.1). Download the latest release as zip to your working directory and install it with the following command.
+rClr is a package for low-level access from R to a Common Language Runtime (CLR). The supported CLR implementations are Microsoft '.NET' framework on Windows. Using rClr we can interact with the Visual Basics Interface implemented for RSMinerve. For this package we use the rClr implementation from [Open-Systems-Pharmacology] (<https://github.com/Open-Systems-Pharmacology/rClr/releases>) (v0.9.1 for R version 3, v0.9.2 for R version 4). Download the latest release as zip to your working directory and install it with the following command.
 
-    install.packages("rClr_0.9.1.zip", repos = NULL, type = "source")
+    install.packages("rClr_0.9.2.zip", repos = NULL, type = "source")
 
 ## Examples
 
