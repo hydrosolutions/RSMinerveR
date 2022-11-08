@@ -30,7 +30,7 @@ Open the ```Selection and plots``` tab by clicking on its icon in the in the mod
 
 
 ```{r setup, message=FALSE,warning=FALSE,results='hide'}
-library(RSMinerveR)
+library(riversCentralAsia)
 library(rClr)
 library(tidyverse)
 library(lubridate)

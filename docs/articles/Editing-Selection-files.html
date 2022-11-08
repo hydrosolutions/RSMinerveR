@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RSMinerveR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -85,7 +81,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/hydrosolutions/RSMinerveR/">
+  <a href="https://github.com/hydrosolutions/RSMinerveR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -100,92 +96,107 @@
 
       
 
-      </header><script src="Editing-Selection-files_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Editing Selection files</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/master/vignettes/Editing-Selection-files.Rmd"><code>vignettes/Editing-Selection-files.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/HEAD/vignettes/Editing-Selection-files.Rmd" class="external-link"><code>vignettes/Editing-Selection-files.Rmd</code></a></small>
       <div class="hidden name"><code>Editing-Selection-files.Rmd</code></div>
 
     </div>
 
     
     
-<p>RS Minerve can plot simulation results and print result files for selections of simulation results. These selections can be edited in the user interface, saved to a chk file and also loaded from chk files. As the manual editing of the plot selection can be tedious for large models, it can be useful to automate the reading and writing of the chk files in R. The present vignette demonstrates how to do this.</p>
+<p>RS Minerve can plot simulation results and print result files for
+selections of simulation results. These selections can be edited in the
+user interface, saved to a chk file and also loaded from chk files. As
+the manual editing of the plot selection can be tedious for large
+models, it can be useful to automate the reading and writing of the chk
+files in R. The present vignette demonstrates how to do this.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://hydrosolutions.github.io/RSMinerveR/index.html">RSMinerveR</a></span><span class="op">)</span></code></pre></div>
-<div id="reading-a-chk-file" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reading-a-chk-file" class="anchor"></a>Reading a chk file</h2>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hydrosolutions.github.io/riversCentralAsia/index.html" class="external-link">riversCentralAsia</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="reading-a-chk-file">Reading a chk file<a class="anchor" aria-label="anchor" href="#reading-a-chk-file"></a>
+</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">filepath</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../tests/testthat/test_selection.chk"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-   <span class="st">"../tests/testthat/test_selection.chk"</span>
-<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_selection.chk"</span>
-<span class="op">}</span>
-
-<span class="va">xmldata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readSelectionCHK.html">readSelectionCHK</a></span><span class="op">(</span><span class="va">filepath</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">filepath</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="st">"../tests/testthat/test_selection.chk"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="st">"../tests/testthat/test_selection.chk"</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_selection.chk"</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">xmldata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readSelectionCHK.html">readSelectionCHK</a></span><span class="op">(</span><span class="va">filepath</span><span class="op">)</span></span></code></pre></div>
 <p>The name of the selection:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">selection_name</span> <span class="op">&lt;-</span> <span class="va">xmldata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">selection_name</span><span class="op">)</span>
-<span class="co">#&gt; [1] "New selection"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">selection_name</span> <span class="op">&lt;-</span> <span class="va">xmldata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">selection_name</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "New selection"</span></span></code></pre></div>
 <p>The description of the objects in the selection:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">selection_data</span> <span class="op">&lt;-</span> <span class="va">xmldata</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">selection_data</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 29 x 4</span>
-<span class="co">#&gt;    Model       Object     ID                   Variable                </span>
-<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;                   </span>
-<span class="co">#&gt;  1 Model Koksu Source     QSpring              Kichkinesay - QUp (m3/s)</span>
-<span class="co">#&gt;  2 Model Koksu Comparator Comparator 1         QReference (m3/s)       </span>
-<span class="co">#&gt;  3 Model Koksu Comparator Comparator 1         QSimulation (m3/s)      </span>
-<span class="co">#&gt;  4 Model Koksu HBV92      Koksu downstream_eb1 Qr (m3/s)               </span>
-<span class="co">#&gt;  5 Model Koksu HBV92      Koksu downstream_eb1 Qu (m3/s)               </span>
-<span class="co">#&gt;  6 Model Koksu HBV92      Koksu downstream_eb1 Ql (m3/s)               </span>
-<span class="co">#&gt;  7 Model Koksu HBV92      Koksu downstream_eb1 ETR (m/s)               </span>
-<span class="co">#&gt;  8 Model Koksu HBV92      Koksu downstream_eb1 Peq (m/s)               </span>
-<span class="co">#&gt;  9 Model Koksu HBV92      Koksu downstream_eb1 SWE (m)                 </span>
-<span class="co">#&gt; 10 Model Koksu HBV92      Koksu downstream_eb1 WH (-)                  </span>
-<span class="co">#&gt; # ... with 19 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">selection_data</span> <span class="op">&lt;-</span> <span class="va">xmldata</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">selection_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 29 × 4</span></span></span>
+<span><span class="co">#&gt;    Model       Object     ID                   Variable                </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Model Koksu Source     QSpring              Kichkinesay - QUp (m3/s)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Model Koksu Comparator Comparator 1         QReference (m3/s)       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Model Koksu Comparator Comparator 1         QSimulation (m3/s)      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Model Koksu HBV92      Koksu downstream_eb1 Qr (m3/s)               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Model Koksu HBV92      Koksu downstream_eb1 Qu (m3/s)               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Model Koksu HBV92      Koksu downstream_eb1 Ql (m3/s)               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Model Koksu HBV92      Koksu downstream_eb1 ETR (m/s)               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Model Koksu HBV92      Koksu downstream_eb1 Peq (m/s)               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Model Koksu HBV92      Koksu downstream_eb1 SWE (m)                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Model Koksu HBV92      Koksu downstream_eb1 WH (-)                  </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 19 more rows</span></span></span></code></pre></div>
 </div>
-<div id="write-a-new-selection" class="section level2">
-<h2 class="hasAnchor">
-<a href="#write-a-new-selection" class="anchor"></a>Write a new selection</h2>
+<div class="section level2">
+<h2 id="write-a-new-selection">Write a new selection<a class="anchor" aria-label="anchor" href="#write-a-new-selection"></a>
+</h2>
 <p>New selection name</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">new_selection_name</span> <span class="op">&lt;-</span> <span class="st">"SOCONT Qtot"</span></code></pre></div>
-<p>Edit the selection to include all data for variable Qtot of all SOCONT objects in the model. To get a list of all SOCONT objects the user can read a parameter file or a file of initial conditions of the model. Another possibility is to read the gis layer with the hydrological response units used for the semi-automatic model creation in RSMinerve.<br>
-Let’s read the names of the SOCONT objects from the parameter file of one of the tutorials. The procedure is, of course, analogous for any other RSMinerve Object for which data should be extracted.</p>
+<code class="sourceCode R"><span><span class="va">new_selection_name</span> <span class="op">&lt;-</span> <span class="st">"SOCONT Qtot"</span></span></code></pre></div>
+<p>Edit the selection to include all data for variable Qtot of all
+SOCONT objects in the model. To get a list of all SOCONT objects the
+user can read a parameter file or a file of initial conditions of the
+model. Another possibility is to read the gis layer with the
+hydrological response units used for the semi-automatic model creation
+in RSMinerve.<br>
+Let’s read the names of the SOCONT objects from the parameter file of
+one of the tutorials. The procedure is, of course, analogous for any
+other RSMinerve Object for which data should be extracted.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">parfilepath</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="st">"../tests/testthat/Tutorial_Parameters.txt"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-   <span class="st">"../tests/testthat/Tutorial_Parameters.txt"</span>
-<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/Tutorial_Parameters.txt"</span>
-<span class="op">}</span>
-<span class="va">par</span> <span class="op">&lt;-</span> <span class="fu">RSMinerveR</span><span class="fu">::</span><span class="fu"><a href="../reference/readRSMParameters.html">readRSMParameters</a></span><span class="op">(</span><span class="va">parfilepath</span><span class="op">)</span> |&gt; 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Object</span> <span class="op">==</span> <span class="st">"SOCONT"</span><span class="op">)</span>
-<span class="va">Object_IDs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">par</span><span class="op">$</span><span class="va">Name</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">Object_IDs</span><span class="op">)</span>
-<span class="co">#&gt; [1] "SOCONT 1" "SOCONT 2" "SOCONT 3"</span></code></pre></div>
-<p>Now construct a tibble of the variables for each object we’d like to select results from.</p>
+<code class="sourceCode R"><span><span class="va">parfilepath</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="st">"../tests/testthat/Tutorial_Parameters.txt"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="st">"../tests/testthat/Tutorial_Parameters.txt"</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/Tutorial_Parameters.txt"</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">par</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readRSMParameters.html">readRSMParameters</a></span><span class="op">(</span><span class="va">parfilepath</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Object</span> <span class="op">==</span> <span class="st">"SOCONT"</span><span class="op">)</span></span>
+<span><span class="va">Object_IDs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">par</span><span class="op">$</span><span class="va">Name</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">Object_IDs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "SOCONT 1" "SOCONT 2" "SOCONT 3"</span></span></code></pre></div>
+<p>Now construct a tibble of the variables for each object we’d like to
+select results from.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">new_selection</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  Model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Tutorial_Model"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Object_IDs</span><span class="op">)</span><span class="op">)</span>, 
-  Object <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"SOCONT"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Object_IDs</span><span class="op">)</span><span class="op">)</span>, 
-  ID <span class="op">=</span> <span class="va">Object_IDs</span>, 
-  Variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Qtot (m3/s)"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">new_selection</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 4</span>
-<span class="co">#&gt;   Model          Object ID       Variable   </span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;      </span>
-<span class="co">#&gt; 1 Tutorial_Model SOCONT SOCONT 1 Qtot (m3/s)</span>
-<span class="co">#&gt; 2 Tutorial_Model SOCONT SOCONT 2 Qtot (m3/s)</span>
-<span class="co">#&gt; 3 Tutorial_Model SOCONT SOCONT 3 Qtot (m3/s)</span></code></pre></div>
-<p>Now write the data to a new file. In the codechuck below you will need to replace <code>&lt;filepath&gt;</code> with an actual path to a file to write.</p>
+<code class="sourceCode R"><span><span class="va">new_selection</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  Model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Tutorial_Model"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Object_IDs</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  Object <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"SOCONT"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Object_IDs</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  ID <span class="op">=</span> <span class="va">Object_IDs</span>, </span>
+<span>  Variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Qtot (m3/s)"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">new_selection</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
+<span><span class="co">#&gt;   Model          Object ID       Variable   </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Tutorial_Model SOCONT SOCONT 1 Qtot (m3/s)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Tutorial_Model SOCONT SOCONT 2 Qtot (m3/s)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Tutorial_Model SOCONT SOCONT 3 Qtot (m3/s)</span></span></code></pre></div>
+<p>Now write the data to a new file. In the codechuck below you will
+need to replace <code>&lt;filepath&gt;</code> with an actual path to a
+file to write.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">writeSelectionCHK</span>(<span class="sc">&lt;</span>filepath<span class="sc">&gt;</span>, new_selection, new_selection_name)</span></code></pre></div>
 </div>
   </div>
@@ -201,11 +212,13 @@ Let’s read the names of the SOCONT objects from the parameter file of one of t
 
 
       <footer><div class="copyright">
-  <p>Developed by Beatrice Marti.</p>
+  <p></p>
+<p>Developed by Beatrice Marti.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -213,6 +226,8 @@ Let’s read the names of the SOCONT objects from the parameter file of one of t
 
   
 
+
+  
 
   </body>
 </html>

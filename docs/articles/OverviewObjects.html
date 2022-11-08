@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RSMinerveR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -85,7 +81,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/hydrosolutions/RSMinerveR/">
+  <a href="https://github.com/hydrosolutions/RSMinerveR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -100,20 +96,21 @@
 
       
 
-      </header><script src="OverviewObjects_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Overview Objects Implemented</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/master/vignettes/OverviewObjects.Rmd"><code>vignettes/OverviewObjects.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/HEAD/vignettes/OverviewObjects.Rmd" class="external-link"><code>vignettes/OverviewObjects.Rmd</code></a></small>
       <div class="hidden name"><code>OverviewObjects.Rmd</code></div>
 
     </div>
 
     
     
-<p>The following RSMinerve objects are currently implemented in RSMinerveR:<br>
+<p>The following RSMinerve objects are currently implemented in
+RSMinerveR:<br>
 - Station<br>
 - Source<br>
 - SOCONT<br>
@@ -122,10 +119,12 @@
 - GSM<br>
 - HBV92<br>
 - Comparator</p>
-<p>The parameters for these objects are described in the RS Minerve User Manual available from the <a href="https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html">CREALP website</a>. The format of the parameter file is described below:</p>
-<div id="parameter-file" class="section level2">
-<h2 class="hasAnchor">
-<a href="#parameter-file" class="anchor"></a>Parameter file</h2>
+<p>The parameters for these objects are described in the RS Minerve User
+Manual available from the <a href="https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html" class="external-link">CREALP
+website</a>. The format of the parameter file is described below:</p>
+<div class="section level2">
+<h2 id="parameter-file">Parameter file<a class="anchor" aria-label="anchor" href="#parameter-file"></a>
+</h2>
 <p>An example parameter file looks like the following:</p>
 <pre><code>RS MINERVE - Parameters
 Version 4.0.0.0 - vendredi 7 août 2015 09:20
@@ -163,48 +162,75 @@ Estacion GSM 1  A   606636  108339  3025    10000   1   0   -0.0065 0   1   0   
 Estacion SOCONT 1   A   601667  107380  2889    10000   1   0   -0.0065 0   1   0   1
 Estacion SOCONT 2   A   606291  101382  2406    10000   1   0   -0.0065 0   1   0   1
 Estacion SOCONT 3   A   605067  95762   1947    10000   1   0   -0.0065 0   1   0   1</code></pre>
-<p>It includes 5 header lines describing the model. These are followed by a header OBJECTS which gives a list of the RS Minerve objects implemented in the model and the number of the objects. For each of the objects under OBJECTS, the parameter values are given under VALUES. Each object type is thereby preceded by a line describing the parameter names and units.</p>
-<p>Note that the units of the parameters in the parameter files do not always correspond to the units of the parameters in the RS MInerve user interface.</p>
+<p>It includes 5 header lines describing the model. These are followed
+by a header OBJECTS which gives a list of the RS Minerve objects
+implemented in the model and the number of the objects. For each of the
+objects under OBJECTS, the parameter values are given under VALUES. Each
+object type is thereby preceded by a line describing the parameter names
+and units.</p>
+<p>Note that the units of the parameters in the parameter files do not
+always correspond to the units of the parameters in the RS MInerve user
+interface.</p>
 </div>
-<div id="comparator-source-junction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comparator-source-junction" class="anchor"></a>Comparator, Source, Junction</h2>
-<p>These objects contain only one parameter: the zone they are allocated to. Zone is parsed as a character string.</p>
+<div class="section level2">
+<h2 id="comparator-source-junction">Comparator, Source, Junction<a class="anchor" aria-label="anchor" href="#comparator-source-junction"></a>
+</h2>
+<p>These objects contain only one parameter: the zone they are allocated
+to. Zone is parsed as a character string.</p>
 </div>
-<div id="gsm" class="section level2">
-<h2 class="hasAnchor">
-<a href="#gsm" class="anchor"></a>GSM</h2>
-<p>The GSM parameters are: Zone, A (m2), An (mm/°C/day), ThetaCri (-), bp (d/mm), Tcp1 (°C), Tcp2 (°C), Tcf (°C), Agl (mm/°C/day), Tcg (°C), Kgl (1/d), Ksn (1/d).<br>
-In RSMinerveR, the round brackets are replaced by [] and °C is replaced by deg C.<br>
-Note that Zone is parsed as character and the other parameters as numeric.</p>
+<div class="section level2">
+<h2 id="gsm">GSM<a class="anchor" aria-label="anchor" href="#gsm"></a>
+</h2>
+<p>The GSM parameters are: Zone, A (m2), An (mm/°C/day), ThetaCri (-),
+bp (d/mm), Tcp1 (°C), Tcp2 (°C), Tcf (°C), Agl (mm/°C/day), Tcg (°C),
+Kgl (1/d), Ksn (1/d).<br>
+In RSMinerveR, the round brackets are replaced by [] and °C is replaced
+by deg C.<br>
+Note that Zone is parsed as character and the other parameters as
+numeric.</p>
 </div>
-<div id="hbv92" class="section level2">
-<h2 class="hasAnchor">
-<a href="#hbv92" class="anchor"></a>HBV92</h2>
-<p>The HBV92 parameters are: Zone, A (m2), CFMax (mm/°C/d), CFR (-), CWH (-), TT (°C), TTInt (°C), TTSM (°C), Beta (-), FC (mm), PWP (-), SUMax (mm), Kr (1/d), Ku (1/d), Kl (1/d), Kperc (1/d).<br>
-In RSMinerveR, the round brackets are replaced by [] and °C is replaced by deg C.<br>
-Note that Zone is parsed as character and the other parameters as numeric.</p>
+<div class="section level2">
+<h2 id="hbv92">HBV92<a class="anchor" aria-label="anchor" href="#hbv92"></a>
+</h2>
+<p>The HBV92 parameters are: Zone, A (m2), CFMax (mm/°C/d), CFR (-), CWH
+(-), TT (°C), TTInt (°C), TTSM (°C), Beta (-), FC (mm), PWP (-), SUMax
+(mm), Kr (1/d), Ku (1/d), Kl (1/d), Kperc (1/d).<br>
+In RSMinerveR, the round brackets are replaced by [] and °C is replaced
+by deg C.<br>
+Note that Zone is parsed as character and the other parameters as
+numeric.</p>
 </div>
-<div id="socont" class="section level2">
-<h2 class="hasAnchor">
-<a href="#socont" class="anchor"></a>SOCONT</h2>
-<p>The SOCONT parameters are: Zone, A (m2), An (mm/°C/day), ThetaCri (-), bp (d/mm), Tcp1 (°C), Tcp2 (°C), Tcf (°C), HGR3Max (m), KGR3 (1/s), L (m), J0 (-), Kr (m1/3/s).<br>
-In RSMinerveR, the round brackets are replaced by [] and °C is replaced by deg C.<br>
-Note that Zone is parsed as character and the other parameters as numeric.</p>
+<div class="section level2">
+<h2 id="socont">SOCONT<a class="anchor" aria-label="anchor" href="#socont"></a>
+</h2>
+<p>The SOCONT parameters are: Zone, A (m2), An (mm/°C/day), ThetaCri
+(-), bp (d/mm), Tcp1 (°C), Tcp2 (°C), Tcf (°C), HGR3Max (m), KGR3 (1/s),
+L (m), J0 (-), Kr (m1/3/s).<br>
+In RSMinerveR, the round brackets are replaced by [] and °C is replaced
+by deg C.<br>
+Note that Zone is parsed as character and the other parameters as
+numeric.</p>
 </div>
-<div id="kinematic" class="section level2">
-<h2 class="hasAnchor">
-<a href="#kinematic" class="anchor"></a>Kinematic</h2>
-<p>The Kinematic wave parameters are Zone, L (m), B0 (m), m (-), J0 (-), K (m1/3/s), N (-).<br>
+<div class="section level2">
+<h2 id="kinematic">Kinematic<a class="anchor" aria-label="anchor" href="#kinematic"></a>
+</h2>
+<p>The Kinematic wave parameters are Zone, L (m), B0 (m), m (-), J0 (-),
+K (m1/3/s), N (-).<br>
 In RSMinerveR, the round brackets are replaced by [].<br>
-Note that Zone is parsed as character and the other parameters as numeric.</p>
+Note that Zone is parsed as character and the other parameters as
+numeric.</p>
 </div>
-<div id="station" class="section level2">
-<h2 class="hasAnchor">
-<a href="#station" class="anchor"></a>Station</h2>
-<p>The Station parameters are Zone, X (m), Y (m), Z (masl), Search Radius (m), No. min. of stations (-), Gradient P (m/s/m), Gradient T (C/m), Gradient ETP (m/s/m), Coeff P (-), Coeff T (-), Coeff ETP (-).<br>
-In RSMinerveR, the round brackets are replaced by [] and °C is replaced by deg C.<br>
-Note that Zone is parsed as character and the other parameters as numeric.</p>
+<div class="section level2">
+<h2 id="station">Station<a class="anchor" aria-label="anchor" href="#station"></a>
+</h2>
+<p>The Station parameters are Zone, X (m), Y (m), Z (masl), Search
+Radius (m), No. min. of stations (-), Gradient P (m/s/m), Gradient T
+(C/m), Gradient ETP (m/s/m), Coeff P (-), Coeff T (-), Coeff ETP
+(-).<br>
+In RSMinerveR, the round brackets are replaced by [] and °C is replaced
+by deg C.<br>
+Note that Zone is parsed as character and the other parameters as
+numeric.</p>
 </div>
   </div>
 
@@ -219,11 +245,13 @@ Note that Zone is parsed as character and the other parameters as numeric.</p>
 
 
       <footer><div class="copyright">
-  <p>Developed by Beatrice Marti.</p>
+  <p></p>
+<p>Developed by Beatrice Marti.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -231,6 +259,8 @@ Note that Zone is parsed as character and the other parameters as numeric.</p>
 
   
 
+
+  
 
   </body>
 </html>
