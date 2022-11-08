@@ -127,7 +127,7 @@ files in R. The present vignette demonstrates how to do this.</p>
 <span>  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/test_selection.chk"</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">xmldata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readSelectionCHK.html">readSelectionCHK</a></span><span class="op">(</span><span class="va">filepath</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">xmldata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/riversCentralAsia/man/readSelectionCHK.html" class="external-link">readSelectionCHK</a></span><span class="op">(</span><span class="va">filepath</span><span class="op">)</span></span></code></pre></div>
 <p>The name of the selection:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">selection_name</span> <span class="op">&lt;-</span> <span class="va">xmldata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
@@ -173,7 +173,7 @@ other RSMinerve Object for which data should be extracted.</p>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>  <span class="st">"https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/Tutorial_Parameters.txt"</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">par</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readRSMParameters.html">readRSMParameters</a></span><span class="op">(</span><span class="va">parfilepath</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/riversCentralAsia/man/readRSMParameters.html" class="external-link">readRSMParameters</a></span><span class="op">(</span><span class="va">parfilepath</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Object</span> <span class="op">==</span> <span class="st">"SOCONT"</span><span class="op">)</span></span>
 <span><span class="va">Object_IDs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">par</span><span class="op">$</span><span class="va">Name</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">Object_IDs</span><span class="op">)</span></span>

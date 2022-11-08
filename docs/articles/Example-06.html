@@ -275,12 +275,12 @@ Check your local paths to see if the output files have been created.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate the number of time steps to read for each model component, i.e. the </span></span>
 <span><span class="co"># chunk size. Including the header of each chunk. </span></span>
-<span><span class="va">chunk_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getChunkSize.html">getChunkSize</a></span><span class="op">(</span></span>
+<span><span class="va">chunk_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/riversCentralAsia/man/getChunkSize.html" class="external-link">getChunkSize</a></span><span class="op">(</span></span>
 <span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="va">EndDatePrevious</span><span class="op">)</span>, </span>
 <span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="va">end_date</span>, format <span class="op">=</span> <span class="st">"%d.%m.%Y %H:%M:%S"</span><span class="op">)</span>, </span>
 <span>  <span class="va">recordingTimeStep</span></span>
 <span><span class="op">)</span> </span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readResultDST.html">readResultDST</a></span><span class="op">(</span><span class="va">results_savePath</span>, <span class="va">chunk_size</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/riversCentralAsia/man/readResultDST.html" class="external-link">readResultDST</a></span><span class="op">(</span><span class="va">results_savePath</span>, <span class="va">chunk_size</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visualisation-example">Visualisation example<a class="anchor" aria-label="anchor" href="#visualisation-example"></a>
