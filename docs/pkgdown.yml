@@ -1,5 +1,5 @@
-pandoc: 2.11.4
-pkgdown: 1.6.1
+pandoc: '2.18'
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   Editing-Selection-files: Editing-Selection-files.html
@@ -11,5 +11,5 @@ articles:
   Example-06: Example-06.html
   OverviewObjects: OverviewObjects.html
   Troubleshooting: Troubleshooting.html
-last_built: 2021-11-18T20:34Z
+last_built: 2022-11-08T13:14Z
 

@@ -27,7 +27,7 @@ Copy this vignette to your local computer and adapt the paths.
 Open the model in \code{RSMinerveR/data/Model.rsm} and load & link the data base with the model objects. If you don't know how to do this please follow the examples in the RS Minerve User Manual prior to continuing with this tutorial.  
 
 ```{r setup, message=FALSE,warning=FALSE,results='hide'}
-library(RSMinerveR)
+library(riversCentralAsia)
 library(rClr)
 library(tidyverse)
 library(lubridate)
@@ -255,9 +255,7 @@ for (i in c(1:5)) {
 result |> 
   filter(Variable == "SOCONT:Qtot") |>
 ggplot() + 
-  geom_point(aes(Datetime, Value, colour = `Parameter set`, 
-                 size = `Parameter set`, shape = `Parameter set`), 
-             alpha = 0.3) +
-  facet_wrap("Object", ncol = 1) + 
+  geom_line(aes(Datetime, Value, colour = Object)) + 
+  facet_wrap(~`Parameter set`) + 
   theme_bw()
 ```

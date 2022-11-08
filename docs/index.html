@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RSMinerveR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -85,7 +81,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/hydrosolutions/RSMinerveR/">
+  <a href="https://github.com/hydrosolutions/RSMinerveR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -102,103 +98,115 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="rsminerver-under-development" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rsminerver-under-development" class="anchor"></a>RSMinerveR (under development)</h1></div>
-<p>I/O for RSMinerve in R (<a href="https://hydrosolutions.github.io/RSMinerveR/">Package site</a>)</p>
-<p>RSMinerve is a hydrological modelling software freely available from <a href="https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html">CREALP</a>. RSMinerve can be scripted from within R by calling the Visual Basics interface. This package provides functions to simplify R-RSMinerve interaction.<br>
+<div class="section level1">
+<div class="page-header"><h1 id="rsminerver-under-development">RSMinerveR (under development)<a class="anchor" aria-label="anchor" href="#rsminerver-under-development"></a>
+</h1></div>
+<p>I/O for RSMinerve in R (<a href="https://hydrosolutions.github.io/RSMinerveR/" class="external-link">Package site</a>)</p>
+<p>RSMinerve is a hydrological modelling software freely available from <a href="https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html" class="external-link">CREALP</a>. RSMinerve can be scripted from within R by calling the Visual Basics interface. This package provides functions to simplify R-RSMinerve interaction.<br>
 The Visual Basics interface is documented in the Technical Manual of RS Minerve. The Technical Manual can be viewed under “Help” from within RSMinerve or downloaded as PDF from CREALPs download site linked above.</p>
-<div id="requirements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#requirements" class="anchor"></a>Requirements</h2>
+<div class="section level2">
+<h2 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h2>
 <p>RSMinerve runs on Windows OS only.</p>
-<div id="installation-of-rsminerve" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation-of-rsminerve" class="anchor"></a>Installation of RSMinerve</h3>
-<p>RSMinerve is freely available from <a href="https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html">CREALP</a>. The download site is in French but the software is available in English. On the CREALP site linked above, click on “Version actuelle” to download the latest version of RSMinerve. Follow the installation guide. RSMinerveR is written for RSMinerve 2.9.1.0.</p>
+<div class="section level3">
+<h3 id="installation-of-rsminerve">Installation of RSMinerve<a class="anchor" aria-label="anchor" href="#installation-of-rsminerve"></a>
+</h3>
+<p>RSMinerve is freely available from <a href="https://www.crealp.ch/fr/accueil/outils-services/logiciels/rs-minerve/telechargement-rsm.html" class="external-link">CREALP</a>. The download site is in French but the software is available in English. On the CREALP site linked above, click on “Version actuelle” to download the latest version of RSMinerve. Follow the installation guide. RSMinerveR is written for RSMinerve 2.9.1.0.</p>
 </div>
 </div>
-<div id="installation-of-r-and-r-tools" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation-of-r-and-r-tools" class="anchor"></a>Installation of R and R tools</h2>
-<p>RSMinerveR is written in R 4.1.0 in RStudio 1.4.1717. RTools40 needs to be downloaded and installed. The latest R and RTools can be downloaded for example from <a href="https://stat.ethz.ch/CRAN/" class="uri">https://stat.ethz.ch/CRAN/</a>. The RStudio community version can be downloaded for free from <a href="https://www.rstudio.com/products/rstudio/download/">rstudio.com</a>.</p>
-<div id="installation-of-rclr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation-of-rclr" class="anchor"></a>Installation of rClr</h3>
-<p>rClr is a package for low-level access from R to a Common Language Runtime (CLR). The supported CLR implementations are Microsoft ‘.NET’ framework on Windows. Using rClr we can interact with the Visual Basics Interface implemented for RSMinerve. For this package we use the rClr implementation from [Open-Systems-Pharmacology] (<a href="https://github.com/Open-Systems-Pharmacology/rClr/releases" class="uri">https://github.com/Open-Systems-Pharmacology/rClr/releases</a>) (v0.9.1). Download the latest release as zip to your working directory and install it with the following command.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rClr_0.9.1.zip"</span>, <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span></code></pre></div>
+<div class="section level2">
+<h2 id="installation-of-r-and-r-tools">Installation of R and R tools<a class="anchor" aria-label="anchor" href="#installation-of-r-and-r-tools"></a>
+</h2>
+<p>RSMinerveR is written in R 4.1.0 in RStudio 1.4.1717. RTools40 needs to be downloaded and installed. The latest R and RTools can be downloaded for example from <a href="https://stat.ethz.ch/CRAN/" class="external-link uri">https://stat.ethz.ch/CRAN/</a>. The RStudio community version can be downloaded for free from <a href="https://www.rstudio.com/products/rstudio/download/" class="external-link">rstudio.com</a>.</p>
+<div class="section level3">
+<h3 id="installation-of-rclr">Installation of rClr<a class="anchor" aria-label="anchor" href="#installation-of-rclr"></a>
+</h3>
+<p>rClr is a package for low-level access from R to a Common Language Runtime (CLR). The supported CLR implementations are Microsoft ‘.NET’ framework on Windows. Using rClr we can interact with the Visual Basics Interface implemented for RSMinerve. For this package we use the rClr implementation from [Open-Systems-Pharmacology] (<a href="https://github.com/Open-Systems-Pharmacology/rClr/releases" class="external-link uri">https://github.com/Open-Systems-Pharmacology/rClr/releases</a>) (v0.9.1 for R version 3, v0.9.2 for R version 4). Download the latest release as zip to your working directory and install it with the following command.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rClr_0.9.2.zip"</span>, <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span></code></pre></div>
 </div>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>Existing examples in Visual Basics provided by CREALP are being translated to R and made available as vignettes for this package. Many thanks to CREALP for providing these examples.<br>
 To run the examples, download the vignette to your computer, adapt the file paths and run the code.</p>
 <ul>
 <li>
-<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-01.Rmd">Example 01 - Scripting a simple model</a><br>
+<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-01.Rmd" class="external-link">Example 01 - Scripting a simple model</a><br>
 </li>
 <li>
-<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-02.Rmd">Example 02 - Only save selected results</a><br>
+<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-02.Rmd" class="external-link">Example 02 - Only save selected results</a><br>
 </li>
 <li>
-<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-03.Rmd">Example 03 - Load parameters &amp; initial conditions from files</a><br>
+<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-03.Rmd" class="external-link">Example 03 - Load parameters &amp; initial conditions from files</a><br>
 </li>
 <li>
-<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-04.Rmd">Example 04 - Run multiple models with different parameters</a><br>
+<a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-04.Rmd" class="external-link">Example 04 - Run multiple models with different parameters</a><br>
 </li>
-<li><a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-05.Rmd">Example 05 - Use IC from previous simulation</a></li>
+<li><a href="https://hydrosolutions.github.io/RSMinerveR/articles/Example-05.Rmd" class="external-link">Example 05 - Use IC from previous simulation</a></li>
 </ul>
 </div>
-<div id="troubleshooting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#troubleshooting" class="anchor"></a>Troubleshooting</h2>
-<p>RSMinerve is a mature software but problems may occur when it is run on different locales. The <a href="https://hydrosolutions.github.io/RSMinerveR/articles/Troubleshooting.Rmd">troubleshooting</a> page hepls solve such problems.</p>
+<div class="section level2">
+<h2 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h2>
+<p>RSMinerve is a mature software but problems may occur when it is run on different locales. The <a href="https://hydrosolutions.github.io/RSMinerveR/articles/Troubleshooting.Rmd" class="external-link">troubleshooting</a> page hepls solve such problems.</p>
 </div>
-<div id="overview-over-currently-implemented-interfaces" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview-over-currently-implemented-interfaces" class="anchor"></a>Overview over currently implemented interfaces</h2>
-<p>The functions relate to reading and writing of RSMinerve inputs and outputs. The function <a href="https://hydrosolutions.github.io/RSMinerveR/reference/index.html">reference</a> on the package site summarises the currently implemented functions.</p>
-<p>Especially relevant for writing parameter files: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/OverviewObjects.Rmd">Overview over implemented RSMinerveR objects</a></p>
+<div class="section level2">
+<h2 id="overview-over-currently-implemented-interfaces">Overview over currently implemented interfaces<a class="anchor" aria-label="anchor" href="#overview-over-currently-implemented-interfaces"></a>
+</h2>
+<p>The functions relate to reading and writing of RSMinerve inputs and outputs. The function <a href="https://hydrosolutions.github.io/RSMinerveR/reference/index.html" class="external-link">reference</a> on the package site summarises the currently implemented functions.</p>
+<p>Especially relevant for writing parameter files: <a href="https://github.com/hydrosolutions/RSMinerveR/blob/main/vignettes/OverviewObjects.Rmd" class="external-link">Overview over implemented RSMinerveR objects</a></p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/hydrosolutions/RSMinerveR/">https://​github.com/​hydrosolutions/​RSMinerveR/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/hydrosolutions/RSMinerveR/issues">https://​github.com/​hydrosolutions/​RSMinerveR/​issues</a>
-</li>
+<li><a href="https://github.com/hydrosolutions/RSMinerveR/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/hydrosolutions/RSMinerveR/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing RSMinerveR</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Beatrice Marti <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Beatrice Marti.</p>
+  <p></p>
+<p>Developed by Beatrice Marti.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -206,6 +214,8 @@ To run the examples, download the vignette to your computer, adapt the file path
 
   
 
+
+  
 
   </body>
 </html>

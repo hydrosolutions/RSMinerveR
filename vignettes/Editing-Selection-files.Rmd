@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 RS Minerve can plot simulation results and print result files for selections of simulation results. These selections can be edited in the user interface, saved to a chk file and also loaded from chk files. As the manual editing of the plot selection can be tedious for large models, it can be useful to automate the reading and writing of the chk files in R. The present vignette demonstrates how to do this.  
 
 ```{r setup, message=FALSE,warning=FALSE,results='hide'}
-library(RSMinerveR)
+library(riversCentralAsia)
 ```
 
 ## Reading a chk file
@@ -58,7 +58,7 @@ parfilepath <- if (file.exists("../tests/testthat/Tutorial_Parameters.txt")) {
 } else {
   "https://raw.githubusercontent.com/hydrosolutions/RSMinerveR/main/tests/testthat/Tutorial_Parameters.txt"
 }
-par <- RSMinerveR::readRSMParameters(parfilepath) |> 
+par <- readRSMParameters(parfilepath) |> 
   dplyr::filter(Object == "SOCONT")
 Object_IDs <- unique(par$Name)
 print(Object_IDs)
